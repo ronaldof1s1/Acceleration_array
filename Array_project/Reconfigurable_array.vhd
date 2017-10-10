@@ -305,21 +305,21 @@ begin
               );
   --instantiate multiplier
   Mult_mux_A : Multiplexer_4
-    Port Map (A => Register_1_output,
-              B => Register_2_output,
-              C => Register_3_output,
+    Port Map (A => Register_1_input,
+              B => Register_2_input,
+              C => Register_3_input,
               D => "00000000",
               sel => sel_mux_mult_A,
               result => mux_mult_A_output);
-  mult_in_A <= mux_mult_A_output(3 downto 0);
+  mult_in_A <= mux_mult_A_output(7 downto 4);
   Mult_mux_B : Multiplexer_4
-    Port Map (A => Register_1_output,
-              B => Register_2_output,
-              C => Register_3_output,
+    Port Map (A => Register_1_input,
+              B => Register_2_input,
+              C => Register_3_input,
               D => "00000000",
               sel => sel_mux_mult_B,
               result => mux_mult_B_output);
-  mult_in_B <= mux_mult_B_output(3 downto 0);
+  mult_in_B <= mux_mult_B_output(7 downto 4);
 
   Mult : Multiplier
     Port Map (A => mult_in_A,
@@ -330,9 +330,9 @@ begin
 
   --instantiate first line of ALUs
   line_1 : ALUs_line
-    Port Map (input_1 => Register_1_output,
-              input_2 => Register_2_output,
-              input_3 => Register_3_output,
+    Port Map (input_1 => Register_1_input,
+              input_2 => Register_2_input,
+              input_3 => Register_3_input,
               sel_mux_1_A => sel_mux_1_1_A,
               sel_mux_1_B => sel_mux_1_1_B,
               sel_mux_2_A => sel_mux_1_2_A,
@@ -374,9 +374,9 @@ begin
 
   --instantiate second line of ALUs
   line_2 : ALUs_line
-    Port Map (input_1 => Register_1_output,
-              input_2 => Register_2_output,
-              input_3 => Register_3_output,
+    Port Map (input_1 => Register_1_input,
+              input_2 => Register_2_input,
+              input_3 => Register_3_input,
               sel_mux_1_A => sel_mux_2_1_A,
               sel_mux_1_B => sel_mux_2_1_B,
               sel_mux_2_A => sel_mux_2_2_A,
@@ -420,9 +420,9 @@ begin
 
   --instantiate third line of ALUs
   line_3 : ALUs_line
-    Port Map (input_1 => Register_1_output,
-              input_2 => Register_2_output,
-              input_3 => Register_3_output,
+    Port Map (input_1 => Register_1_input,
+              input_2 => Register_2_input,
+              input_3 => Register_3_input,
               sel_mux_1_A => sel_mux_3_1_A,
               sel_mux_1_B => sel_mux_3_1_B,
               sel_mux_2_A => sel_mux_3_2_A,
