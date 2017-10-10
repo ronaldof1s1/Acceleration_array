@@ -2,11 +2,10 @@ library ieee;
 use ieee.std_logic_1164.ALL;
 
 entity Multiplexer is
-  generic (N : integer);
-	port(
-		A,B	: in std_logic_vector (N-1 downto 0);
+  port(
+		A,B	: in std_logic_vector (7 downto 0);
 		sel	: in std_logic;
-		result	: out std_logic_vector (N-1 downto 0)
+		result	: out std_logic_vector (7 downto 0)
 	);
 end Multiplexer;
 

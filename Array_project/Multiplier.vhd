@@ -4,10 +4,9 @@ use ieee.std_logic_arith.ALL;
 use ieee.std_logic_unsigned.ALL;
 
 entity Multiplier is
-  Generic (N : integer);
   port(
-    A, B : in  std_logic_vector(N/2 downto 0);
-    result: out std_logic_vector(N-1 downto 0)
+    A, B : in  std_logic_vector(3 downto 0);
+    result: out std_logic_vector(7 downto 0)
   );
 end Multiplier;
 
