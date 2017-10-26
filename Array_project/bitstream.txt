@@ -4,7 +4,7 @@
 000000000 -- second line operations
 000000000000000000000  -- third line selections
 000000000 -- third line operations
-0000 -- multiplexer selections
+0000 -- multiplier multiplexer selections
 111 -- ld/st
 000 -- clr
 
