@@ -39,14 +39,14 @@ class array_level():
 
     def register_in_mult(self, register):
         for mult in self.write_mult:
-            if mult == dependant:
+            if mult == register:
                 return True
 
         return False
 
     def register_in_memory(self, register):
         for mem in self.write_memory:
-            if mem == dependant:
+            if mem == register:
                 return True
 
         return False
@@ -57,7 +57,7 @@ class array_level():
                 if alu == register:
                     return True
         
-        return Falses
+        return False
 
     def check_ALU_available(self, dependant):   
         if self.register_in_memory(dependant) or self.register_in_mult(dependant):
