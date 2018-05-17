@@ -8,45 +8,34 @@ class array_level():
     def __init__(self, alus_per_row, rows_of_alus, multipliers, memory):
         self.write_ALUs = []
         self.read_ALUs = []
+        self.ALUs_OPs = []
         for i in range(rows_of_alus):
-            alu_line = []
+            write_alu_line = []
+            read_alu_line = []
+            op_alu_line = []
             
             for i in range(alus_per_row):
                 write_alu_line.append("")
+                op_alu_line.append("")
                 read_alu_line.append(("",""))
                 
             self.write_ALUs.append(write_alu_line)
             self.read_ALUs.append(read_alu_line)
+            self.ALUs_OPs.append(op_alu_line)
             
-       self.write_mult = []
-    
+        self.write_mult = []
+        self.read_mult =[]
+        
         for i in range(multipliers):
             self.write_mult.append("")
             self.read_mult.append(("", ""))
         
+        self.write_memory = []
+        self.memory_op = []
+        
         for i in range(memory):
             self.write_memory.append("")
-
-    def get_operation_code(op_string):
-        op_string = op_string.upper()
-        
-        if op_string == 'ADD':
-            return '000'
-        
-        elif op_string == 'SUB':
-            return '001'
-        
-        elif op_string == 'AND':
-            return '010'
-        
-        elif op_string == 'OR':
-            return '011'
-        
-        elif op_string == 'XOR':
-            return '100'
-        
-        else:
-            raise Exception
+            self.memory_op.append("")
 
     def register_in_mult(self, register):
         for mult in self.write_mult:
@@ -130,6 +119,28 @@ class array_level():
 
         self.write_memory[mem] = words[1]
         return True
+
+def get_operation_code(op_string):
+        op_string = op_string.upper()
+        
+        if op_string == 'ADD':
+            return '000'
+        
+        elif op_string == 'SUB':
+            return '001'
+        
+        elif op_string == 'AND':
+            return '010'
+        
+        elif op_string == 'OR':
+            return '011'
+        
+        elif op_string == 'XOR':
+            return '100'
+        
+        else:
+            raise Exception
+
 
 def prepare_line(line):
     words = line.split()
