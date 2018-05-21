@@ -3,7 +3,7 @@ use ieee.std_logic_1164.ALL;
 
 entity Reconfigurable_Array_level is
   port (
-    bitstream : in std_logic_vector(99 downto 0);
+    bitstream : in std_logic_vector(101 downto 0);
     clk : in std_logic;
     result_1 : out std_logic_vector(7 downto 0);
     result_2 : out std_logic_vector(7 downto 0);
@@ -14,7 +14,7 @@ end Reconfigurable_Array_level;
 architecture Reconfigurable_Array_level of Reconfigurable_Array_level is
 
   type data is std_logic_vector(7 downto 0);
-  type selector4 is std_logic_vector(2 downto 0);
+  type operation is std_logic_vector(2 downto 0);
   type selector2 is std_logic_vector(1 downto 0);
 
   Component Register_Bank
@@ -33,7 +33,7 @@ architecture Reconfigurable_Array_level of Reconfigurable_Array_level is
     sel_mux_1_A, sel_mux_1_B : in selector2;
     sel_mux_2_A, sel_mux_2_B : in selector2;
     sel_mux_3_A, sel_mux_3_B : in selector2;
-    op_1, op_2, op_3 : in selector4;
+    op_1, op_2, op_3 : in operation;
     output_1, output_2, output_3 : out data
     );
   end component;
@@ -89,9 +89,9 @@ architecture Reconfigurable_Array_level of Reconfigurable_Array_level is
     line_1_mux_sel_3 : out selector2;
 
     --first line of operations
-    op_1_1: out selector4;
-    op_1_2: out selector4;
-    op_1_3: out selector4;
+    op_1_1: out operation;
+    op_1_2: out operation;
+    op_1_3: out operation;
 
     --------------------SECOND LINE--------------------------
     -- second line of input muxs
@@ -108,9 +108,9 @@ architecture Reconfigurable_Array_level of Reconfigurable_Array_level is
     line_2_mux_sel_3 : out selector2;
 
     --second line of operations
-    op_2_1: out selector4;
-    op_2_2: out selector4;
-    op_2_3: out selector4;
+    op_2_1: out operation;
+    op_2_2: out operation;
+    op_2_3: out operation;
 
     --------------------THIRD LINE--------------------------
     -- third line of input muxs
@@ -125,14 +125,14 @@ architecture Reconfigurable_Array_level of Reconfigurable_Array_level is
     line_3_4mux_sel_1 : out selector2;
     line_3_4mux_sel_2 : out selector2;
     line_3_4mux_sel_3 : out selector2;
-    line_3_mux_sel_1 : out std_logic;
-    line_3_mux_sel_2 : out std_logic;
-    line_3_mux_sel_3 : out std_logic;
+    line_3_mux_sel_1 : out selector2;
+    line_3_mux_sel_2 : out selector2;
+    line_3_mux_sel_3 : out selector2;
 
     -- Third line of operations
-    op_3_1: out selector4;
-    op_3_2: out selector4;
-    op_3_3: out selector4;
+    op_3_1: out operation;
+    op_3_2: out operation;
+    op_3_3: out operation;
 
 
     --------------------MULTIPLIER DATA--------------------------
@@ -144,7 +144,7 @@ architecture Reconfigurable_Array_level of Reconfigurable_Array_level is
     address : out data;
     write_enabled : out std_logic;
 
-    sel_mux_memory : out selector4
+    sel_mux_memory : out selector2
     );
   end Component;
 
@@ -169,9 +169,9 @@ architecture Reconfigurable_Array_level of Reconfigurable_Array_level is
 
 
   --first line of operations
-  signal op_1_1: selector4;
-  signal op_1_2: selector4;
-  signal op_1_3: selector4;
+  signal op_1_1: operation;
+  signal op_1_2: operation;
+  signal op_1_3: operation;
 
   --------------------SECOND LINE--------------------------
   -- second line of input muxs
@@ -193,9 +193,9 @@ architecture Reconfigurable_Array_level of Reconfigurable_Array_level is
   signal output_2_3 : data;
 
   --second line of operations
-  signal op_2_1: selector4;
-  signal op_2_2: selector4;
-  signal op_2_3: selector4;
+  signal op_2_1: operation;
+  signal op_2_2: operation;
+  signal op_2_3: operation;
 
   --------------------THIRD LINE--------------------------
   -- third line of input muxs
@@ -210,9 +210,9 @@ architecture Reconfigurable_Array_level of Reconfigurable_Array_level is
   signal line_3_4mux_sel_1 : selector2;
   signal line_3_4mux_sel_2 : selector2;
   signal line_3_4mux_sel_3 : selector2;
-  signal line_3_mux_sel_1 : std_logic;
-  signal line_3_mux_sel_2 : std_logic;
-  signal line_3_mux_sel_3 : std_logic;
+  signal line_3_mux_sel_1 : selector2;
+  signal line_3_mux_sel_2 : selector2;
+  signal line_3_mux_sel_3 : selector2;
   signal output_mux_1 : data;
   signal output_mux_2  : data;
   signal output_mux_3  : data;
@@ -223,9 +223,9 @@ architecture Reconfigurable_Array_level of Reconfigurable_Array_level is
   signal output_3_3 : data;
 
   -- Third line of operations
-  signal op_3_1: selector4;
-  signal op_3_2: selector4;
-  signal op_3_3: selector4;
+  signal op_3_1: operation;
+  signal op_3_2: operation;
+  signal op_3_3: operation;
 
 
   --------------------MULTIPLIER DATA--------------------------
@@ -244,7 +244,7 @@ architecture Reconfigurable_Array_level of Reconfigurable_Array_level is
   signal write_enabled : out std_logic;
   signal memory_out : out data;
 
-  signal sel_mux_memory : out selector4;
+  signal sel_mux_memory : out selector2;
   signal memory_mux_out : out data;
 
   --------------------REGISTER BANK--------------------------
@@ -484,7 +484,7 @@ begin
               output_3 => output_3_3 );
 
   --instantiate third line multiplexer
-  mult_ALU_mux_1: Multiplexer
+  mult_ALU_mux_1: Multiplexer_4
     Port Map (A => mult_output,
               B => Register_1_input_3,
               sel => line_3_mux_sel_1,

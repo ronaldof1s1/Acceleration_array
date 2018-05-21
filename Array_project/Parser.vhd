@@ -3,7 +3,7 @@ use ieee.std_logic_1164.ALL;
 
 entity Parser is
 	port(
-		  bitstream : in std_logic_vector(99 downto 0);
+		  bitstream : in std_logic_vector(101 downto 0);
 		  --------------------FIRST LINE--------------------------
 		  -- first line of input muxss
 		  sel_mux_1_1_A : out std_logic_vector(1 downto 0);
@@ -55,9 +55,9 @@ entity Parser is
 		  line_3_4mux_sel_1 : out std_logic_vector(1 downto 0);
 		  line_3_4mux_sel_2 : out std_logic_vector(1 downto 0);
 		  line_3_4mux_sel_3 : out std_logic_vector(1 downto 0);
-		  line_3_mux_sel_1 : out std_logic;
-		  line_3_mux_sel_2 : out std_logic;
-		  line_3_mux_sel_3 : out std_logic;
+		  line_3_mux_sel_1 : out std_logic_vector(1 downto 0);
+		  line_3_mux_sel_2 : out std_logic_vector(1 downto 0);
+		  line_3_mux_sel_3 : out std_logic (1 downto 0);
 
 		  -- Third line of operations
 		  op_3_1: out std_logic_vector(2 downto 0);
@@ -145,27 +145,27 @@ begin
 	 line_3_4mux_sel_1 <= bitstream(67 downto 66);
 	 line_3_4mux_sel_2 <= bitstream(69 downto 68);
 	 line_3_4mux_sel_3 <= bitstream(71 downto 70);
-	 line_3_mux_sel_1 <= bitstream(72);
-	 line_3_mux_sel_2 <= bitstream(73);
-	 line_3_mux_sel_3 <= bitstream(74);
+	 line_3_mux_sel_1 <= bitstream(73 downto 72);
+	 line_3_mux_sel_2 <= bitstream(75 downto 74);
+	 line_3_mux_sel_3 <= bitstream(77 downto 76);
 
 	-- Third line of operations
-	 op_3_1 <= bitstream(77 downto 75);
-	 op_3_2 <= bitstream(80 downto 78);
-	 op_3_3 <= bitstream(83 downto 81);
+	 op_3_1 <= bitstream(80 downto 78);
+	 op_3_2 <= bitstream(83 downto 81);
+	 op_3_3 <= bitstream(86 downto 84);
 
 
 	--------------------MULTIPLIER DATA--------------------------
 	--input muxes selectors for multiplier
-	 sel_mux_mult_A <= bitstream(85 downto 84);
-	 sel_mux_mult_B <= bitstream(87 downto 86);
+	 sel_mux_mult_A <= bitstream(88 downto 87);
+	 sel_mux_mult_B <= bitstream(90 downto 89);
 
 	-------------------MEMORY UNIT DATA---------------------------
 
-	address <= bitstream(95 downto 88);
-	write_enabled <= bitstream(96);
+	address <= bitstream(98 downto 91);
+	write_enabled <= bitstream(99);
 
-	sel_mux_memory <= bitstream(99 downto 97)
+	sel_mux_memory <= bitstream(101 downto 100)
 
 
 end Parse;
