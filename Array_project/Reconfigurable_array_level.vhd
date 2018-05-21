@@ -486,19 +486,25 @@ begin
   --instantiate third line multiplexer
   mult_ALU_mux_1: Multiplexer_4
     Port Map (A => mult_output,
-              B => Register_1_input_3,
+              B => memory_out,
+              C => Register_1_input_3,
+              D => "00000000",
               sel => line_3_mux_sel_1,
               result => output_mux_1
             );
-  mult_ALU_mux_2: Multiplexer
+  mult_ALU_mux_2: Multiplexer_4
       Port Map (A => mult_output,
-                B => Register_2_input_3,
+                B => memory_out,
+                C => Register_2_input_3,
+                D => "00000000",
                 sel => line_3_mux_sel_2,
                 result => output_mux_2
                 );
-  mult_ALU_mux_3: Multiplexer
+  mult_ALU_mux_3: Multiplexer_4
       Port Map (A => mult_output,
-                B => Register_3_input_3,
+                B => memory_out,
+                C => Register_3_input_3,
+                D => "00000000",,
                 sel => line_3_mux_sel_3,
                 result => output_mux_3
               );
