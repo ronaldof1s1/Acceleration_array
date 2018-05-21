@@ -3,7 +3,7 @@ use ieee.std_logic_1164.ALL;
 
 entity Parser is
 	port(
-		  bitstream : in std_logic_vector(93 downto 0);
+		  bitstream : in std_logic_vector(99 downto 0);
 		  --------------------FIRST LINE--------------------------
 		  -- first line of input muxss
 		  sel_mux_1_1_A : out std_logic_vector(1 downto 0);
@@ -69,7 +69,15 @@ entity Parser is
 		  --input muxes selectors for multiplier
 		  sel_mux_mult_A : out std_logic_vector(1 downto 0);
 		  sel_mux_mult_B : out std_logic_vector(1 downto 0);
+	  
+		
+		  -------------------MEMORY UNIT DATA---------------------------
+		  address : out std_logic_vector(7 downto 0);
+		  write_enabled : out std_logic;
 
+		  sel_mux_memory : out std_logic_vector(2 downto 0);
+		
+		
 		  --------------------REGISTER BANK--------------------------
 
 		  --store signals of registers
@@ -152,16 +160,12 @@ begin
 	 sel_mux_mult_A <= bitstream(85 downto 84);
 	 sel_mux_mult_B <= bitstream(87 downto 86);
 
-	--------------------REGISTER BANK--------------------------
+	-------------------MEMORY UNIT DATA---------------------------
 
-	--store signals of registers
-	 Register_1_store <= bitstream(88);
-	 Register_2_store <= bitstream(89);
-	 Register_3_store <= bitstream(90);
+	address <= bitstream(95 downto 88);
+	write_enabled <= bitstream(96);
 
-	-- clear signals of registers
-	 Register_1_clr  <= bitstream(91);
-	 Register_2_clr  <= bitstream(92);
-	 Register_3_clr  <= bitstream(93);
+	sel_mux_memory <= bitstream(99 downto 97)
+
 
 end Parse;
