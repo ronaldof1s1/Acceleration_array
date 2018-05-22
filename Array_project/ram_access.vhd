@@ -1,5 +1,6 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.numeric_std.all;
 
 entity ram_access is
 port (  
@@ -17,17 +18,18 @@ architecture Behavioral of ram_access is
 --with each element being 8 bit wide.
 type ram_t is array (0 to 255) of std_logic_vector(7 downto 0);
 signal ram : ram_t := (others => (others => '0'));
+signal int_addr : integer;
 
 begin
-
+int_addr <= to_integer(unsigned(address));
 --process for read and write operation.
 PROCESS(Clk)
 BEGIN
     if(rising_edge(Clk)) then
         if(we='1') then
-            ram(address) <= data_i;
+            ram(int_addr) <= data_i;
         end if;
-        data_o <= ram(address);
+        data_o <= ram(int_addr);
     end if; 
 END PROCESS;
 
