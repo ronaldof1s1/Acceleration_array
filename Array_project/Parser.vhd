@@ -57,7 +57,7 @@ entity Parser is
 		  line_3_4mux_sel_3 : out std_logic_vector(1 downto 0);
 		  line_3_mux_sel_1 : out std_logic_vector(1 downto 0);
 		  line_3_mux_sel_2 : out std_logic_vector(1 downto 0);
-		  line_3_mux_sel_3 : out std_logic (1 downto 0);
+		  line_3_mux_sel_3 : out std_logic_vector (1 downto 0);
 
 		  -- Third line of operations
 		  op_3_1: out std_logic_vector(2 downto 0);
@@ -75,7 +75,7 @@ entity Parser is
 		  address : out std_logic_vector(7 downto 0);
 		  write_enabled : out std_logic;
 
-		  sel_mux_memory : out std_logic_vector(2 downto 0);
+		  sel_mux_memory : out std_logic_vector(1 downto 0);
 		
 		
 		  --------------------REGISTER BANK--------------------------
@@ -165,7 +165,7 @@ begin
 	address <= bitstream(98 downto 91);
 	write_enabled <= bitstream(99);
 
-	sel_mux_memory <= bitstream(101 downto 100)
+	sel_mux_memory <= bitstream(101 downto 100);
 
 
 end Parse;
