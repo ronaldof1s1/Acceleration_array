@@ -19,3 +19,7 @@ Acceleration_array.smart_action.txt
 *.rpt
 *.summary
 *.bak
+*.qws
+db/*
+incremental_db/*
+output_files/*
