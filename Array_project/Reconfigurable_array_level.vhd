@@ -13,9 +13,9 @@ end Reconfigurable_Array_level;
 
 architecture Reconfigurable_Array_level of Reconfigurable_Array_level is
 
-  type data is std_logic_vector(7 downto 0);
-  type operation is std_logic_vector(2 downto 0);
-  type selector2 is std_logic_vector(1 downto 0);
+  subtype data is std_logic_vector(7 downto 0);
+  subtype operation is std_logic_vector(2 downto 0);
+  subtype selector2 is std_logic_vector(1 downto 0);
 
   Component Register_Bank
     port(
@@ -71,92 +71,49 @@ architecture Reconfigurable_Array_level of Reconfigurable_Array_level is
     );
   end Component;
   
-  Component Parser is
-    port(
-    bitstream : in std_logic_vector(99 downto 0);
-    --------------------FIRST LINE--------------------------
-    -- first line of input muxss
-    sel_mux_1_1_A : out selector2;
-    sel_mux_1_1_B : out selector2;
-    sel_mux_1_2_A : out selector2;
-    sel_mux_1_2_B : out selector2;
-    sel_mux_1_3_A : out selector2;
-    sel_mux_1_3_B : out selector2;
+ -- input muxes for the ALUs
+  signal sel_mux_1_1_A : selector2 := bitstream(101 downto 100);
+  signal sel_mux_1_1_B : selector2 := bitstream(99 downto 98);
+  signal sel_mux_1_2_A : selector2 := bitstream(97 downto 96);
+  signal sel_mux_1_2_B : selector2 := bitstream(95 downto 94);
+  signal sel_mux_1_3_A : selector2 := bitstream(93 downto 92);
+  signal sel_mux_1_3_B : selector2 := bitstream(91 downto 90);
 
-    -- first line output mux signals
-    line_1_mux_sel_1 : out selector2;
-    line_1_mux_sel_2 : out selector2;
-    line_1_mux_sel_3 : out selector2;
+  signal sel_mux_2_1_A : selector2 := bitstream(89 downto 88);
+  signal sel_mux_2_1_B : selector2 := bitstream(87 downto 86);
+  signal sel_mux_2_2_A : selector2 := bitstream(85 downto 84);
+  signal sel_mux_2_2_B : selector2 := bitstream(83 downto 82);
+  signal sel_mux_2_3_A : selector2 := bitstream(81 downto 80);
+  signal sel_mux_2_3_B : selector2 := bitstream(79 downto 78);
 
-    --first line of operations
-    op_1_1: out operation;
-    op_1_2: out operation;
-    op_1_3: out operation;
-
-    --------------------SECOND LINE--------------------------
-    -- second line of input muxs
-    sel_mux_2_1_A : out selector2;
-    sel_mux_2_1_B : out selector2;
-    sel_mux_2_2_A : out selector2;
-    sel_mux_2_2_B : out selector2;
-    sel_mux_2_3_A : out selector2;
-    sel_mux_2_3_B : out selector2;
-
-    -- second line output mux signals
-    line_2_mux_sel_1 : out selector2;
-    line_2_mux_sel_2 : out selector2;
-    line_2_mux_sel_3 : out selector2;
-
-    --second line of operations
-    op_2_1: out operation;
-    op_2_2: out operation;
-    op_2_3: out operation;
-
-    --------------------THIRD LINE--------------------------
-    -- third line of input muxs
-    sel_mux_3_1_A : out selector2;
-    sel_mux_3_1_B : out selector2;
-    sel_mux_3_2_A : out selector2;
-    sel_mux_3_2_B : out selector2;
-    sel_mux_3_3_A : out selector2;
-    sel_mux_3_3_B : out selector2;
-
-    -- third line output mux signals
-    line_3_4mux_sel_1 : out selector2;
-    line_3_4mux_sel_2 : out selector2;
-    line_3_4mux_sel_3 : out selector2;
-    line_3_mux_sel_1 : out selector2;
-    line_3_mux_sel_2 : out selector2;
-    line_3_mux_sel_3 : out selector2;
-
-    -- Third line of operations
-    op_3_1: out operation;
-    op_3_2: out operation;
-    op_3_3: out operation;
+  signal sel_mux_3_1_A : selector2 := bitstream(77 downto 76);
+  signal sel_mux_3_1_B : selector2 := bitstream(75 downto 74);
+  signal sel_mux_3_2_A : selector2 := bitstream(73 downto 72);
+  signal sel_mux_3_2_B : selector2 := bitstream(71 downto 70);
+  signal sel_mux_3_3_A : selector2 := bitstream(69 downto 68);
+  signal sel_mux_3_3_B : selector2 := bitstream(67 downto 66);
 
 
-    --------------------MULTIPLIER DATA--------------------------
-    --input muxes selectors for multiplier
-    sel_mux_mult_A : out selector2;
-    sel_mux_mult_B : out selector2;
+  --operations
 
-    -------------------MEMORY UNIT DATA---------------------------
-    address : out data;
-    write_enabled : out std_logic;
+  signal op_1_1: operation := bitstream(65 downto 63);
+  signal op_1_2: operation := bitstream(62 downto 60);
+  signal op_1_3: operation := bitstream(59 downto 57);
 
-    sel_mux_memory : out selector2
-    );
-  end Component;
+  signal op_2_1: operation := bitstream(56 downto 54);
+  signal op_2_2: operation := bitstream(53 downto 51);
+  signal op_2_3: operation := bitstream(50 downto 48);  
 
-  --------------------FIRST LINE--------------------------
-  -- first line of input muxss
-  signal sel_mux_1_1_A : selector2;
-  signal sel_mux_1_1_B : selector2;
-  signal sel_mux_1_2_A : selector2;
-  signal sel_mux_1_2_B : selector2;
-  signal sel_mux_1_3_A : selector2;
-  signal sel_mux_1_3_B : selector2;
+  signal op_3_1: operation := bitstream(47 downto 45);
+  signal op_3_2: operation := bitstream(44 downto 42);
+  signal op_3_3: operation := bitstream(41 downto 39);
 
+  --Multiplier input muxes
+  signal sel_mux_mult_A : selector2 := bitstream(38 downto 37);
+  signal sel_mux_mult_B : selector2 := bitstream(36 downto 35);
+
+
+  
   -- first line output mux signals
   signal line_1_mux_sel_1 : selector2;
   signal line_1_mux_sel_2 : selector2;
@@ -169,18 +126,6 @@ architecture Reconfigurable_Array_level of Reconfigurable_Array_level is
 
 
   --first line of operations
-  signal op_1_1: operation;
-  signal op_1_2: operation;
-  signal op_1_3: operation;
-
-  --------------------SECOND LINE--------------------------
-  -- second line of input muxs
-  signal sel_mux_2_1_A : selector2;
-  signal sel_mux_2_1_B : selector2;
-  signal sel_mux_2_2_A : selector2;
-  signal sel_mux_2_2_B : selector2;
-  signal sel_mux_2_3_A : selector2;
-  signal sel_mux_2_3_B : selector2;
 
   -- second line output mux signals
   signal line_2_mux_sel_1 : selector2;
@@ -193,18 +138,10 @@ architecture Reconfigurable_Array_level of Reconfigurable_Array_level is
   signal output_2_3 : data;
 
   --second line of operations
-  signal op_2_1: operation;
-  signal op_2_2: operation;
-  signal op_2_3: operation;
 
   --------------------THIRD LINE--------------------------
   -- third line of input muxs
-  signal sel_mux_3_1_A : selector2;
-  signal sel_mux_3_1_B : selector2;
-  signal sel_mux_3_2_A : selector2;
-  signal sel_mux_3_2_B : selector2;
-  signal sel_mux_3_3_A : selector2;
-  signal sel_mux_3_3_B : selector2;
+
 
   -- third line output mux signals
   signal line_3_4mux_sel_1 : selector2;
@@ -223,16 +160,11 @@ architecture Reconfigurable_Array_level of Reconfigurable_Array_level is
   signal output_3_3 : data;
 
   -- Third line of operations
-  signal op_3_1: operation;
-  signal op_3_2: operation;
-  signal op_3_3: operation;
 
 
   --------------------MULTIPLIER DATA--------------------------
   --input muxes selectors for multiplier
-  signal sel_mux_mult_A : selector2;
-  signal sel_mux_mult_B : selector2;
-
+  
   signal mult_in_A : data;
   signal mult_in_B : data;
 
@@ -240,12 +172,12 @@ architecture Reconfigurable_Array_level of Reconfigurable_Array_level is
   signal mult_output : data;
 
   -------------------MEMORY UNIT DATA---------------------------
-  signal address : out data;
-  signal write_enabled : out std_logic;
-  signal memory_out : out data;
+  signal address :  data;
+  signal write_enabled :  std_logic;
+  signal memory_out :  data;
 
-  signal sel_mux_memory : out selector2;
-  signal memory_mux_out : out data;
+  signal sel_mux_memory :  selector2;
+  signal memory_mux_out :  data;
 
   --------------------REGISTER BANK--------------------------
 
@@ -280,53 +212,6 @@ architecture Reconfigurable_Array_level of Reconfigurable_Array_level is
   signal Register_3_clr : std_logic := '0';
 
 begin
-  Parsing : Parser
-    Port Map  (bitstream =>bitstream,
-              sel_mux_1_1_A =>sel_mux_1_1_A,
-              sel_mux_1_1_B =>sel_mux_1_1_B,
-              sel_mux_1_2_A =>sel_mux_1_2_A,
-              sel_mux_1_2_B =>sel_mux_1_2_B,
-              sel_mux_1_3_A =>sel_mux_1_3_A,
-              sel_mux_1_3_B =>sel_mux_1_3_B,
-              line_1_mux_sel_1 =>line_1_mux_sel_1,
-              line_1_mux_sel_2 =>line_1_mux_sel_2,
-              line_1_mux_sel_3 =>line_1_mux_sel_3,
-              op_1_1=>op_1_1,
-              op_1_2=>op_1_2,
-              op_1_3=>op_1_3,
-              sel_mux_2_1_A =>sel_mux_2_1_A,
-              sel_mux_2_1_B =>sel_mux_2_1_B,
-              sel_mux_2_2_A =>sel_mux_2_2_A,
-              sel_mux_2_2_B =>sel_mux_2_2_B,
-              sel_mux_2_3_A =>sel_mux_2_3_A,
-              sel_mux_2_3_B =>sel_mux_2_3_B,
-              line_2_mux_sel_1 =>line_2_mux_sel_1,
-              line_2_mux_sel_2 =>line_2_mux_sel_2,
-              line_2_mux_sel_3 =>line_2_mux_sel_3,
-              op_2_1=>op_2_1,
-              op_2_2=>op_2_2,
-              op_2_3=>op_2_3,
-              sel_mux_3_1_A =>sel_mux_3_1_A,
-              sel_mux_3_1_B =>sel_mux_3_1_B,
-              sel_mux_3_2_A =>sel_mux_3_2_A,
-              sel_mux_3_2_B =>sel_mux_3_2_B,
-              sel_mux_3_3_A =>sel_mux_3_3_A,
-              sel_mux_3_3_B =>sel_mux_3_3_B,
-              line_3_4mux_sel_1 =>line_3_4mux_sel_1,
-              line_3_4mux_sel_2 =>line_3_4mux_sel_2,
-              line_3_4mux_sel_3 =>line_3_4mux_sel_3,
-              line_3_mux_sel_1 =>line_3_mux_sel_1 ,
-              line_3_mux_sel_2 =>line_3_mux_sel_2 ,
-              line_3_mux_sel_3 =>line_3_mux_sel_3 ,
-              op_3_1=>op_3_1,
-              op_3_2=>op_3_2,
-              op_3_3=>op_3_3,
-              sel_mux_mult_A =>sel_mux_mult_A,
-              sel_mux_mult_B =>sel_mux_mult_B,
-              address => address,
-              write_enabled => write_enabled,
-              sel_mux_memory => sel_mux_memory
-              );
   --instantiate multiplier
   Mult_mux_A : Multiplexer_4
     Port Map (A => Register_1_input_1,
@@ -365,10 +250,10 @@ begin
               result => memory_mux_out
               );
   RAM : ram_access
-    Port Map(Clk => clk;
-            address =>address;
-            we => write_enabled;
-            data_i => memory_mux_out;
+    Port Map(Clk => clk,
+            address =>address,
+            we => write_enabled,
+            data_i => memory_mux_out,
             data_o => memory_out
 
     );
@@ -504,7 +389,7 @@ begin
       Port Map (A => mult_output,
                 B => memory_out,
                 C => Register_3_input_3,
-                D => "00000000",,
+                D => "00000000",
                 sel => line_3_mux_sel_3,
                 result => output_mux_3
               );
