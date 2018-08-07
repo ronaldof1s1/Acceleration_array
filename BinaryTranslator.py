@@ -1,8 +1,13 @@
 from Array_level import Array_level
 
+def translate_file(lines):
+    bt = Binary_translator()
+    bt.decode_assembly(lines)
+
 def read_file(path):
     file_obj = open(path, 'r')
     lines = file_obj.readlines()
+    translate_file(lines)
 
 class Binary_translator:
     level = Array_level(3, 2, 1, 1)
@@ -72,14 +77,16 @@ class Binary_translator:
             for (in1, in2) in read_alu[0]:
                 bitstream += self.get_mux_selector(in1) + self.get_mux_selector(in2) 
        
-        for write_alus in self.level.write_ALUs:
-            for out in write_alus:
-                bitstream += self.get_mux_selector(out)
        
         for op_line in self.level.ALUs_OPs:
             for op in op_line:
                 bitstream += self.get_operation_code(op)
-        
+
+        for write_alus in self.level.write_ALUs:
+            for out in write_alus:
+                bitstream += self.get_mux_selector(out)
+       
+
         for (in1, in2) in self.level.read_mult:
             bitstream += self.get_mux_selector(in1) + self.get_mux_selector(in2)
 
