@@ -61,12 +61,11 @@ class Array_level:
         
     
         for row in range(len(self.alu_target)):
-            for col in range(len(self.alu_target[0])):
+            for col in range(len(self.alu_target[row])):
                 if self.alu_target[row][col] == dependant:
                     break
                 elif self.alu_target[row][col] == '':
                     return (row,col)
-                    break
 
         return (-1,-1)
 
