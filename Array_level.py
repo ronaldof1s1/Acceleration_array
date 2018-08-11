@@ -2,9 +2,9 @@
 class Array_level:
 
     def __init__(self, alus_per_row, rows_of_alus, multipliers, memory):
-        self.write_ALUs = []
-        self.read_ALUs = []
-        self.ALUs_OPs = []
+        self.alu_target = []
+        self.alu_source = []
+        self.alu_op = []
         for i in range(rows_of_alus):
             write_alu_line = []
             read_alu_line = []
@@ -15,40 +15,40 @@ class Array_level:
                 op_alu_line.append("")
                 read_alu_line.append(("",""))
                 
-            self.write_ALUs.append(write_alu_line)
-            self.read_ALUs.append(read_alu_line)
-            self.ALUs_OPs.append(op_alu_line)
+            self.alu_target.append(write_alu_line)
+            self.alu_source.append(read_alu_line)
+            self.alu_op.append(op_alu_line)
             
-        self.write_mult = []
-        self.read_mult =[]
+        self.mult_target = []
+        self.mult_source =[]
         
         for i in range(multipliers):
-            self.write_mult.append("")
-            self.read_mult.append(("", ""))
+            self.mult_target.append("")
+            self.mult_source.append(("", ""))
         
-        self.write_memory = []
+        self.memory_target = []
         self.memory_op = []
         
         for i in range(memory):
-            self.write_memory.append("")
+            self.memory_target.append("")
             self.memory_op.append("")
 
     def register_in_mult(self, register):
-        for mult in self.write_mult:
+        for mult in self.mult_target:
             if mult == register:
                 return True
 
         return False
 
     def register_in_memory(self, register):
-        for mem in self.write_memory:
+        for mem in self.memory_target:
             if mem == register:
                 return True
 
         return False
 
     def register_in_ALUs(self, register):
-        for line in self.write_ALUs:
+        for line in self.alu_target:
             for alu in line:
                 if alu == register:
                     return True
@@ -60,11 +60,11 @@ class Array_level:
             return (-1,-1)
         
     
-        for row in range(len(self.write_ALUs)):
-            for col in range(len(self.write_ALUs[0])):
-                if self.write_ALUs[row][col] == dependant:
+        for row in range(len(self.alu_target)):
+            for col in range(len(self.alu_target[0])):
+                if self.alu_target[row][col] == dependant:
                     break
-                elif self.write_ALUs[row][col] == '':
+                elif self.alu_target[row][col] == '':
                     return (row,col)
                     break
 
@@ -75,9 +75,9 @@ class Array_level:
         if row == -1:
             return False
 
-        self.ALUs_OPs[row][col] = words[0]
-        self.write_ALUs[row][col] = words[1]
-        self.read_ALUs[row][col] = (words[2], words[3])
+        self.alu_op[row][col] = words[0]
+        self.alu_target[row][col] = words[1]
+        self.alu_source[row][col] = (words[2], words[3])
 
         return True
 
@@ -85,8 +85,8 @@ class Array_level:
         if self.register_in_ALUs(dependant) or self.register_in_memory(dependant):
             return -1
 
-        for i in range(len(self.write_mult)):
-            if self.write_mult[i] == "":
+        for i in range(len(self.mult_target)):
+            if self.mult_target[i] == "":
                 return i
         return -1   
 
@@ -95,16 +95,16 @@ class Array_level:
         if mult == -1:
             return False
 
-        self.write_mult[mult] = words[1]
-        self.read_mult[mult] = (words[2], words[3])
+        self.mult_target[mult] = words[1]
+        self.mult_source[mult] = (words[2], words[3])
         return True
 
     def check_memory_available(self, dependant):
         if self.register_in_ALUs(dependant) or self.register_in_mult(dependant):
             return -1
 
-        for i in range(len(self.write_memory)):
-            if self.write_memory[i] == '':
+        for i in range(len(self.memory_target)):
+            if self.memory_target[i] == '':
                 return i
 
         return -1
@@ -115,6 +115,6 @@ class Array_level:
             return False
 
         self.memory_op[mem] = words[0]
-        self.write_memory[mem] = words[1]
+        self.memory_target[mem] = words[1]
         return True
 
