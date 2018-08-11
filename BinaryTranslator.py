@@ -10,7 +10,8 @@ def read_file(path):
     translate_file(lines)
 
 class Binary_translator:
-    level = Array_level(3, 2, 1, 1)
+    def __init__(self):
+        self.level = Array_level(3, 2, 1, 1)
 
     
     def prepare_line(self, line):
@@ -40,11 +41,11 @@ class Binary_translator:
                 break
 
     def get_mux_selector(self, string):
-        if string == 'r0':
+        if string == 'R0':
             return '00'
-        elif string == 'r1':
+        elif string == 'R1':
             return '01'
-        elif string == 'r2':
+        elif string == 'R2':
             return '10'
         else:
             return '11'
@@ -73,24 +74,24 @@ class Binary_translator:
     def translate_levels(self):
         bitstream = ''
        
-        for read_alu in self.level.read_ALUs:
+        for read_alu in self.level.alu_source:
             for (in1, in2) in read_alu[0]:
                 bitstream += self.get_mux_selector(in1) + self.get_mux_selector(in2) 
        
        
-        for op_line in self.level.ALUs_OPs:
+        for op_line in self.level.alu_op:
             for op in op_line:
                 bitstream += self.get_operation_code(op)
 
-        for write_alus in self.level.write_ALUs:
-            for out in write_alus:
+        for alu_target in self.level.alu_target:
+            for out in alu_target:
                 bitstream += self.get_mux_selector(out)
        
 
-        for (in1, in2) in self.level.read_mult:
+        for (in1, in2) in self.level.mult_source:
             bitstream += self.get_mux_selector(in1) + self.get_mux_selector(in2)
 
-        for out in self.level.write_mult:
+        for out in self.level.mult_target:
             bitstream +=  self.get_mux_selector(out)
         
         
