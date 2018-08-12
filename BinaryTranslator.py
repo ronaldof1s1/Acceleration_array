@@ -11,7 +11,12 @@ def read_file(path):
 
 class Binary_translator:
     def __init__(self):
-        self.level = Array_level(3, 2, 1, 1)
+        self.register_quantity = 3
+        self.rows = 3
+        self.cols = 2
+        self.mults = 1
+        self.mem = 1
+        self.level = Array_level(self.rows, self.cols, self.mults, self.mem)
 
     
     def prepare_line(self, line):
@@ -71,27 +76,79 @@ class Binary_translator:
             else:
                 raise Exception
 
-    def translate_levels(self):
+    def translate_alu_input_muxes(self):
         bitstream = ''
-       
+
         for read_alu in self.level.alu_source:
-            for (in1, in2) in read_alu[0]:
+            for (in1, in2) in read_alu:
                 bitstream += self.get_mux_selector(in1) + self.get_mux_selector(in2) 
-       
-       
+
+        return bitstream
+
+    def translate_alu_op(self):
+        bitstream = ''
+        
         for op_line in self.level.alu_op:
             for op in op_line:
                 bitstream += self.get_operation_code(op)
 
-        for alu_target in self.level.alu_target:
-            for out in alu_target:
-                bitstream += self.get_mux_selector(out)
-       
+        return bitstream
 
+    def translate_mult_sources(self):
+        bitstream = ''
         for (in1, in2) in self.level.mult_source:
             bitstream += self.get_mux_selector(in1) + self.get_mux_selector(in2)
+        return bitstream
 
-        for out in self.level.mult_target:
-            bitstream +=  self.get_mux_selector(out)
+    def translate_output_alus(self):
+        bitstream = ''
+        registers = ["R" + i for i in range(self.register_quantity)]
+
+        for row in range(self.rows):
+            for reg in registers:
+                line = self.level.alu_target[row]
+                if reg in line:
+                    col = line.index(reg)
+                    temp = 'R'+col
+                    bitstream += self.get_mux_selector(temp)
+                else:
+                    bitstream += '11'
+
+        return bitstream
+
+    def translate_final_muxes(self):
+        bitstream = ''
+        registers = ["R" + i for i in range(self.register_quantity)]
+
+        for reg in registers:
+            if self.level.register_in_mult:
+                bitstream += '00'
+
+            elif self.level.register_in_memory:
+                bitstream += '01'
+
+            else:
+                bitstream += '10'
+
+        return bitstream
+
+
+    def translate_levels(self):
+        bitstream = ''
         
+        bitstream += self.translate_alu_input_muxes()
         
+        bitstream += self.translate_alu_op()
+
+        bitstream += self.translate_mult_sources()
+
+        bitstream += self.translate_output_alus()
+
+        bitstream += self.translate_output_alus()
+
+       #first lines
+       
+
+
+
+      
