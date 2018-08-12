@@ -1,16 +1,16 @@
 
 class Array_level:
 
-    def __init__(self, alus_per_row, rows_of_alus, multipliers, memory):
+    def __init__(self, cols, rows, multipliers, memory):
         self.alu_target = []
         self.alu_source = []
         self.alu_op = []
-        for i in range(rows_of_alus):
+        for i in range(rows):
             write_alu_line = []
             read_alu_line = []
             op_alu_line = []
             
-            for i in range(alus_per_row):
+            for i in range(cols):
                 write_alu_line.append("")
                 op_alu_line.append("")
                 read_alu_line.append(("",""))
