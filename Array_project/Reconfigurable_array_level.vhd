@@ -115,9 +115,9 @@ architecture Reconfigurable_Array_level of Reconfigurable_Array_level is
 
   
   -- first line output mux signals
-  signal line_1_mux_sel_1 : selector2;
-  signal line_1_mux_sel_2 : selector2;
-  signal line_1_mux_sel_3 : selector2;
+  signal line_1_mux_sel_1 : selector2 := bitstream(34 downto 33);
+  signal line_1_mux_sel_2 : selector2 := bitstream(32 downto 31);
+  signal line_1_mux_sel_3 : selector2 := bitstream(30 downto 29);
 
   --first line of output signals
   signal output_1_1 : data;
@@ -128,9 +128,9 @@ architecture Reconfigurable_Array_level of Reconfigurable_Array_level is
   --first line of operations
 
   -- second line output mux signals
-  signal line_2_mux_sel_1 : selector2;
-  signal line_2_mux_sel_2 : selector2;
-  signal line_2_mux_sel_3 : selector2;
+  signal line_2_mux_sel_1 : selector2 := bitstream(28 downto 27);
+  signal line_2_mux_sel_2 : selector2 := bitstream(26 downto 25);
+  signal line_2_mux_sel_3 : selector2 := bitstream(24 downto 23);
 
   --second line of output signals
   signal output_2_1 : data;
@@ -144,12 +144,12 @@ architecture Reconfigurable_Array_level of Reconfigurable_Array_level is
 
 
   -- third line output mux signals
-  signal line_3_4mux_sel_1 : selector2;
-  signal line_3_4mux_sel_2 : selector2;
-  signal line_3_4mux_sel_3 : selector2;
-  signal line_3_mux_sel_1 : selector2;
-  signal line_3_mux_sel_2 : selector2;
-  signal line_3_mux_sel_3 : selector2;
+  signal line_3_4mux_sel_1 : selector2 := bitstream(22 downto 21);
+  signal line_3_4mux_sel_2 : selector2 := bitstream(20 downto 19);
+  signal line_3_4mux_sel_3 : selector2 := bitstream(18 downto 17);
+  signal line_3_mux_sel_1 : selector2 := bitstream(16 downto 15);
+  signal line_3_mux_sel_2 : selector2 := bitstream(14 downto 13);
+  signal line_3_mux_sel_3 : selector2 := bitstream(12 downto 11);
   signal output_mux_1 : data;
   signal output_mux_2  : data;
   signal output_mux_3  : data;
@@ -172,11 +172,11 @@ architecture Reconfigurable_Array_level of Reconfigurable_Array_level is
   signal mult_output : data;
 
   -------------------MEMORY UNIT DATA---------------------------
-  signal address :  data;
-  signal write_enabled :  std_logic;
+  signal address :  data := bitstream(10 downto 3);
+  signal write_enabled :  std_logic := bitstream(2);
   signal memory_out :  data;
 
-  signal sel_mux_memory :  selector2;
+  signal sel_mux_memory :  selector2 := bitstream(1 downto 0);
   signal memory_mux_out :  data;
 
   --------------------REGISTER BANK--------------------------
