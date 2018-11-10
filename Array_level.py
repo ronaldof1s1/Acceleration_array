@@ -28,10 +28,12 @@ class Array_level:
         
         self.memory_target = []
         self.memory_op = []
+        self.memory_addr = []
         
         for i in range(memory):
             self.memory_target.append("")
             self.memory_op.append("")
+            self.memory_addr.append("")
 
     def register_in_mult(self, register):
         for mult in self.mult_target:
