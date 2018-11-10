@@ -121,10 +121,10 @@ class Binary_translator:
         registers = ["R" + i for i in range(self.register_quantity)]
 
         for reg in registers:
-            if self.level.register_in_mult:
+            if self.level.register_in_mult(reg):
                 bitstream += '00'
 
-            elif self.level.register_in_memory:
+            elif self.level.register_in_memory(reg):
                 bitstream += '01'
 
             else:
