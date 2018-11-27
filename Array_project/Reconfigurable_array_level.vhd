@@ -3,7 +3,7 @@ use ieee.std_logic_1164.ALL;
 
 entity Reconfigurable_Array_level is
   port (
-    bitstream : in std_logic_vector(117 downto 0);
+    bitstream : in std_logic_vector(102 downto 0);
     clk : in std_logic;
     result_1 : out std_logic_vector(7 downto 0);
     result_2 : out std_logic_vector(7 downto 0);
@@ -72,50 +72,47 @@ architecture Reconfigurable_Array_level of Reconfigurable_Array_level is
   end Component;
   
  -- input muxes for the ALUs
-  signal sel_mux_1_1_A : selector2 := bitstream(117 downto 116);
-  signal sel_mux_1_1_B : selector2 := bitstream(115 downto 114);
-  signal sel_mux_1_2_A : selector2 := bitstream(113 downto 112);
-  signal sel_mux_1_2_B : selector2 := bitstream(111 downto 110);
-  signal sel_mux_1_3_A : selector2 := bitstream(109 downto 108);
-  signal sel_mux_1_3_B : selector2 := bitstream(107 downto 106);
+  signal sel_mux_1_1_A : selector2 := bitstream(102 downto 101);
+  signal sel_mux_1_1_B : selector2 := bitstream(100 downto 99);
+  signal sel_mux_1_2_A : selector2 := bitstream(98 downto 97);
+  signal sel_mux_1_2_B : selector2 := bitstream(96 downto 95);
+  signal sel_mux_1_3_A : selector2 := bitstream(94 downto 93);
+  signal sel_mux_1_3_B : selector2 := bitstream(92 downto 91);
 
-  signal sel_mux_2_1_A : selector2 := bitstream(105 downto 104);
-  signal sel_mux_2_1_B : selector2 := bitstream(103 downto 102);
-  signal sel_mux_2_2_A : selector2 := bitstream(101 downto 100);
-  signal sel_mux_2_2_B : selector2 := bitstream(99 downto 98);
-  signal sel_mux_2_3_A : selector2 := bitstream(97 downto 96);
-  signal sel_mux_2_3_B : selector2 := bitstream(95 downto 94);
+  signal sel_mux_2_1_A : selector2 := bitstream(90 downto 89);
+  signal sel_mux_2_1_B : selector2 := bitstream(88 downto 87);
+  signal sel_mux_2_2_A : selector2 := bitstream(86 downto 85);
+  signal sel_mux_2_2_B : selector2 := bitstream(84 downto 83);
+  signal sel_mux_2_3_A : selector2 := bitstream(82 downto 81);
+  signal sel_mux_2_3_B : selector2 := bitstream(80 downto 79);
 
-  signal sel_mux_3_1_A : selector2 := bitstream(93 downto 92);
-  signal sel_mux_3_1_B : selector2 := bitstream(91 downto 90);
-  signal sel_mux_3_2_A : selector2 := bitstream(89 downto 88);
-  signal sel_mux_3_2_B : selector2 := bitstream(87 downto 86);
-  signal sel_mux_3_3_A : selector2 := bitstream(85 downto 84);
-  signal sel_mux_3_3_B : selector2 := bitstream(83 downto 82);
+  signal sel_mux_3_1_A : selector2 := bitstream(78 downto 77);
+  signal sel_mux_3_1_B : selector2 := bitstream(76 downto 75);
+  signal sel_mux_3_2_A : selector2 := bitstream(74 downto 73);
+  signal sel_mux_3_2_B : selector2 := bitstream(72 downto 71);
+  signal sel_mux_3_3_A : selector2 := bitstream(70 downto 69);
+  signal sel_mux_3_3_B : selector2 := bitstream(68 downto 67);
 
 
   --operations
 
-  signal op_1_1: operation := bitstream(81 downto 79);
-  signal op_1_2: operation := bitstream(78 downto 76);
-  signal op_1_3: operation := bitstream(75 downto 73);
+  signal op_1_1: operation := bitstream(66 downto 64);
+  signal op_1_2: operation := bitstream(63 downto 61);
+  signal op_1_3: operation := bitstream(60 downto 58);
 
-  signal op_2_1: operation := bitstream(72 downto 70);
-  signal op_2_2: operation := bitstream(69 downto 67);
-  signal op_2_3: operation := bitstream(66 downto 64);  
+  signal op_2_1: operation := bitstream(57 downto 55);
+  signal op_2_2: operation := bitstream(54 downto 52);
+  signal op_2_3: operation := bitstream(51 downto 49);  
 
-  signal op_3_1: operation := bitstream(63 downto 61);
-  signal op_3_2: operation := bitstream(60 downto 58);
-  signal op_3_3: operation := bitstream(57 downto 55);
+  signal op_3_1: operation := bitstream(48 downto 46);
+  signal op_3_2: operation := bitstream(45 downto 43);
+  signal op_3_3: operation := bitstream(42 downto 40);
 
-  --Multiplier input muxes
-  signal sel_mux_mult_A : selector2 := bitstream(54 downto 53);
-  signal sel_mux_mult_B : selector2 := bitstream(52 downto 51);
   
   -- first line output mux signals
-  signal line_1_mux_sel_1 : selector2 := bitstream(50 downto 49);
-  signal line_1_mux_sel_2 : selector2 := bitstream(48 downto 47);
-  signal line_1_mux_sel_3 : selector2 := bitstream(46 downto 45);
+  signal line_1_mux_sel_1 : selector2 := bitstream(39 downto 38);
+  signal line_1_mux_sel_2 : selector2 := bitstream(37 downto 36);
+  signal line_1_mux_sel_3 : selector2 := bitstream(35 downto 34);
 
   --first line of output signals
   signal output_1_1 : data;
@@ -126,9 +123,9 @@ architecture Reconfigurable_Array_level of Reconfigurable_Array_level is
   --first line of operations
 
   -- second line output mux signals
-  signal line_2_mux_sel_1 : selector2 := bitstream(44 downto 43);
-  signal line_2_mux_sel_2 : selector2 := bitstream(42 downto 41);
-  signal line_2_mux_sel_3 : selector2 := bitstream(40 downto 39);
+  signal line_2_mux_sel_1 : selector2 := bitstream(33 downto 32);
+  signal line_2_mux_sel_2 : selector2 := bitstream(31 downto 30);
+  signal line_2_mux_sel_3 : selector2 := bitstream(29 downto 28);
 
   --second line of output signals
   signal output_2_1 : data;
@@ -140,12 +137,12 @@ architecture Reconfigurable_Array_level of Reconfigurable_Array_level is
   --------------------THIRD LINE--------------------------
   
   -- third line output mux signals
-  signal line_3_4mux_sel_1 : selector2 := bitstream(38 downto 37);
-  signal line_3_4mux_sel_2 : selector2 := bitstream(36 downto 35);
-  signal line_3_4mux_sel_3 : selector2 := bitstream(34 downto 33);
-  signal line_3_mux_sel_1 : selector2 := bitstream(32 downto 31);
-  signal line_3_mux_sel_2 : selector2 := bitstream(30 downto 29);
-  signal line_3_mux_sel_3 : selector2 := bitstream(28 downto 27);
+  signal line_3_mux_sel_1 : selector2 := bitstream(27 downto 26);
+  signal line_3_mux_sel_2 : selector2 := bitstream(25 downto 24);
+  signal line_3_mux_sel_3 : selector2 := bitstream(23 downto 22);
+  signal line_3_4mux_sel_1 : selector2 := bitstream(21 downto 20);
+  signal line_3_4mux_sel_2 : selector2 := bitstream(19 downto 18);
+  signal line_3_4mux_sel_3 : selector2 := bitstream(17 downto 16);
   signal output_mux_1 : data;
   signal output_mux_2  : data;
   signal output_mux_3  : data;
@@ -157,10 +154,14 @@ architecture Reconfigurable_Array_level of Reconfigurable_Array_level is
 
 
   --------------------MULTIPLIER DATA--------------------------
-  --input muxes selectors for multiplier
   
-  signal mult_in_A : data := bitstream(26 downto 19);
-  signal mult_in_B : data := bitstream(18 downto 11);
+
+  --Multiplier input muxes
+  signal sel_mux_mult_A : selector2 := bitstream(14 downto 13);
+  signal sel_mux_mult_B : selector2 := bitstream(12 downto 11);
+  
+  signal mult_in_A : data;
+  signal mult_in_B : data;
 
   -- output of multiplier
   signal mult_output : data;
