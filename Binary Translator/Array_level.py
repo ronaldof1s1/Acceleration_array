@@ -1,7 +1,7 @@
 
 class Array_level:
 
-    def __init__(self, cols, rows, multipliers, memory):
+    def __init__(self, rows, cols, multipliers, memory):
         self.alu_target = []
         self.alu_source = []
         self.alu_op = []
