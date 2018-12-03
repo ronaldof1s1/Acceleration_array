@@ -3,6 +3,7 @@ from Array_level import Array_level
 def translate_file(lines):
     bt = Binary_translator()
     bt.decode_assembly(lines)
+    bt.translate_levels()
 
 def read_file(path):
     file_obj = open(path, 'r')
@@ -151,4 +152,3 @@ class Binary_translator:
 
 
 
-      
