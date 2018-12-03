@@ -3,12 +3,14 @@ from Array_level import Array_level
 def translate_file(lines):
     bt = Binary_translator()
     bt.decode_assembly(lines)
-    bt.translate_levels()
+    bitstream = bt.translate_levels()
+    return bitstream
 
 def read_file(path):
     file_obj = open(path, 'r')
     lines = file_obj.readlines()
     translate_file(lines)
+
 
 class Binary_translator:
     def __init__(self):
@@ -141,14 +143,15 @@ class Binary_translator:
         
         bitstream += self.translate_alu_op()
 
+
+        bitstream += self.translate_output_alus()
+
+        bitstream += self.translate_output_alus()
+
         bitstream += self.translate_mult_sources()
 
-        bitstream += self.translate_output_alus()
 
-        bitstream += self.translate_output_alus()
-
-       #first lines
-       
+        return bitstream
 
 
 

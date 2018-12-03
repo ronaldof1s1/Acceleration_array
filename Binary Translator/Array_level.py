@@ -5,12 +5,12 @@ class Array_level:
         self.alu_target = []
         self.alu_source = []
         self.alu_op = []
-        for i in range(rows):
+        for row in range(rows):
             write_alu_line = []
             read_alu_line = []
             op_alu_line = []
             
-            for i in range(cols):
+            for col in range(cols):
                 write_alu_line.append("")
                 op_alu_line.append("")
                 read_alu_line.append(("",""))
@@ -22,7 +22,7 @@ class Array_level:
         self.mult_target = []
         self.mult_source =[]
         
-        for i in range(multipliers):
+        for mult in range(multipliers):
             self.mult_target.append("")
             self.mult_source.append(("", ""))
         
@@ -30,7 +30,7 @@ class Array_level:
         self.memory_op = []
         self.memory_addr = []
         
-        for i in range(memory):
+        for mem in range(memory):
             self.memory_target.append("")
             self.memory_op.append("")
             self.memory_addr.append("")
