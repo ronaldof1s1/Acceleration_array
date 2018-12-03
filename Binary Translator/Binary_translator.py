@@ -9,21 +9,21 @@ def translate_file(lines):
 def read_file(path):
     file_obj = open(path, 'r')
     lines = file_obj.readlines()
-    translate_file(lines)
-
+    bitstream = translate_file(lines)
+    return bitstream
 
 class Binary_translator:
     def __init__(self):
         self.register_quantity = 3
         self.rows = 3
-        self.cols = 2
+        self.cols = 3
         self.mults = 1
         self.mem = 1
         self.level = Array_level(self.rows, self.cols, self.mults, self.mem)
 
     
     def prepare_line(self, line):
-        words = line.split()
+        words = line.split(' ')
         operation = words[0].upper()
         
         if operation == 'MULT':
@@ -37,9 +37,28 @@ class Binary_translator:
         elif operation == 'SW':
             if self.level.set_memory(words):
                 return True
-        
+
+        elif operation == 'ADD':
+            if self.level.set_alus(words):
+                return True
+                
+        elif operation == 'SUB':
+            if self.level.set_alus(words):
+                return True
+                
+        elif operation == 'AND':
+            if self.level.set_alus(words):
+                return True
+                
+        elif operation == 'OR':
+            if self.level.set_alus(words):
+                return True
+
+        elif operation == 'XOR':
+            if self.level.set_alus(words):
+                return True
         else:
-            pass
+            raise Exception
 
     def decode_assembly(self, text):
         for line in text:
@@ -75,7 +94,9 @@ class Binary_translator:
             
             elif op_string == 'XOR':
                 return '100'
-            
+
+            elif op_string == 'NOT':
+                return '101'
             else:
                 raise Exception
 
@@ -93,26 +114,24 @@ class Binary_translator:
         
         for op_line in self.level.alu_op:
             for op in op_line:
-                bitstream += self.get_operation_code(op)
+                if op:
+                    bitstream += self.get_operation_code(op)
+                else:
+                    bitstream += '000'
 
-        return bitstream
-
-    def translate_mult_sources(self):
-        bitstream = ''
-        for (in1, in2) in self.level.mult_source:
-            bitstream += self.get_mux_selector(in1) + self.get_mux_selector(in2)
         return bitstream
 
     def translate_output_alus(self):
         bitstream = ''
-        registers = ["R" + i for i in range(self.register_quantity)]
-
+        registers = ["R" + str(i) for i in range(self.register_quantity)]
+        
+        print(self.level.alu_target)
         for row in range(self.rows):
             for reg in registers:
                 line = self.level.alu_target[row]
                 if reg in line:
                     col = line.index(reg)
-                    temp = 'R'+col
+                    temp = 'R'+str(col)
                     bitstream += self.get_mux_selector(temp)
                 else:
                     bitstream += '11'
@@ -121,7 +140,7 @@ class Binary_translator:
 
     def translate_final_muxes(self):
         bitstream = ''
-        registers = ["R" + i for i in range(self.register_quantity)]
+        registers = ["R" + str(i) for i in range(self.register_quantity)]
 
         for reg in registers:
             if self.level.register_in_mult(reg):
@@ -134,7 +153,31 @@ class Binary_translator:
                 bitstream += '10'
 
         return bitstream
+    
+    def translate_mult_sources(self):
+        bitstream = ''
+        for (in1, in2) in self.level.mult_source:
+            bitstream += self.get_mux_selector(in1) + self.get_mux_selector(in2)
+        return bitstream
 
+    def translate_memory_data(self):
+        bitstream = ''
+        for addr in self.level.memory_addr:
+            if addr:
+                bitstream += addr
+            else:
+                bitstream += '00000000'
+        
+        for write in self.level.memory_op:
+            if write == 'LW':
+                bitstream += '0'
+            else:
+                bitstream += '1'
+        
+        for in1 in self.level.memory_target:
+            bitstream += self.get_mux_selector(in1)
+
+        return bitstream
 
     def translate_levels(self):
         bitstream = ''
@@ -143,15 +186,16 @@ class Binary_translator:
         
         bitstream += self.translate_alu_op()
 
-
         bitstream += self.translate_output_alus()
 
-        bitstream += self.translate_output_alus()
+        bitstream += self.translate_final_muxes()
 
         bitstream += self.translate_mult_sources()
 
+        bitstream += self.translate_memory_data()
 
         return bitstream
 
 
-
+bitstream = read_file('testes/teste_inicial.txt')
+print(bitstream+'0')
