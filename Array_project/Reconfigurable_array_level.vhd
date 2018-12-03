@@ -140,9 +140,13 @@ architecture Reconfigurable_Array_level of Reconfigurable_Array_level is
   signal line_3_mux_sel_1 : selector2 := bitstream(27 downto 26);
   signal line_3_mux_sel_2 : selector2 := bitstream(25 downto 24);
   signal line_3_mux_sel_3 : selector2 := bitstream(23 downto 22);
-  signal line_3_4mux_sel_1 : selector2 := bitstream(21 downto 20);
-  signal line_3_4mux_sel_2 : selector2 := bitstream(19 downto 18);
-  signal line_3_4mux_sel_3 : selector2 := bitstream(17 downto 16);
+
+
+  signal final_mux_sel_1 : selector2 := bitstream(21 downto 20);
+  signal final_mux_sel_2 : selector2 := bitstream(19 downto 18);
+  signal final_mux_sel_3 : selector2 := bitstream(17 downto 16);
+
+
   signal output_mux_1 : data;
   signal output_mux_2  : data;
   signal output_mux_3  : data;
@@ -157,8 +161,8 @@ architecture Reconfigurable_Array_level of Reconfigurable_Array_level is
   
 
   --Multiplier input muxes
-  signal sel_mux_mult_A : selector2 := bitstream(14 downto 13);
-  signal sel_mux_mult_B : selector2 := bitstream(12 downto 11);
+  signal sel_mux_mult_A : selector2 := bitstream(15 downto 14);
+  signal sel_mux_mult_B : selector2 := bitstream(13 downto 12);
   
   signal mult_in_A : data;
   signal mult_in_B : data;
@@ -167,11 +171,11 @@ architecture Reconfigurable_Array_level of Reconfigurable_Array_level is
   signal mult_output : data;
 
   -------------------MEMORY UNIT DATA---------------------------
-  signal address :  data := bitstream(10 downto 3);
-  signal write_enabled :  std_logic := bitstream(2);
+  signal address :  data := bitstream(11 downto 4);
+  signal write_enabled :  std_logic := bitstream(3);
   signal memory_out : data;
 
-  signal sel_mux_memory :  selector2 := bitstream(1 downto 0);
+  signal sel_mux_memory :  selector2 := bitstream(2 downto 1);
   signal memory_mux_out :  data;
 
   --------------------REGISTER BANK--------------------------
@@ -364,54 +368,56 @@ begin
               output_3 => output_3_3 );
 
   --instantiate third line multiplexer
-  mult_ALU_mux_1: Multiplexer_4
-    Port Map (A => mult_output,
-              B => memory_out,
-              C => Register_1_input_3,
-              D => "00000000",
-              sel => line_3_mux_sel_1,
-              result => output_mux_1
-            );
-  mult_ALU_mux_2: Multiplexer_4
-      Port Map (A => mult_output,
-                B => memory_out,
-                C => Register_2_input_3,
-                D => "00000000",
-                sel => line_3_mux_sel_2,
-                result => output_mux_2
-                );
-  mult_ALU_mux_3: Multiplexer_4
-      Port Map (A => mult_output,
-                B => memory_out,
-                C => Register_3_input_3,
-                D => "00000000",
-                sel => line_3_mux_sel_3,
-                result => output_mux_3
-              );
-
-
+  
   line_3_mux_1: Multiplexer_4
     Port Map (A => output_3_1,
               B => output_3_2,
               C => output_3_3,
-              D => output_mux_1,
-              sel => line_3_4mux_sel_1,
-              result => Register_final_input_1);
+              D => Register_1_input_3,
+              sel => line_3_mux_sel_1,
+              result => output_mux_1);
   line_3_mux_2: Multiplexer_4
     Port Map (A => output_3_1,
               B => output_3_2,
               C => output_3_3,
-              D => output_mux_2,
-              sel => line_3_4mux_sel_2,
-              result => Register_final_input_2);
+              D => Register_2_input_3,
+              sel => line_3_mux_sel_2,
+              result => output_mux_2);
   line_3_mux_3: Multiplexer_4
     Port Map (A => output_3_1,
               B => output_3_2,
               C => output_3_3,
-              D => output_mux_3,
-              sel => line_3_4mux_sel_3,
-              result => Register_final_input_3);
+              D => Register_3_input_3,
+              sel => line_3_mux_sel_3,
+              result => output_mux_3);
 
+  mult_ALU_mux_1: Multiplexer_4
+    Port Map (A => mult_output,
+              B => memory_out,
+              C => output_mux_1,
+              D => Register_1_input_3,
+              sel => final_mux_sel_1,
+              result => Register_final_input_1
+            );
+  mult_ALU_mux_2: Multiplexer_4
+      Port Map (A => mult_output,
+                B => memory_out,
+                C => output_mux_2,
+                D => Register_2_input_3,
+                sel => final_mux_sel_2,
+                result => Register_final_input_2
+                );
+  mult_ALU_mux_3: Multiplexer_4
+      Port Map (A => mult_output,
+                B => memory_out,
+                C => output_mux_3,
+                D => Register_3_input_3,
+                sel => final_mux_sel_3,
+                result => Register_final_input_3
+              );
+
+
+  
 --------------------REGISTER BANK--------------------------
 
   BANK : Register_Bank
