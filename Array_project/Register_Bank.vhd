@@ -21,7 +21,7 @@ architecture bank of Register_Bank is
   
   Component Generic_Register
     Port (
-      input	: in data
+      input	: in data;
   		clk	: in std_logic;
   		store	: in std_logic;
   		clr	: in std_logic;
@@ -184,7 +184,7 @@ architecture bank of Register_Bank is
       );
       Reg19 : Generic_Register
       Port map(
-        input => in19
+        input => in19,
         clk => clk,
         store => '1',
         clr => '0',
