@@ -5,27 +5,20 @@ use ieee.std_logic_unsigned.ALL;
 
 entity ALU is
   port(
-    A : in  std_logic_vector(7 downto 0);
-    B : in  std_logic_vector(7 downto 0);
-    control : in  std_logic_vector(2 downto 0);
-    result  : out std_logic_vector(7 downto 0)
+    A : in  std_logic_vector(31 downto 0);
+    B : in  std_logic_vector(31 downto 0);
+    operation : in  std_logic_vector(2 downto 0);
+    result  : out std_logic_vector(31 downto 0)
   );
 end ALU;
 
 architecture ALU of ALU is
-
-  signal result_sum : std_logic_vector(8 downto 0);
-  signal carry : std_logic;
-
 begin
-  process(A, B, control)
+  process(A, B, operation)
   begin
-    case control is
+    case operation is
 
       when "000" =>
-        -- result_sum <= ('0' & A) + ('0' & B);
-        -- result <= result_sum(7 downto 0); -- sum
-        -- carry <= result_sum(8);
         result <= A + B;
 
       when "001" =>

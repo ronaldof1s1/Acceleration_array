@@ -3,101 +3,287 @@ use ieee.std_logic_1164.ALL;
 
 entity ALUs_line is
   port(
-  input_1, input_2, input_3 : in std_logic_vector(7 downto 0);
-  sel_mux_1_A, sel_mux_1_B : in std_logic_vector(1 downto 0);
-  sel_mux_2_A, sel_mux_2_B : in std_logic_vector(1 downto 0);
-  sel_mux_3_A, sel_mux_3_B : in std_logic_vector(1 downto 0);
-  op_1, op_2, op_3 : in std_logic_vector(2 downto 0);
-  output_1, output_2, output_3 : out std_logic_vector (7 downto 0)
+  in0, in1, in2, in3, in4, in5, in6, in7, 
+  in8, in9, in10, in11, in12, in13, in14, in15, 
+  in16, in17, in18, in19, in20, in21, in22, in23, 
+  in24, in25, in26, in27, in28, in29, in30, in31 : in std_logic_vector(31 downto 0);
+  sel_bitstream : in std_logic_vector(29 downto 0);
+  operation_bitstream : in std_logic_vector(8 downto 0);
+  output_1, output_2, output_3 : out std_logic_vector (31 downto 0)
   );
 end entity;
 
 architecture ALine of ALUs_line is
+  subtype data is std_logic_vector(31 downto 0);
+  subtype selector5 is std_logic_vector(4 downto 0);
+  subtype operation is std_logic_vector(2 downto 0);
 
   Component ALU
     port(
-      A : in  std_logic_vector(7 downto 0);
-      B : in  std_logic_vector(7 downto 0);
-      control : in  std_logic_vector(2 downto 0);
-      result  : out std_logic_vector(7 downto 0)
+      A : in  data;
+      B : in  data;
+      operation : in  operation;
+      result  : out data
     );
   end Component;
 
-  Component Multiplexer_4
+  Component Multiplexer_32
     port(
-      A,B,C,D	: in std_logic_vector (7 downto 0);
-      sel	: in std_logic_vector(1 downto 0);
-      result	: out std_logic_vector (7 downto 0)
+      in0, in1, in2, in3, in4, in5, in6, in7, 
+      in8, in9, in10, in11, in12, in13, in14, in15, 
+      in16, in17, in18, in19, in20, in21, in22, in23, 
+      in24, in25, in26, in27, in28, in29, in30, in31	: in data;
+      sel	: selector5;
+      result	: out data
     );
   end component;
 
-  signal input_1_A : std_logic_vector (7 downto 0);
-  signal input_1_B : std_logic_vector (7 downto 0);
-  signal input_2_A : std_logic_vector (7 downto 0);
-  signal input_2_B : std_logic_vector (7 downto 0);
-  signal input_3_A : std_logic_vector (7 downto 0);
-  signal input_3_B : std_logic_vector (7 downto 0);
+  signal sel_1_A : selector5 := sel_bitstream(29 downto 25);
+  signal sel_1_B : selector5 := sel_bitstream(24 downto 20);
+  signal sel_2_A : selector5 := sel_bitstream(19 downto 15);
+  signal sel_2_B : selector5 := sel_bitstream(14 downto 10);
+  signal sel_3_A : selector5 := sel_bitstream(9 downto 5);
+  signal sel_3_B : selector5 := sel_bitstream(4 downto 0);
+
+  signal op_1 : operation := operation_bitstream(8 downto 6);
+  signal op_2 : operation := operation_bitstream(5 downto 3);
+  signal op_3 : operation := operation_bitstream(2 downto 0);
+  
+  signal input_1_A : data;
+  signal input_1_B : data;
+  signal input_2_A : data;
+  signal input_2_B : data;
+  signal input_3_A : data;
+  signal input_3_B : data;
 
 begin
-  Mux_1_A : Multiplexer_4
-    port map (A => input_1,
-              B => input_2,
-              c => input_3,
-              D => "00000000",
+Mux_1_A : Multiplexer_32
+    port map (in0 => in0,
+              in1 => in1,
+              in2 => in2,
+              in3 => in3,
+              in4 => in4,
+              in5 => in5,
+              in6 => in6,
+              in7 => in7,
+              in8 => in8,
+              in9 => in9,
+              in10 => in10,
+              in11 => in11,
+              in12 => in12,
+              in13 => in13,
+              in14 => in14,
+              in15 => in15,
+              in16 => in16,
+              in17 => in17,
+              in18 => in18,
+              in19 => in19,
+              in20 => in20,
+              in21 => in21,
+              in22 => in22,
+              in23 => in23,
+              in24 => in24,
+              in25 => in25,
+              in26 => in26,
+              in27 => in27,
+              in28 => in28,
+              in29 => in29,
+              in30 => in30,
+              in31 => in31,
               sel => sel_mux_1_A,
               result => input_1_A);
-  Mux_1_B : Multiplexer_4
-    port map (A => input_1,
-              B => input_2,
-              c => input_3,
-              D => "00000000",
+Mux_1_B : Multiplexer_32
+    port map (in0 => in0,
+              in1 => in1,
+              in2 => in2,
+              in3 => in3,
+              in4 => in4,
+              in5 => in5,
+              in6 => in6,
+              in7 => in7,
+              in8 => in8,
+              in9 => in9,
+              in10 => in10,
+              in11 => in11,
+              in12 => in12,
+              in13 => in13,
+              in14 => in14,
+              in15 => in15,
+              in16 => in16,
+              in17 => in17,
+              in18 => in18,
+              in19 => in19,
+              in20 => in20,
+              in21 => in21,
+              in22 => in22,
+              in23 => in23,
+              in24 => in24,
+              in25 => in25,
+              in26 => in26,
+              in27 => in27,
+              in28 => in28,
+              in29 => in29,
+              in30 => in30,
+              in31 => in31,
               sel => sel_mux_1_B,
               result => input_1_B);
-  Mux_2_A : Multiplexer_4
-    port map (A => input_1,
-              B => input_2,
-              c => input_3,
-              D => "00000000",
+Mux_2_A : Multiplexer_32
+    port map (in0 => in0,
+              in1 => in1,
+              in2 => in2,
+              in3 => in3,
+              in4 => in4,
+              in5 => in5,
+              in6 => in6,
+              in7 => in7,
+              in8 => in8,
+              in9 => in9,
+              in10 => in10,
+              in11 => in11,
+              in12 => in12,
+              in13 => in13,
+              in14 => in14,
+              in15 => in15,
+              in16 => in16,
+              in17 => in17,
+              in18 => in18,
+              in19 => in19,
+              in20 => in20,
+              in21 => in21,
+              in22 => in22,
+              in23 => in23,
+              in24 => in24,
+              in25 => in25,
+              in26 => in26,
+              in27 => in27,
+              in28 => in28,
+              in29 => in29,
+              in30 => in30,
+              in31 => in31,
               sel => sel_mux_2_A,
               result => input_2_A);
-  Mux_2_B : Multiplexer_4
-    port map (A => input_1,
-              B => input_2,
-              c => input_3,
-              D => "00000000",
+Mux_2_B : Multiplexer_32
+    port map (in0 => in0,
+              in1 => in1,
+              in2 => in2,
+              in3 => in3,
+              in4 => in4,
+              in5 => in5,
+              in6 => in6,
+              in7 => in7,
+              in8 => in8,
+              in9 => in9,
+              in10 => in10,
+              in11 => in11,
+              in12 => in12,
+              in13 => in13,
+              in14 => in14,
+              in15 => in15,
+              in16 => in16,
+              in17 => in17,
+              in18 => in18,
+              in19 => in19,
+              in20 => in20,
+              in21 => in21,
+              in22 => in22,
+              in23 => in23,
+              in24 => in24,
+              in25 => in25,
+              in26 => in26,
+              in27 => in27,
+              in28 => in28,
+              in29 => in29,
+              in30 => in30,
+              in31 => in31,
               sel => sel_mux_2_B,
               result => input_2_B);
-  Mux_3_A : Multiplexer_4
-    port map (A => input_1,
-              B => input_2,
-              c => input_3,
-              D => "00000000",
+Mux_3_A : Multiplexer_32
+    port map (in0 => in0,
+              in1 => in1,
+              in2 => in2,
+              in3 => in3,
+              in4 => in4,
+              in5 => in5,
+              in6 => in6,
+              in7 => in7,
+              in8 => in8,
+              in9 => in9,
+              in10 => in10,
+              in11 => in11,
+              in12 => in12,
+              in13 => in13,
+              in14 => in14,
+              in15 => in15,
+              in16 => in16,
+              in17 => in17,
+              in18 => in18,
+              in19 => in19,
+              in20 => in20,
+              in21 => in21,
+              in22 => in22,
+              in23 => in23,
+              in24 => in24,
+              in25 => in25,
+              in26 => in26,
+              in27 => in27,
+              in28 => in28,
+              in29 => in29,
+              in30 => in30,
+              in31 => in31,
               sel => sel_mux_3_A,
               result => input_3_A);
-  Mux_3_B : Multiplexer_4
-    port map (A => input_1,
-              B => input_2,
-              c => input_3,
-              D => "00000000",
+Mux_3_B : Multiplexer_32
+    port map (in0 => in0,
+              in1 => in1,
+              in2 => in2,
+              in3 => in3,
+              in4 => in4,
+              in5 => in5,
+              in6 => in6,
+              in7 => in7,
+              in8 => in8,
+              in9 => in9,
+              in10 => in10,
+              in11 => in11,
+              in12 => in12,
+              in13 => in13,
+              in14 => in14,
+              in15 => in15,
+              in16 => in16,
+              in17 => in17,
+              in18 => in18,
+              in19 => in19,
+              in20 => in20,
+              in21 => in21,
+              in22 => in22,
+              in23 => in23,
+              in24 => in24,
+              in25 => in25,
+              in26 => in26,
+              in27 => in27,
+              in28 => in28,
+              in29 => in29,
+              in30 => in30,
+              in31 => in31,
               sel => sel_mux_3_B,
               result => input_3_B);
 
-  ALU_1 : ALU
-    port map (A => input_1_A,
-              B => input_1_B,
-              control => op_1,
-              result => output_1    );
-  ALU_2 : ALU
-    port map (A => input_2_A,
-              B => input_2_B,
-              control => op_2,
-              result => output_2
-    );
-  ALU_3 : ALU
-    port map (A => input_3_A,
-              B => input_3_B,
-              control => op_3,
-              result => output_3
-    );
+ALU_1 : ALU
+  port map (A => input_1_A,
+            B => input_1_B,
+            control => op_1,
+            result => output_1    );
+ALU_2 : ALU
+  port map (A => input_2_A,
+            B => input_2_B,
+            control => op_2,
+            result => output_2
+  );
+ALU_3 : ALU
+  port map (A => input_3_A,
+            B => input_3_B,
+            control => op_3,
+            result => output_3
+  );
 
 end architecture;
