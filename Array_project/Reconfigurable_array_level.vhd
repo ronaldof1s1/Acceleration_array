@@ -5,35 +5,44 @@ entity Reconfigurable_Array_level is
   port (
     bitstream : in std_logic_vector(102 downto 0);
     clk : in std_logic;
-    result_1 : out std_logic_vector(7 downto 0);
-    result_2 : out std_logic_vector(7 downto 0);
-    result_3 : out std_logic_vector(7 downto 0)
+    out0, out1, out2, out3, out4, out5, out6, out7, 
+    out8, out9, out10, out11, out12, out13, out14, out15, 
+    out16, out17, out18, out19, out20, out21, out22, out23, 
+    out24, out25, out26, out27, out28, out29, out30, out31 : out std_logic_vector(31 downto 0)
   );
 end Reconfigurable_Array_level;
 
 architecture Reconfigurable_Array_level of Reconfigurable_Array_level is
 
-  subtype data is std_logic_vector(7 downto 0);
+  subtype data is std_logic_vector(31 downto 0);
   subtype operation is std_logic_vector(2 downto 0);
   subtype selector2 is std_logic_vector(1 downto 0);
+  subtype selector5 is std_logic_vector(4 downto 0);
+  subtype sel_stream is std_logic_vector(29 downto 0);
+  subtype op_stream is std_logic_vector(8 downto 0);
 
   Component Register_Bank
     port(
-  		input_1, input_2, input_3 : in data;
+  		in0, in1, in2, in3, in4, in5, in6, in7, 
+      in8, in9, in10, in11, in12, in13, in14, in15, 
+      in16, in17, in18, in19, in20, in21, in22, in23, 
+      in24, in25, in26, in27, in28, in29, in30, in31 : data;
       clk: in std_logic;
-      store_1, store_2, store_3: in std_logic;
-      clr_1, clr_2, clr_3 : in std_logic;
-      output_1, output_2, output_3 : out data
+      out0, out1, out2, out3, out4, out5, out6, out7, 
+      out8, out9, out10, out11, out12, out13, out14, out15, 
+      out16, out17, out18, out19, out20, out21, out22, out23, 
+      out24, out25, out26, out27, out28, out29, out30, out31 : out data
   	);
   end Component;
 
   Component ALUs_line
     port(
-    input_1, input_2, input_3 : in data;
-    sel_mux_1_A, sel_mux_1_B : in selector2;
-    sel_mux_2_A, sel_mux_2_B : in selector2;
-    sel_mux_3_A, sel_mux_3_B : in selector2;
-    op_1, op_2, op_3 : in operation;
+    in0, in1, in2, in3, in4, in5, in6, in7, 
+    in8, in9, in10, in11, in12, in13, in14, in15, 
+    in16, in17, in18, in19, in20, in21, in22, in23, 
+    in24, in25, in26, in27, in28, in29, in30, in31 : in data;
+    sel_bitstream : in sel_stream;
+    operation_bitstream : in op_stream;
     output_1, output_2, output_3 : out data
     );
   end component;
@@ -53,6 +62,17 @@ architecture Reconfigurable_Array_level of Reconfigurable_Array_level is
   	);
   end Component;
 
+  Component Multiplexer_32
+    port(
+          in0, in1, in2, in3, in4, in5, in6, in7, 
+          in8, in9, in10, in11, in12, in13, in14, in15, 
+          in16, in17, in18, in19, in20, in21, in22, in23, 
+          in24, in25, in26, in27, in28, in29, in30, in31	: in data;
+      sel	: in selector5;
+      result	: out data
+    );
+  end Component;
+  
   Component Multiplexer is
     port(
   		A,B	: in data;
@@ -72,42 +92,15 @@ architecture Reconfigurable_Array_level of Reconfigurable_Array_level is
   end Component;
   
  -- input muxes for the ALUs
-  signal sel_mux_1_1_A : selector2 := bitstream(102 downto 101);
-  signal sel_mux_1_1_B : selector2 := bitstream(100 downto 99);
-  signal sel_mux_1_2_A : selector2 := bitstream(98 downto 97);
-  signal sel_mux_1_2_B : selector2 := bitstream(96 downto 95);
-  signal sel_mux_1_3_A : selector2 := bitstream(94 downto 93);
-  signal sel_mux_1_3_B : selector2 := bitstream(92 downto 91);
-
-  signal sel_mux_2_1_A : selector2 := bitstream(90 downto 89);
-  signal sel_mux_2_1_B : selector2 := bitstream(88 downto 87);
-  signal sel_mux_2_2_A : selector2 := bitstream(86 downto 85);
-  signal sel_mux_2_2_B : selector2 := bitstream(84 downto 83);
-  signal sel_mux_2_3_A : selector2 := bitstream(82 downto 81);
-  signal sel_mux_2_3_B : selector2 := bitstream(80 downto 79);
-
-  signal sel_mux_3_1_A : selector2 := bitstream(78 downto 77);
-  signal sel_mux_3_1_B : selector2 := bitstream(76 downto 75);
-  signal sel_mux_3_2_A : selector2 := bitstream(74 downto 73);
-  signal sel_mux_3_2_B : selector2 := bitstream(72 downto 71);
-  signal sel_mux_3_3_A : selector2 := bitstream(70 downto 69);
-  signal sel_mux_3_3_B : selector2 := bitstream(68 downto 67);
-
+  signal sel_stream_1 : sel_stream := bitstream(29 downto 0);
+  signal sel_stream_2 : sel_stream := bitstream(59 downto 30);
+  signal sel_stream_3 : sel_stream := bitstream(89 downto 60);
 
   --operations
 
-  signal op_1_1: operation := bitstream(66 downto 64);
-  signal op_1_2: operation := bitstream(63 downto 61);
-  signal op_1_3: operation := bitstream(60 downto 58);
-
-  signal op_2_1: operation := bitstream(57 downto 55);
-  signal op_2_2: operation := bitstream(54 downto 52);
-  signal op_2_3: operation := bitstream(51 downto 49);  
-
-  signal op_3_1: operation := bitstream(48 downto 46);
-  signal op_3_2: operation := bitstream(45 downto 43);
-  signal op_3_3: operation := bitstream(42 downto 40);
-
+  signal op_stream_1 : op_stream := bitstream(98 downto 90);
+  signal op_stream_2 : op_stream := bitstream(107 downto 99);
+  signal op_stream_3 : op_stream := bitstream(116 downto 108);
   
   -- first line output mux signals
   signal line_1_mux_sel_1 : selector2 := bitstream(39 downto 38);
@@ -118,7 +111,6 @@ architecture Reconfigurable_Array_level of Reconfigurable_Array_level is
   signal output_1_1 : data;
   signal output_1_2 : data;
   signal output_1_3 : data;
-
 
   --first line of operations
 
@@ -161,8 +153,8 @@ architecture Reconfigurable_Array_level of Reconfigurable_Array_level is
   
 
   --Multiplier input muxes
-  signal sel_mux_mult_A : selector2 := bitstream(15 downto 14);
-  signal sel_mux_mult_B : selector2 := bitstream(13 downto 12);
+  signal sel_mult_A : selector5 := bitstream(15 downto 14);
+  signal sel_mult_B : selector5 := bitstream(13 downto 12);
   
   signal mult_in_A : data;
   signal mult_in_B : data;
@@ -175,62 +167,249 @@ architecture Reconfigurable_Array_level of Reconfigurable_Array_level is
   signal write_enabled :  std_logic := bitstream(3);
   signal memory_out : data;
 
-  signal sel_mux_memory :  selector2 := bitstream(2 downto 1);
+  signal sel_memory :  selector5 := bitstream(2 downto 1);
   signal memory_mux_out :  data;
 
   --------------------REGISTER BANK--------------------------
 
   --inputs of registers
-  signal Register_1_input_1: data := "00000001";
-  signal Register_2_input_1: data := "00000001";
-  signal Register_3_input_1: data := "00000001";
-  signal Register_1_input_2: data := "00000001";
-  signal Register_2_input_2: data := "00000001";
-  signal Register_3_input_2: data := "00000001";
-  signal Register_1_input_3: data := "00000001";
-  signal Register_2_input_3: data := "00000001";
-  signal Register_3_input_3: data := "00000001";
+signal Register_0_input_1 : data := "00000000000000000000000000000001";
+signal Register_1_input_1 : data := "00000000000000000000000000000001";
+signal Register_2_input_1 : data := "00000000000000000000000000000001";
+signal Register_3_input_1 : data := "00000000000000000000000000000001";
+signal Register_4_input_1 : data := "00000000000000000000000000000001";
+signal Register_5_input_1 : data := "00000000000000000000000000000001";
+signal Register_6_input_1 : data := "00000000000000000000000000000001";
+signal Register_7_input_1 : data := "00000000000000000000000000000001";
+signal Register_8_input_1 : data := "00000000000000000000000000000001";
+signal Register_9_input_1 : data := "00000000000000000000000000000001";
+signal Register_10_input_1 : data := "00000000000000000000000000000001";
+signal Register_11_input_1 : data := "00000000000000000000000000000001";
+signal Register_12_input_1 : data := "00000000000000000000000000000001";
+signal Register_13_input_1 : data := "00000000000000000000000000000001";
+signal Register_14_input_1 : data := "00000000000000000000000000000001";
+signal Register_15_input_1 : data := "00000000000000000000000000000001";
+signal Register_16_input_1 : data := "00000000000000000000000000000001";
+signal Register_17_input_1 : data := "00000000000000000000000000000001";
+signal Register_18_input_1 : data := "00000000000000000000000000000001";
+signal Register_19_input_1 : data := "00000000000000000000000000000001";
+signal Register_20_input_1 : data := "00000000000000000000000000000001";
+signal Register_21_input_1 : data := "00000000000000000000000000000001";
+signal Register_22_input_1 : data := "00000000000000000000000000000001";
+signal Register_23_input_1 : data := "00000000000000000000000000000001";
+signal Register_24_input_1 : data := "00000000000000000000000000000001";
+signal Register_25_input_1 : data := "00000000000000000000000000000001";
+signal Register_26_input_1 : data := "00000000000000000000000000000001";
+signal Register_27_input_1 : data := "00000000000000000000000000000001";
+signal Register_28_input_1 : data := "00000000000000000000000000000001";
+signal Register_29_input_1 : data := "00000000000000000000000000000001";
+signal Register_30_input_1 : data := "00000000000000000000000000000001";
+signal Register_31_input_1 : data := "00000000000000000000000000000001";
 
+signal Register_0_input_2 : data;
+signal Register_1_input_2 : data;
+signal Register_2_input_2 : data;
+signal Register_3_input_2 : data;
+signal Register_4_input_2 : data;
+signal Register_5_input_2 : data;
+signal Register_6_input_2 : data;
+signal Register_7_input_2 : data;
+signal Register_8_input_2 : data;
+signal Register_9_input_2 : data;
+signal Register_10_input_2 : data;
+signal Register_11_input_2 : data;
+signal Register_12_input_2 : data;
+signal Register_13_input_2 : data;
+signal Register_14_input_2 : data;
+signal Register_15_input_2 : data;
+signal Register_16_input_2 : data;
+signal Register_17_input_2 : data;
+signal Register_18_input_2 : data;
+signal Register_19_input_2 : data;
+signal Register_20_input_2 : data;
+signal Register_21_input_2 : data;
+signal Register_22_input_2 : data;
+signal Register_23_input_2 : data;
+signal Register_24_input_2 : data;
+signal Register_25_input_2 : data;
+signal Register_26_input_2 : data;
+signal Register_27_input_2 : data;
+signal Register_28_input_2 : data;
+signal Register_29_input_2 : data;
+signal Register_30_input_2 : data;
+signal Register_31_input_2 : data;
 
-  signal Register_final_input_1: data := "00000001";
-  signal Register_final_input_2: data := "00000001";
-  signal Register_final_input_3: data := "00000001";
-  --OUTPUTS of registers
-  signal Register_1_output: data;
-  signal Register_2_output: data;
-  signal Register_3_output: data;
+signal Register_0_input_3 : data;
+signal Register_1_input_3 : data;
+signal Register_2_input_3 : data;
+signal Register_3_input_3 : data;
+signal Register_4_input_3 : data;
+signal Register_5_input_3 : data;
+signal Register_6_input_3 : data;
+signal Register_7_input_3 : data;
+signal Register_8_input_3 : data;
+signal Register_9_input_3 : data;
+signal Register_10_input_3 : data;
+signal Register_11_input_3 : data;
+signal Register_12_input_3 : data;
+signal Register_13_input_3 : data;
+signal Register_14_input_3 : data;
+signal Register_15_input_3 : data;
+signal Register_16_input_3 : data;
+signal Register_17_input_3 : data;
+signal Register_18_input_3 : data;
+signal Register_19_input_3 : data;
+signal Register_20_input_3 : data;
+signal Register_21_input_3 : data;
+signal Register_22_input_3 : data;
+signal Register_23_input_3 : data;
+signal Register_24_input_3 : data;
+signal Register_25_input_3 : data;
+signal Register_26_input_3 : data;
+signal Register_27_input_3 : data;
+signal Register_28_input_3 : data;
+signal Register_29_input_3 : data;
+signal Register_30_input_3 : data;
+signal Register_31_input_3 : data;
 
-  --store signals of registers
-  signal Register_1_store : std_logic := '1';
-  signal Register_2_store : std_logic := '1';
-  signal Register_3_store : std_logic := '1';
-
-  -- clear signals of registers
-  signal Register_1_clr : std_logic := '0';
-  signal Register_2_clr : std_logic := '0';
-  signal Register_3_clr : std_logic := '0';
-
+signal Register_final_input_0 : data;
+signal Register_final_input_1 : data;
+signal Register_final_input_2 : data;
+signal Register_final_input_3 : data;
+signal Register_final_input_4 : data;
+signal Register_final_input_5 : data;
+signal Register_final_input_6 : data;
+signal Register_final_input_7 : data;
+signal Register_final_input_8 : data;
+signal Register_final_input_9 : data;
+signal Register_final_input_10 : data;
+signal Register_final_input_11 : data;
+signal Register_final_input_12 : data;
+signal Register_final_input_13 : data;
+signal Register_final_input_14 : data;
+signal Register_final_input_15 : data;
+signal Register_final_input_16 : data;
+signal Register_final_input_17 : data;
+signal Register_final_input_18 : data;
+signal Register_final_input_19 : data;
+signal Register_final_input_20 : data;
+signal Register_final_input_21 : data;
+signal Register_final_input_22 : data;
+signal Register_final_input_23 : data;
+signal Register_final_input_24 : data;
+signal Register_final_input_25 : data;
+signal Register_final_input_26 : data;
+signal Register_final_input_27 : data;
+signal Register_final_input_28 : data;
+signal Register_final_input_29 : data;
+signal Register_final_input_30 : data;
+signal Register_final_input_31 : data;
+  
+  --OUTPUTS of registerssignal Register_0_output : data;
+signal Register_1_output : data;
+signal Register_2_output : data;
+signal Register_3_output : data;
+signal Register_4_output : data;
+signal Register_5_output : data;
+signal Register_6_output : data;
+signal Register_7_output : data;
+signal Register_8_output : data;
+signal Register_9_output : data;
+signal Register_10_output : data;
+signal Register_11_output : data;
+signal Register_12_output : data;
+signal Register_13_output : data;
+signal Register_14_output : data;
+signal Register_15_output : data;
+signal Register_16_output : data;
+signal Register_17_output : data;
+signal Register_18_output : data;
+signal Register_19_output : data;
+signal Register_20_output : data;
+signal Register_21_output : data;
+signal Register_22_output : data;
+signal Register_23_output : data;
+signal Register_24_output : data;
+signal Register_25_output : data;
+signal Register_26_output : data;
+signal Register_27_output : data;
+signal Register_28_output : data;
+signal Register_29_output : data;
+signal Register_30_output : data;
+signal Register_31_output : data;
 begin
   --instantiate multiplier
-  Mult_mux_A : Multiplexer_4
-    Port Map (A => Register_1_input_1,
-              B => Register_2_input_1,
-              C => Register_3_input_1,
-              D => "00000000",
-              sel => sel_mux_mult_A,
-              -- sel => "01",
-              result => mult_in_A
-              );
+  Mult_mux_A : Multiplexer_32
+  port map (in0 => Register_0_input_1,
+            in1 => Register_1_input_1,
+            in2 => Register_2_input_1,
+            in3 => Register_3_input_1,
+            in4 => Register_4_input_1,
+            in5 => Register_5_input_1,
+            in6 => Register_6_input_1,
+            in7 => Register_7_input_1,
+            in8 => Register_8_input_1,
+            in9 => Register_9_input_1,
+            in10 => Register_10_input_1,
+            in11 => Register_11_input_1,
+            in12 => Register_12_input_1,
+            in13 => Register_13_input_1,
+            in14 => Register_14_input_1,
+            in15 => Register_15_input_1,
+            in16 => Register_16_input_1,
+            in17 => Register_17_input_1,
+            in18 => Register_18_input_1,
+            in19 => Register_19_input_1,
+            in20 => Register_20_input_1,
+            in21 => Register_21_input_1,
+            in22 => Register_22_input_1,
+            in23 => Register_23_input_1,
+            in24 => Register_24_input_1,
+            in25 => Register_25_input_1,
+            in26 => Register_26_input_1,
+            in27 => Register_27_input_1,
+            in28 => Register_28_input_1,
+            in29 => Register_29_input_1,
+            in30 => Register_30_input_1,
+            in31 => Register_31_input_1,
+            sel => sel_mult_A,
+            result => mult_in_A);
 
-  Mult_mux_B : Multiplexer_4
-    Port Map (A => Register_1_input_1,
-              B => Register_2_input_1,
-              C => Register_3_input_1,
-              D => "00000000",
-              sel => sel_mux_mult_B,
-              -- sel => "01",
-              result => mult_in_B
-              );
+  Mult_mux_B : Multiplexer_32
+  port map (in0 => Register_0_input_1,
+            in1 => Register_1_input_1,
+            in2 => Register_2_input_1,
+            in3 => Register_3_input_1,
+            in4 => Register_4_input_1,
+            in5 => Register_5_input_1,
+            in6 => Register_6_input_1,
+            in7 => Register_7_input_1,
+            in8 => Register_8_input_1,
+            in9 => Register_9_input_1,
+            in10 => Register_10_input_1,
+            in11 => Register_11_input_1,
+            in12 => Register_12_input_1,
+            in13 => Register_13_input_1,
+            in14 => Register_14_input_1,
+            in15 => Register_15_input_1,
+            in16 => Register_16_input_1,
+            in17 => Register_17_input_1,
+            in18 => Register_18_input_1,
+            in19 => Register_19_input_1,
+            in20 => Register_20_input_1,
+            in21 => Register_21_input_1,
+            in22 => Register_22_input_1,
+            in23 => Register_23_input_1,
+            in24 => Register_24_input_1,
+            in25 => Register_25_input_1,
+            in26 => Register_26_input_1,
+            in27 => Register_27_input_1,
+            in28 => Register_28_input_1,
+            in29 => Register_29_input_1,
+            in30 => Register_30_input_1,
+            in31 => Register_31_input_1,
+            sel => sel_mult_B,
+            result => mult_in_B);
 
   Mult : Multiplier
     Port Map (A => mult_in_A,
@@ -244,8 +423,8 @@ begin
     Port Map (A => Register_1_input_1,
               B => Register_2_input_1,
               C => Register_3_input_1,
-              D => "00000000",
-              sel => sel_mux_memory,
+              D => "00000000000000000000000000000000",
+              sel => sel_memory,
               result => memory_mux_out
               );
   RAM : ram_access
@@ -264,12 +443,12 @@ begin
     Port Map (input_1 => Register_1_input_1,
               input_2 => Register_2_input_1,
               input_3 => Register_3_input_1,
-              sel_mux_1_A => sel_mux_1_1_A,
-              sel_mux_1_B => sel_mux_1_1_B,
-              sel_mux_2_A => sel_mux_1_2_A,
-              sel_mux_2_B => sel_mux_1_2_B,
-              sel_mux_3_A => sel_mux_1_3_A,
-              sel_mux_3_B => sel_mux_1_3_B,
+              sel_1_A => sel_1_1_A,
+              sel_1_B => sel_1_1_B,
+              sel_2_A => sel_1_2_A,
+              sel_2_B => sel_1_2_B,
+              sel_3_A => sel_1_3_A,
+              sel_3_B => sel_1_3_B,
               op_1 => op_1_1,
               op_2 => op_1_2,
               op_3 => op_1_3,
@@ -308,12 +487,12 @@ begin
     Port Map (input_1 => Register_1_input_2,
               input_2 => Register_2_input_2,
               input_3 => Register_3_input_2,
-              sel_mux_1_A => sel_mux_2_1_A,
-              sel_mux_1_B => sel_mux_2_1_B,
-              sel_mux_2_A => sel_mux_2_2_A,
-              sel_mux_2_B => sel_mux_2_2_B,
-              sel_mux_3_A => sel_mux_2_3_A,
-              sel_mux_3_B => sel_mux_2_3_B,
+              sel_1_A => sel_2_1_A,
+              sel_1_B => sel_2_1_B,
+              sel_2_A => sel_2_2_A,
+              sel_2_B => sel_2_2_B,
+              sel_3_A => sel_2_3_A,
+              sel_3_B => sel_2_3_B,
               op_1 => op_2_1,
               op_2 => op_2_2,
               op_3 => op_2_3,
@@ -354,12 +533,12 @@ begin
     Port Map (input_1 => Register_1_input_3,
               input_2 => Register_2_input_3,
               input_3 => Register_3_input_3,
-              sel_mux_1_A => sel_mux_3_1_A,
-              sel_mux_1_B => sel_mux_3_1_B,
-              sel_mux_2_A => sel_mux_3_2_A,
-              sel_mux_2_B => sel_mux_3_2_B,
-              sel_mux_3_A => sel_mux_3_3_A,
-              sel_mux_3_B => sel_mux_3_3_B,
+              sel_1_A => sel_3_1_A,
+              sel_1_B => sel_3_1_B,
+              sel_2_A => sel_3_2_A,
+              sel_2_B => sel_3_2_B,
+              sel_3_A => sel_3_3_A,
+              sel_3_B => sel_3_3_B,
               op_1 => op_3_1,
               op_2 => op_3_2,
               op_3 => op_3_3,
