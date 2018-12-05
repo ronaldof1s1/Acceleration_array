@@ -90,7 +90,7 @@ Mux_1_A : Multiplexer_32
               in29 => in29,
               in30 => in30,
               in31 => in31,
-              sel => sel_mux_1_A,
+              sel => sel_1_A,
               result => input_1_A);
 Mux_1_B : Multiplexer_32
     port map (in0 => in0,
@@ -125,7 +125,7 @@ Mux_1_B : Multiplexer_32
               in29 => in29,
               in30 => in30,
               in31 => in31,
-              sel => sel_mux_1_B,
+              sel => sel_1_B,
               result => input_1_B);
 Mux_2_A : Multiplexer_32
     port map (in0 => in0,
@@ -160,7 +160,7 @@ Mux_2_A : Multiplexer_32
               in29 => in29,
               in30 => in30,
               in31 => in31,
-              sel => sel_mux_2_A,
+              sel => sel_2_A,
               result => input_2_A);
 Mux_2_B : Multiplexer_32
     port map (in0 => in0,
@@ -195,7 +195,7 @@ Mux_2_B : Multiplexer_32
               in29 => in29,
               in30 => in30,
               in31 => in31,
-              sel => sel_mux_2_B,
+              sel => sel_2_B,
               result => input_2_B);
 Mux_3_A : Multiplexer_32
     port map (in0 => in0,
@@ -230,7 +230,7 @@ Mux_3_A : Multiplexer_32
               in29 => in29,
               in30 => in30,
               in31 => in31,
-              sel => sel_mux_3_A,
+              sel => sel_3_A,
               result => input_3_A);
 Mux_3_B : Multiplexer_32
     port map (in0 => in0,
@@ -265,24 +265,24 @@ Mux_3_B : Multiplexer_32
               in29 => in29,
               in30 => in30,
               in31 => in31,
-              sel => sel_mux_3_B,
+              sel => sel_3_B,
               result => input_3_B);
 
 ALU_1 : ALU
   port map (A => input_1_A,
             B => input_1_B,
-            control => op_1,
+            operation => op_1,
             result => output_1    );
 ALU_2 : ALU
   port map (A => input_2_A,
             B => input_2_B,
-            control => op_2,
+            operation => op_2,
             result => output_2
   );
 ALU_3 : ALU
   port map (A => input_3_A,
             B => input_3_B,
-            control => op_3,
+            operation => op_3,
             result => output_3
   );
 
