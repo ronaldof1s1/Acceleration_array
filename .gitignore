@@ -31,3 +31,5 @@ Array_project/db*
 Array_project/output_files*
 Array_project/Acceleration_array.fit.smsg
 Array_project/bitstream info.txt
+signal_writer.py
+result.txt
