@@ -16,24 +16,24 @@ class Binary_translator:
     def __init__(self):
         self.register_quantity = 32
         self.rows = 3
-        self.cols = 32
+        self.cols = 3
         self.mults = 1
         self.mem = 1
         self.level = Array_level(self.rows, self.cols, self.mults, self.mem)
 
-    
+
     def prepare_line(self, line):
         words = line.split(' ')
         operation = words[0].upper()
-        
+
         if operation == 'MULT':
             if self.level.set_mult(words):
                 return True
-        
+
         elif operation == 'LW':
             if self.level.set_memory(words):
                 return True
-        
+
         elif operation == 'SW':
             if self.level.set_memory(words):
                 return True
@@ -41,15 +41,15 @@ class Binary_translator:
         elif operation == 'ADD':
             if self.level.set_alus(words):
                 return True
-                
+
         elif operation == 'SUB':
             if self.level.set_alus(words):
                 return True
-                
+
         elif operation == 'AND':
             if self.level.set_alus(words):
                 return True
-                
+
         elif operation == 'OR':
             if self.level.set_alus(words):
                 return True
@@ -66,6 +66,7 @@ class Binary_translator:
                 continue
             else:
                 break
+
     def get_mux4_selector(self, string):
         if string == 'R0':
             return '00'
@@ -75,6 +76,7 @@ class Binary_translator:
             return '10'
         else:
             return '11'
+
     def get_mux32_selector(self, string):
         if string == 'R0':
             return '00000'
@@ -143,19 +145,19 @@ class Binary_translator:
 
     def get_operation_code(self, op_string):
             op_string = op_string.upper()
-            
+
             if op_string == 'ADD':
                 return '000'
-            
+
             elif op_string == 'SUB':
                 return '001'
-            
+
             elif op_string == 'AND':
                 return '010'
-            
+
             elif op_string == 'OR':
                 return '011'
-            
+
             elif op_string == 'XOR':
                 return '100'
 
@@ -169,13 +171,13 @@ class Binary_translator:
 
         for read_alu in self.level.alu_source:
             for (in1, in2) in read_alu:
-                bitstream += self.get_mux32_selector(in1) + self.get_mux32_selector(in2) 
+                bitstream += self.get_mux32_selector(in1) + self.get_mux32_selector(in2)
 
         return bitstream
 
     def translate_alu_op(self):
         bitstream = ''
-        
+
         for op_line in self.level.alu_op:
             for op in op_line:
                 if op:
@@ -188,7 +190,7 @@ class Binary_translator:
     def translate_output_alus(self):
         bitstream = ''
         registers = ["R" + str(i) for i in range(self.register_quantity)]
-        
+
         print(self.level.alu_target)
         for row in range(self.rows):
             for reg in registers:
@@ -196,7 +198,7 @@ class Binary_translator:
                 if reg in line:
                     col = line.index(reg)
                     temp = 'R'+str(col)
-                    bitstream += self.get_mux32_selector(temp)
+                    bitstream += self.get_mux4_selector(temp)
                 else:
                     bitstream += '11'
 
@@ -217,7 +219,7 @@ class Binary_translator:
                 bitstream += '10'
 
         return bitstream
-    
+
     def translate_mult_sources(self):
         bitstream = ''
         for (in1, in2) in self.level.mult_source:
@@ -231,13 +233,13 @@ class Binary_translator:
                 bitstream += addr
             else:
                 bitstream += '00000000000000000000000000000000'
-        
+
         for write in self.level.memory_op:
             if write == 'LW':
                 bitstream += '0'
             else:
                 bitstream += '1'
-        
+
         for in1 in self.level.memory_target:
             bitstream += self.get_mux32_selector(in1)
 
@@ -245,9 +247,9 @@ class Binary_translator:
 
     def translate_levels(self):
         bitstream = ''
-        
+
         bitstream += self.translate_alu_input_muxes()
-        
+
         bitstream += self.translate_alu_op()
 
         bitstream += self.translate_output_alus()
