@@ -9,27 +9,27 @@ class Array_level:
             write_alu_line = []
             read_alu_line = []
             op_alu_line = []
-            
+
             for col in range(cols):
                 write_alu_line.append("")
                 op_alu_line.append("")
                 read_alu_line.append(("",""))
-                
+
             self.alu_target.append(write_alu_line)
             self.alu_source.append(read_alu_line)
             self.alu_op.append(op_alu_line)
-            
+
         self.mult_target = []
         self.mult_source =[]
-        
+
         for mult in range(multipliers):
             self.mult_target.append("")
             self.mult_source.append(("", ""))
-        
+
         self.memory_target = []
         self.memory_op = []
         self.memory_addr = []
-        
+
         for mem in range(memory):
             self.memory_target.append("")
             self.memory_op.append("")
@@ -54,14 +54,14 @@ class Array_level:
             for alu in line:
                 if alu == register:
                     return True
-        
+
         return False
 
-    def check_ALU_available(self, dependant):   
+    def check_ALU_available(self, dependant):
         if self.register_in_memory(dependant) or self.register_in_mult(dependant):
             return (-1,-1)
-        
-    
+
+
         for row in range(len(self.alu_target)):
             for col in range(len(self.alu_target[row])):
                 if self.alu_target[row][col] == dependant:
@@ -89,7 +89,7 @@ class Array_level:
         for i in range(len(self.mult_target)):
             if self.mult_target[i] == "":
                 return i
-        return -1   
+        return -1
 
     def set_mult(self, words):
         mult = self.check_mult_available(words[1])
@@ -117,5 +117,14 @@ class Array_level:
 
         self.memory_op[mem] = words[0]
         self.memory_target[mem] = words[1]
+
+        str=''
+        for c in words[2]:
+            if c.isdigit():
+                str += c
+            else:
+                break
+        self.memory_addr[mem] = "{0:032b}".format(int(str))
+
         return True
 
