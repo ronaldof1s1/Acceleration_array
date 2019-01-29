@@ -15,7 +15,7 @@ end ram_access;
 architecture Behavioral of ram_access is
 
 --Declaration of type and signal of a 256 element RAM
---with each element being 8 bit wide.
+--with each element being 32 bit wide.
 type ram_t is array (0 to 255) of std_logic_vector(31 downto 0);
 signal ram : ram_t := (others => (others => '0'));
 signal int_addr : integer;
