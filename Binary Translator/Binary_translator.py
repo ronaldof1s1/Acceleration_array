@@ -4,7 +4,7 @@ def translate_file(lines):
     bt = Binary_translator()
     i = 0
     while(i < len(lines)):
-        bt.decode_assembly(lines, i)
+        i = bt.decode_assembly(lines, i)
         bitstream = bt.translate_levels()
         print(bitstream)
     
@@ -32,56 +32,56 @@ class Binary_translator:
             for level in self.levels:
                 if level.set_mult(words):
                     return True
-            print(operation)
+           print('error in ' + operation)
             return False
 
         elif operation == 'LW':
             for level in self.levels:
                 if level.set_memory(words):
                     return True
-            print(operation)
+           print('error in ' + operation)
             return False
 
         elif operation == 'SW':
             for level in self.levels:
                 if level.set_memory(words):
                     return True
-            print(operation)
+           print('error in ' + operation)
             return False
 
         elif operation == 'ADD':
             for level in self.levels:
                 if level.set_alus(words):
                     return True
-            print(operation)
+           print('error in ' + operation)
             return False
 
         elif operation == 'SUB':
             for level in self.levels:
                 if level.set_alus(words):
                     return True
-            print(operation)
+           print('error in ' + operation)
             return False
 
         elif operation == 'AND':
             for level in self.levels:
                 if level.set_alus(words):
                     return True
-            print(operation)
+           print('error in ' + operation)
             return False
 
         elif operation == 'OR':
             for level in self.levels:
                 if level.set_alus(words):
                     return True
-            print(operation)
+           print('error in ' + operation)
             return False
 
         elif operation == 'XOR':
             for level in self.levels:
                 if level.set_alus(words):
                     return True
-            print(operation)
+           print('error in ' + operation)
             return False
         
         else:
@@ -90,8 +90,9 @@ class Binary_translator:
     def decode_assembly(self, text, line):
         while(line < len(text)):
             if not self.prepare_line(text[line]):
-                return
+                break
             line += 1
+        return line
             
     def get_mux4_selector(self, string):
         if string == 'R0':
