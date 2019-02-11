@@ -28,11 +28,13 @@ class Array_level:
 
         self.memory_target = []
         self.memory_op = []
+        self.memory_pos = []
         self.memory_addr = []
 
         for mem in range(memory):
             self.memory_target.append("")
             self.memory_op.append("")
+            self.memory_pos.append("")
             self.memory_addr.append("")
 
     def register_in_mult(self, register):
@@ -118,13 +120,13 @@ class Array_level:
         self.memory_op[mem] = words[0]
         self.memory_target[mem] = words[1]
 
-        str=''
-        for c in words[2]:
-            if c.isdigit():
-                str += c
-            else:
-                break
-        self.memory_addr[mem] = "{0:032b}".format(int(str))
+        reg=''
+        pos=''
+        word = ''.join(c for c in words[2] if c not in "()")
+        (pos, reg) = word.split('R')
+
+        self.memory_addr[mem] = "{0:05b}".format(int(reg))
+        self.memory_pos[mem] = "{0:032b}".format(int(pos))
 
         return True
 
