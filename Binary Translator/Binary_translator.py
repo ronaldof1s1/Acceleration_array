@@ -32,56 +32,56 @@ class Binary_translator:
             for level in self.levels:
                 if level.set_mult(words):
                     return True
-           print('error in ' + operation)
+            print('error in ' + operation)
             return False
 
         elif operation == 'LW':
             for level in self.levels:
                 if level.set_memory(words):
                     return True
-           print('error in ' + operation)
+            print('error in ' + operation)
             return False
 
         elif operation == 'SW':
             for level in self.levels:
                 if level.set_memory(words):
                     return True
-           print('error in ' + operation)
+            print('error in ' + operation)
             return False
 
         elif operation == 'ADD':
             for level in self.levels:
                 if level.set_alus(words):
                     return True
-           print('error in ' + operation)
+            print('error in ' + operation)
             return False
 
         elif operation == 'SUB':
             for level in self.levels:
                 if level.set_alus(words):
                     return True
-           print('error in ' + operation)
+            print('error in ' + operation)
             return False
 
         elif operation == 'AND':
             for level in self.levels:
                 if level.set_alus(words):
                     return True
-           print('error in ' + operation)
+            print('error in ' + operation)
             return False
 
         elif operation == 'OR':
             for level in self.levels:
                 if level.set_alus(words):
                     return True
-           print('error in ' + operation)
+            print('error in ' + operation)
             return False
 
         elif operation == 'XOR':
             for level in self.levels:
                 if level.set_alus(words):
                     return True
-           print('error in ' + operation)
+            print('error in ' + operation)
             return False
         
         else:
