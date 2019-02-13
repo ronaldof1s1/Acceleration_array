@@ -3,7 +3,7 @@ use ieee.std_logic_1164.ALL;
 
 entity Reconfigurable_Array_level is
   port (
-    bitstream : in std_logic_vector(421 downto 0);
+    bitstream : in std_logic_vector(425 downto 0);
     clk : in std_logic;
     out0, out1, out2, out3, out4, out5, out6, out7, 
     out8, out9, out10, out11, out12, out13, out14, out15, 
@@ -187,11 +187,12 @@ signal output_mux_31 : data;
   signal mult_output : data;
 
   -------------------MEMORY UNIT DATA---------------------------
-  signal address :  data := bitstream(414 downto 383);
-  signal write_enabled :  std_logic := bitstream(415);
+  signal address :  selector5 := bitstream(387 downto 383);
+  signal position : data := bitstream(419 downto 388)
+  signal write_enabled :  std_logic := bitstream(420);
   signal memory_out : data;
 
-  signal sel_memory :  selector5 := bitstream(420 downto 416);
+  signal sel_memory :  selector5 := bitstream(425 downto 421);
   signal memory_mux_out :  data;
 
   --------------------REGISTER BANK--------------------------
