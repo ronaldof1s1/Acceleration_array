@@ -130,3 +130,28 @@ class Array_level:
 
         return True
 
+    def insert_fault(self, fault):
+        if fault[0] == 'mem':
+            self.insert_fault_mem(fault[1])
+        elif fault[0] == 'mult':
+            self.insert_fault_mult(fault[1])
+        else:
+            self.insert_fault_alu(fault[1])
+
+    def insert_fault_mem(self, pos):
+        self.memory_op[pos] = 'x'
+        self.memory_target[pos] = 'x'
+        self.memory_addr[pos] = 'x'
+        self.memory_pos[pos] = 'x'
+
+    def insert_fault_mult(self, pos):
+        self.mult_target[pos] = 'x'
+        self.mult_source[pos] = 'x'
+
+    def insert_fault_alu(self, pos):
+        x = pos[0]
+        y = pos[1]
+        self.alu_target[x][y] = 'x'
+        self.alu_source[x][y] = 'x'
+        self.alu_op[x][y] = 'x'
+        
