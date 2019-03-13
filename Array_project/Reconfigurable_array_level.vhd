@@ -5,8 +5,15 @@ use ieee.std_logic_unsigned.ALL;
 
 entity Reconfigurable_Array_level is
   port (
+    in0, in1, in2, in3, in4, in5, in6, in7, 
+    in8, in9, in10, in11, in12, in13, in14, in15, 
+    in16, in17, in18, in19, in20, in21, in22, in23, 
+    in24, in25, in26, in27, in28, in29, in30, in31 : in std_logic_vector(31 downto 0);
+
     bitstream : in std_logic_vector(425 downto 0);
+    
     clk : in std_logic;
+    
     out0, out1, out2, out3, out4, out5, out6, out7, 
     out8, out9, out10, out11, out12, out13, out14, out15, 
     out16, out17, out18, out19, out20, out21, out22, out23, 
@@ -29,7 +36,7 @@ architecture Reconfigurable_Array_level of Reconfigurable_Array_level is
   		in0, in1, in2, in3, in4, in5, in6, in7, 
       in8, in9, in10, in11, in12, in13, in14, in15, 
       in16, in17, in18, in19, in20, in21, in22, in23, 
-      in24, in25, in26, in27, in28, in29, in30, in31 : data;
+      in24, in25, in26, in27, in28, in29, in30, in31 : in data;
       clk: in std_logic;
       out0, out1, out2, out3, out4, out5, out6, out7, 
       out8, out9, out10, out11, out12, out13, out14, out15, 
@@ -519,6 +526,8 @@ begin
             in31 => Register_31_input_1,
             sel => address,
             result => addr_register);
+
+  
   addr_register <= addr_register + position;
   
     RAM : ram_access
