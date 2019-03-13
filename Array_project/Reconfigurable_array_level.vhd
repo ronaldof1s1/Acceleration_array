@@ -1,5 +1,7 @@
 library ieee;
 use ieee.std_logic_1164.ALL;
+use ieee.std_logic_arith.ALL;
+use ieee.std_logic_unsigned.ALL;
 
 entity Reconfigurable_Array_level is
   port (
@@ -188,7 +190,8 @@ signal output_mux_31 : data;
 
   -------------------MEMORY UNIT DATA---------------------------
   signal address :  selector5 := bitstream(387 downto 383);
-  signal position : data := bitstream(419 downto 388)
+  signal addr_register : data;
+  signal position : data := bitstream(419 downto 388);
   signal write_enabled :  std_logic := bitstream(420);
   signal memory_out : data;
 
@@ -480,10 +483,47 @@ begin
             in31 => Register_31_input_1,
             sel => sel_memory,
             result => memory_mux_out);
+
+  RAM_mux_addr : Multiplexer_32
+  port map (in0 => Register_0_input_1,
+            in1 => Register_1_input_1,
+            in2 => Register_2_input_1,
+            in3 => Register_3_input_1,
+            in4 => Register_4_input_1,
+            in5 => Register_5_input_1,
+            in6 => Register_6_input_1,
+            in7 => Register_7_input_1,
+            in8 => Register_8_input_1,
+            in9 => Register_9_input_1,
+            in10 => Register_10_input_1,
+            in11 => Register_11_input_1,
+            in12 => Register_12_input_1,
+            in13 => Register_13_input_1,
+            in14 => Register_14_input_1,
+            in15 => Register_15_input_1,
+            in16 => Register_16_input_1,
+            in17 => Register_17_input_1,
+            in18 => Register_18_input_1,
+            in19 => Register_19_input_1,
+            in20 => Register_20_input_1,
+            in21 => Register_21_input_1,
+            in22 => Register_22_input_1,
+            in23 => Register_23_input_1,
+            in24 => Register_24_input_1,
+            in25 => Register_25_input_1,
+            in26 => Register_26_input_1,
+            in27 => Register_27_input_1,
+            in28 => Register_28_input_1,
+            in29 => Register_29_input_1,
+            in30 => Register_30_input_1,
+            in31 => Register_31_input_1,
+            sel => address,
+            result => addr_register);
+  addr_register <= addr_register + position;
   
     RAM : ram_access
     Port Map(Clk => clk,
-            address =>address,
+            address => addr_register,
             we => write_enabled,
             data_i => memory_mux_out,
             data_o => memory_out
