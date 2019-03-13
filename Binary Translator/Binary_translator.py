@@ -22,7 +22,7 @@ class Binary_translator:
         self.mults = 1
         self.mem = 1
         self.levels = [Array_level(self.rows, self.cols, self.mults, self.mem)]
-
+        self.insert_fault(0, 'alu', (0,0))
 
     def prepare_line(self, line):
         words = line.split(' ')
@@ -296,6 +296,10 @@ class Binary_translator:
             bitstream += self.translate_memory_data(level)
 
         return bitstream
+
+    def insert_fault(self, level, component, pos):
+        fault = (component, pos)
+        self.levels[level].insert_fault(fault)
 
 
 read_file('testes/teste_inicial.txt')
