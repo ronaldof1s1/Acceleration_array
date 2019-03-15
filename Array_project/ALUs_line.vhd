@@ -38,16 +38,16 @@ architecture ALine of ALUs_line is
     );
   end component;
 
-  signal sel_1_A : selector5 := sel_bitstream(29 downto 25);
-  signal sel_1_B : selector5 := sel_bitstream(24 downto 20);
-  signal sel_2_A : selector5 := sel_bitstream(19 downto 15);
-  signal sel_2_B : selector5 := sel_bitstream(14 downto 10);
-  signal sel_3_A : selector5 := sel_bitstream(9 downto 5);
-  signal sel_3_B : selector5 := sel_bitstream(4 downto 0);
+  signal sel_1_A : selector5;
+  signal sel_1_B : selector5;
+  signal sel_2_A : selector5;
+  signal sel_2_B : selector5;
+  signal sel_3_A : selector5;
+  signal sel_3_B : selector5;
 
-  signal op_1 : operation := operation_bitstream(8 downto 6);
-  signal op_2 : operation := operation_bitstream(5 downto 3);
-  signal op_3 : operation := operation_bitstream(2 downto 0);
+  signal op_1 : operation;
+  signal op_2 : operation;
+  signal op_3 : operation;
   
   signal input_1_A : data;
   signal input_1_B : data;
@@ -57,6 +57,19 @@ architecture ALine of ALUs_line is
   signal input_3_B : data;
 
 begin
+  sel_1_A  <= sel_bitstream(29 downto 25);
+  sel_1_B  <= sel_bitstream(24 downto 20);
+  sel_2_A  <= sel_bitstream(19 downto 15);
+  sel_2_B  <= sel_bitstream(14 downto 10);
+  sel_3_A  <= sel_bitstream(9 downto 5);
+  sel_3_B  <= sel_bitstream(4 downto 0);
+
+  op_1 <= operation_bitstream(8 downto 6);
+  op_2 <= operation_bitstream(5 downto 3);
+  op_3 <= operation_bitstream(2 downto 0);
+  
+
+
 Mux_1_A : Multiplexer_32
     port map (in0 => in0,
               in1 => in1,
