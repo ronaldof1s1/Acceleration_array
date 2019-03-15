@@ -31,20 +31,6 @@ architecture Reconfigurable_Array_level of Reconfigurable_Array_level is
   subtype op_stream is std_logic_vector(8 downto 0);
   subtype line_sel_stream is std_logic_vector(63 downto 0);
 
-  Component Register_Bank
-    port(
-  		in0, in1, in2, in3, in4, in5, in6, in7, 
-      in8, in9, in10, in11, in12, in13, in14, in15, 
-      in16, in17, in18, in19, in20, in21, in22, in23, 
-      in24, in25, in26, in27, in28, in29, in30, in31 : in data;
-      clk: in std_logic;
-      out0, out1, out2, out3, out4, out5, out6, out7, 
-      out8, out9, out10, out11, out12, out13, out14, out15, 
-      out16, out17, out18, out19, out20, out21, out22, out23, 
-      out24, out25, out26, out27, out28, out29, out30, out31 : out data
-  	);
-  end Component;
-
   Component ALUs_line
     port(
     in0, in1, in2, in3, in4, in5, in6, in7, 
@@ -102,18 +88,18 @@ architecture Reconfigurable_Array_level of Reconfigurable_Array_level is
   end Component;
   
  -- input muxes for the ALUs
-  signal sel_stream_1 : sel_stream := bitstream(29 downto 0);
-  signal sel_stream_2 : sel_stream := bitstream(59 downto 30);
-  signal sel_stream_3 : sel_stream := bitstream(89 downto 60);
+  signal sel_stream_1 : sel_stream;
+  signal sel_stream_2 : sel_stream;
+  signal sel_stream_3 : sel_stream;
 
   --operations
 
-  signal op_stream_1 : op_stream := bitstream(98 downto 90);
-  signal op_stream_2 : op_stream := bitstream(107 downto 99);
-  signal op_stream_3 : op_stream := bitstream(116 downto 108);
+  signal op_stream_1 : op_stream;
+  signal op_stream_2 : op_stream;
+  signal op_stream_3 : op_stream;
   
-  -- first line output mux signalssignal line_1_mux_sel_0 : selector2 := bitstream(117 downto 116);
-  signal line_1_mux_sel_stream : line_sel_stream := bitstream(180 downto 117);
+  -- first line output mux signals
+  signal line_1_mux_sel_stream : line_sel_stream;
 
   --first line of output signals
   signal output_1_1 : data;
@@ -123,7 +109,7 @@ architecture Reconfigurable_Array_level of Reconfigurable_Array_level is
   --first line of operations
 
   -- second line output mux signals
-  signal line_2_mux_sel_stream : line_sel_stream := bitstream(244 downto 181);
+  signal line_2_mux_sel_stream : line_sel_stream;
   
 
   --second line of output signals
@@ -136,10 +122,10 @@ architecture Reconfigurable_Array_level of Reconfigurable_Array_level is
   --------------------THIRD LINE--------------------------
   
   -- third line output mux signals
-  signal line_3_mux_sel_stream : line_sel_stream := bitstream(308 downto 245);
+  signal line_3_mux_sel_stream : line_sel_stream;
 
 
-  signal final_mux_sel_stream : line_sel_stream := bitstream(372 downto 309);
+  signal final_mux_sel_stream : line_sel_stream;
   
 
   signal output_mux_0 : data;
@@ -186,8 +172,8 @@ signal output_mux_31 : data;
   
 
   --Multiplier input muxes
-  signal sel_mult_A : selector5 := bitstream(377 downto 373);
-  signal sel_mult_B : selector5 := bitstream(382 downto 378);
+  signal sel_mult_A : selector5;
+  signal sel_mult_B : selector5;
   
   signal mult_in_A : data;
   signal mult_in_B : data;
@@ -196,13 +182,14 @@ signal output_mux_31 : data;
   signal mult_output : data;
 
   -------------------MEMORY UNIT DATA---------------------------
-  signal address :  selector5 := bitstream(387 downto 383);
+  signal address :  selector5;
+  signal temp_addr: data;
   signal addr_register : data;
-  signal position : data := bitstream(419 downto 388);
-  signal write_enabled :  std_logic := bitstream(420);
+  signal position : data;
+  signal write_enabled :  std_logic;
   signal memory_out : data;
 
-  signal sel_memory :  selector5 := bitstream(425 downto 421);
+  signal sel_memory :  selector5;
   signal memory_mux_out :  data;
 
   --------------------REGISTER BANK--------------------------
@@ -373,7 +360,43 @@ signal Register_28_output : data;
 signal Register_29_output : data;
 signal Register_30_output : data;
 signal Register_31_output : data;
+
+
+
+
 begin
+  sel_stream_1 <= bitstream(29 downto 0);
+  sel_stream_2 <= bitstream(59 downto 30);
+  sel_stream_3 <= bitstream(89 downto 60);
+
+  --operations
+
+  op_stream_1 <= bitstream(98 downto 90);
+  op_stream_2 <= bitstream(107 downto 99);
+  op_stream_3 <= bitstream(116 downto 108);
+  
+  -- first line output mux signals
+  line_1_mux_sel_stream <= bitstream(180 downto 117);
+
+  line_2_mux_sel_stream <= bitstream(244 downto 181);
+  
+  line_3_mux_sel_stream <= bitstream(308 downto 245);
+
+  final_mux_sel_stream <= bitstream(372 downto 309);
+  
+
+  
+  sel_mult_A <= bitstream(377 downto 373);
+  sel_mult_B <= bitstream(382 downto 378);
+  
+
+  address <= bitstream(387 downto 383);
+  position <= bitstream(419 downto 388);
+  write_enabled <= bitstream(420);
+  
+  sel_memory <= bitstream(425 downto 421);
+  
+  
   --instantiate multiplier
   Mult_mux_A : Multiplexer_32
   port map (in0 => Register_0_input_1,
@@ -525,10 +548,10 @@ begin
             in30 => Register_30_input_1,
             in31 => Register_31_input_1,
             sel => address,
-            result => addr_register);
+            result => temp_addr);
 
   
-  addr_register <= addr_register + position;
+  addr_register <= temp_addr + position;
   
     RAM : ram_access
     Port Map(Clk => clk,
@@ -1706,78 +1729,7 @@ line_3_mux_31: Multiplexer_4
                       result => Register_final_input_31);
                       
         
-              
-
-
-  
---------------------REGISTER BANK--------------------------
-
-  BANK : Register_Bank
-  Port Map( in0 => Register_final_input_0,
-            in1 => Register_final_input_1,
-            in2 => Register_final_input_2,
-            in3 => Register_final_input_3,
-            in4 => Register_final_input_4,
-            in5 => Register_final_input_5,
-            in6 => Register_final_input_6,
-            in7 => Register_final_input_7,
-            in8 => Register_final_input_8,
-            in9 => Register_final_input_9,
-            in10 => Register_final_input_10,
-            in11 => Register_final_input_11,
-            in12 => Register_final_input_12,
-            in13 => Register_final_input_13,
-            in14 => Register_final_input_14,
-            in15 => Register_final_input_15,
-            in16 => Register_final_input_16,
-            in17 => Register_final_input_17,
-            in18 => Register_final_input_18,
-            in19 => Register_final_input_19,
-            in20 => Register_final_input_20,
-            in21 => Register_final_input_21,
-            in22 => Register_final_input_22,
-            in23 => Register_final_input_23,
-            in24 => Register_final_input_24,
-            in25 => Register_final_input_25,
-            in26 => Register_final_input_26,
-            in27 => Register_final_input_27,
-            in28 => Register_final_input_28,
-            in29 => Register_final_input_29,
-            in30 => Register_final_input_30,
-            in31 => Register_final_input_31,
-            clk => clk,out0 => Register_0_output,
-            out1 => Register_1_output,
-            out2 => Register_2_output,
-            out3 => Register_3_output,
-            out4 => Register_4_output,
-            out5 => Register_5_output,
-            out6 => Register_6_output,
-            out7 => Register_7_output,
-            out8 => Register_8_output,
-            out9 => Register_9_output,
-            out10 => Register_10_output,
-            out11 => Register_11_output,
-            out12 => Register_12_output,
-            out13 => Register_13_output,
-            out14 => Register_14_output,
-            out15 => Register_15_output,
-            out16 => Register_16_output,
-            out17 => Register_17_output,
-            out18 => Register_18_output,
-            out19 => Register_19_output,
-            out20 => Register_20_output,
-            out21 => Register_21_output,
-            out22 => Register_22_output,
-            out23 => Register_23_output,
-            out24 => Register_24_output,
-            out25 => Register_25_output,
-            out26 => Register_26_output,
-            out27 => Register_27_output,
-            out28 => Register_28_output,
-            out29 => Register_29_output,
-            out30 => Register_30_output,
-            out31 => Register_31_output            
-          );
+            
 
 out0 <= Register_0_output;
 out1 <= Register_1_output;
@@ -1811,5 +1763,5 @@ out28 <= Register_28_output;
 out29 <= Register_29_output;
 out30 <= Register_30_output;
 out31 <= Register_31_output;
-          
+
 end architecture;
