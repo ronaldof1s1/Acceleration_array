@@ -5,8 +5,9 @@ def translate_file(lines):
     i = 0
     while(i < len(lines)):
         i = bt.decode_assembly(lines, i)
+        print (bt.levels[0].alu_op)
         bitstream = bt.translate_levels()
-        print(bitstream)
+        print(bitstream[::-1])
     
 
 def read_file(path):
@@ -22,7 +23,7 @@ class Binary_translator:
         self.mults = 1
         self.mem = 1
         self.levels = [Array_level(self.rows, self.cols, self.mults, self.mem)]
-        self.insert_fault(0, 'alu', (0,0))
+        #self.insert_fault(0, 'alu', (0,0))
 
     def prepare_line(self, line):
         words = line.split(' ')
@@ -190,6 +191,10 @@ class Binary_translator:
 
             elif op_string == 'NOT':
                 return '101'
+            
+            elif op_string == 'X':
+                return '111'
+                
             else:
                 raise Exception
 
@@ -210,7 +215,7 @@ class Binary_translator:
                 if op:
                     bitstream += self.get_operation_code(op)
                 else:
-                    bitstream += '000'
+                    bitstream += '111'
 
         return bitstream
 
@@ -218,7 +223,6 @@ class Binary_translator:
         bitstream = ''
         registers = ["R" + str(i) for i in range(self.register_quantity)]
 
-        print(level.alu_target)
         for row in range(self.rows):
             for reg in registers:
                 line = level.alu_target[row]

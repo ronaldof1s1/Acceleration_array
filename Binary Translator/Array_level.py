@@ -152,6 +152,6 @@ class Array_level:
         x = pos[0]
         y = pos[1]
         self.alu_target[x][y] = 'x'
-        self.alu_source[x][y] = 'x'
+        self.alu_source[x][y] = ('x','x')
         self.alu_op[x][y] = 'x'
         
