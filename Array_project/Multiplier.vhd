@@ -16,6 +16,6 @@ architecture Multiplier of Multiplier is
     res <= A * B;
     process(A,B,res)
     begin
-      result <= res(63 downto 32);
+      result <= res(31 downto 0);
     end process;
 end Multiplier;
