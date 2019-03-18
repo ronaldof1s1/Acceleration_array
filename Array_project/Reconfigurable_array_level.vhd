@@ -293,39 +293,6 @@ signal Register_28_input_3 : data;
 signal Register_29_input_3 : data;
 signal Register_30_input_3 : data;
 signal Register_31_input_3 : data;
-
-signal Register_final_input_0 : data;
-signal Register_final_input_1 : data;
-signal Register_final_input_2 : data;
-signal Register_final_input_3 : data;
-signal Register_final_input_4 : data;
-signal Register_final_input_5 : data;
-signal Register_final_input_6 : data;
-signal Register_final_input_7 : data;
-signal Register_final_input_8 : data;
-signal Register_final_input_9 : data;
-signal Register_final_input_10 : data;
-signal Register_final_input_11 : data;
-signal Register_final_input_12 : data;
-signal Register_final_input_13 : data;
-signal Register_final_input_14 : data;
-signal Register_final_input_15 : data;
-signal Register_final_input_16 : data;
-signal Register_final_input_17 : data;
-signal Register_final_input_18 : data;
-signal Register_final_input_19 : data;
-signal Register_final_input_20 : data;
-signal Register_final_input_21 : data;
-signal Register_final_input_22 : data;
-signal Register_final_input_23 : data;
-signal Register_final_input_24 : data;
-signal Register_final_input_25 : data;
-signal Register_final_input_26 : data;
-signal Register_final_input_27 : data;
-signal Register_final_input_28 : data;
-signal Register_final_input_29 : data;
-signal Register_final_input_30 : data;
-signal Register_final_input_31 : data;
   
   --OUTPUTS of registers
 signal Register_0_output : data;
@@ -1478,7 +1445,7 @@ line_3_mux_31: Multiplexer_4
                       C => output_mux_0,
                       D => Register_0_input_3,
                       sel => final_mux_sel_stream(1 downto 0),
-                      result => Register_final_input_0);
+                      result => Register_0_output);
                       
         mult_ALU_mux_1: Multiplexer_4
             Port Map (A => mult_output,
@@ -1486,7 +1453,7 @@ line_3_mux_31: Multiplexer_4
                       C => output_mux_1,
                       D => Register_1_input_3,
                       sel => final_mux_sel_stream(3 downto 2),
-                      result => Register_final_input_1);
+                      result => Register_1_output);
                       
         mult_ALU_mux_2: Multiplexer_4
             Port Map (A => mult_output,
@@ -1494,7 +1461,7 @@ line_3_mux_31: Multiplexer_4
                       C => output_mux_2,
                       D => Register_2_input_3,
                       sel => final_mux_sel_stream(5 downto 4),
-                      result => Register_final_input_2);
+                      result => Register_2_output);
                       
         mult_ALU_mux_3: Multiplexer_4
             Port Map (A => mult_output,
@@ -1502,7 +1469,7 @@ line_3_mux_31: Multiplexer_4
                       C => output_mux_3,
                       D => Register_3_input_3,
                       sel => final_mux_sel_stream(7 downto 6),
-                      result => Register_final_input_3);
+                      result => Register_3_output);
                       
         mult_ALU_mux_4: Multiplexer_4
             Port Map (A => mult_output,
@@ -1510,7 +1477,7 @@ line_3_mux_31: Multiplexer_4
                       C => output_mux_4,
                       D => Register_4_input_3,
                       sel => final_mux_sel_stream(9 downto 8),
-                      result => Register_final_input_4);
+                      result => Register_4_output);
                       
         mult_ALU_mux_5: Multiplexer_4
             Port Map (A => mult_output,
@@ -1518,7 +1485,7 @@ line_3_mux_31: Multiplexer_4
                       C => output_mux_5,
                       D => Register_5_input_3,
                       sel => final_mux_sel_stream(11 downto 10),
-                      result => Register_final_input_5);
+                      result => Register_5_output);
                       
         mult_ALU_mux_6: Multiplexer_4
             Port Map (A => mult_output,
@@ -1526,7 +1493,7 @@ line_3_mux_31: Multiplexer_4
                       C => output_mux_6,
                       D => Register_6_input_3,
                       sel => final_mux_sel_stream(13 downto 12),
-                      result => Register_final_input_6);
+                      result => Register_6_output);
                       
         mult_ALU_mux_7: Multiplexer_4
             Port Map (A => mult_output,
@@ -1534,7 +1501,7 @@ line_3_mux_31: Multiplexer_4
                       C => output_mux_7,
                       D => Register_7_input_3,
                       sel => final_mux_sel_stream(15 downto 14),
-                      result => Register_final_input_7);
+                      result => Register_7_output);
                       
         mult_ALU_mux_8: Multiplexer_4
             Port Map (A => mult_output,
@@ -1542,7 +1509,7 @@ line_3_mux_31: Multiplexer_4
                       C => output_mux_8,
                       D => Register_8_input_3,
                       sel => final_mux_sel_stream(17 downto 16),
-                      result => Register_final_input_8);
+                      result => Register_8_output);
                       
         mult_ALU_mux_9: Multiplexer_4
             Port Map (A => mult_output,
@@ -1550,7 +1517,7 @@ line_3_mux_31: Multiplexer_4
                       C => output_mux_9,
                       D => Register_9_input_3,
                       sel => final_mux_sel_stream(19 downto 18),
-                      result => Register_final_input_9);
+                      result => Register_9_output);
                       
         mult_ALU_mux_10: Multiplexer_4
             Port Map (A => mult_output,
@@ -1558,7 +1525,7 @@ line_3_mux_31: Multiplexer_4
                       C => output_mux_10,
                       D => Register_10_input_3,
                       sel => final_mux_sel_stream(21 downto 20),
-                      result => Register_final_input_10);
+                      result => Register_10_output);
                       
         mult_ALU_mux_11: Multiplexer_4
             Port Map (A => mult_output,
@@ -1566,7 +1533,7 @@ line_3_mux_31: Multiplexer_4
                       C => output_mux_11,
                       D => Register_11_input_3,
                       sel => final_mux_sel_stream(23 downto 22),
-                      result => Register_final_input_11);
+                      result => Register_11_output);
                       
         mult_ALU_mux_12: Multiplexer_4
             Port Map (A => mult_output,
@@ -1574,7 +1541,7 @@ line_3_mux_31: Multiplexer_4
                       C => output_mux_12,
                       D => Register_12_input_3,
                       sel => final_mux_sel_stream(25 downto 24),
-                      result => Register_final_input_12);
+                      result => Register_12_output);
                       
         mult_ALU_mux_13: Multiplexer_4
             Port Map (A => mult_output,
@@ -1582,7 +1549,7 @@ line_3_mux_31: Multiplexer_4
                       C => output_mux_13,
                       D => Register_13_input_3,
                       sel => final_mux_sel_stream(27 downto 26),
-                      result => Register_final_input_13);
+                      result => Register_13_output);
                       
         mult_ALU_mux_14: Multiplexer_4
             Port Map (A => mult_output,
@@ -1590,7 +1557,7 @@ line_3_mux_31: Multiplexer_4
                       C => output_mux_14,
                       D => Register_14_input_3,
                       sel => final_mux_sel_stream(29 downto 28),
-                      result => Register_final_input_14);
+                      result => Register_14_output);
                       
         mult_ALU_mux_15: Multiplexer_4
             Port Map (A => mult_output,
@@ -1598,7 +1565,7 @@ line_3_mux_31: Multiplexer_4
                       C => output_mux_15,
                       D => Register_15_input_3,
                       sel => final_mux_sel_stream(31 downto 30),
-                      result => Register_final_input_15);
+                      result => Register_15_output);
                       
         mult_ALU_mux_16: Multiplexer_4
             Port Map (A => mult_output,
@@ -1606,7 +1573,7 @@ line_3_mux_31: Multiplexer_4
                       C => output_mux_16,
                       D => Register_16_input_3,
                       sel => final_mux_sel_stream(33 downto 32),
-                      result => Register_final_input_16);
+                      result => Register_16_output);
                       
         mult_ALU_mux_17: Multiplexer_4
             Port Map (A => mult_output,
@@ -1614,7 +1581,7 @@ line_3_mux_31: Multiplexer_4
                       C => output_mux_17,
                       D => Register_17_input_3,
                       sel => final_mux_sel_stream(35 downto 34),
-                      result => Register_final_input_17);
+                      result => Register_17_output);
                       
         mult_ALU_mux_18: Multiplexer_4
             Port Map (A => mult_output,
@@ -1622,7 +1589,7 @@ line_3_mux_31: Multiplexer_4
                       C => output_mux_18,
                       D => Register_18_input_3,
                       sel => final_mux_sel_stream(37 downto 36),
-                      result => Register_final_input_18);
+                      result => Register_18_output);
                       
         mult_ALU_mux_19: Multiplexer_4
             Port Map (A => mult_output,
@@ -1630,7 +1597,7 @@ line_3_mux_31: Multiplexer_4
                       C => output_mux_19,
                       D => Register_19_input_3,
                       sel => final_mux_sel_stream(39 downto 38),
-                      result => Register_final_input_19);
+                      result => Register_19_output);
                       
         mult_ALU_mux_20: Multiplexer_4
             Port Map (A => mult_output,
@@ -1638,7 +1605,7 @@ line_3_mux_31: Multiplexer_4
                       C => output_mux_20,
                       D => Register_20_input_3,
                       sel => final_mux_sel_stream(41 downto 40),
-                      result => Register_final_input_20);
+                      result => Register_20_output);
                       
         mult_ALU_mux_21: Multiplexer_4
             Port Map (A => mult_output,
@@ -1646,7 +1613,7 @@ line_3_mux_31: Multiplexer_4
                       C => output_mux_21,
                       D => Register_21_input_3,
                       sel => final_mux_sel_stream(43 downto 42),
-                      result => Register_final_input_21);
+                      result => Register_21_output);
                       
         mult_ALU_mux_22: Multiplexer_4
             Port Map (A => mult_output,
@@ -1654,7 +1621,7 @@ line_3_mux_31: Multiplexer_4
                       C => output_mux_22,
                       D => Register_22_input_3,
                       sel => final_mux_sel_stream(45 downto 44),
-                      result => Register_final_input_22);
+                      result => Register_22_output);
                       
         mult_ALU_mux_23: Multiplexer_4
             Port Map (A => mult_output,
@@ -1662,7 +1629,7 @@ line_3_mux_31: Multiplexer_4
                       C => output_mux_23,
                       D => Register_23_input_3,
                       sel => final_mux_sel_stream(47 downto 46),
-                      result => Register_final_input_23);
+                      result => Register_23_output);
                       
         mult_ALU_mux_24: Multiplexer_4
             Port Map (A => mult_output,
@@ -1670,7 +1637,7 @@ line_3_mux_31: Multiplexer_4
                       C => output_mux_24,
                       D => Register_24_input_3,
                       sel => final_mux_sel_stream(49 downto 48),
-                      result => Register_final_input_24);
+                      result => Register_24_output);
                       
         mult_ALU_mux_25: Multiplexer_4
             Port Map (A => mult_output,
@@ -1678,7 +1645,7 @@ line_3_mux_31: Multiplexer_4
                       C => output_mux_25,
                       D => Register_25_input_3,
                       sel => final_mux_sel_stream(51 downto 50),
-                      result => Register_final_input_25);
+                      result => Register_25_output);
                       
         mult_ALU_mux_26: Multiplexer_4
             Port Map (A => mult_output,
@@ -1686,7 +1653,7 @@ line_3_mux_31: Multiplexer_4
                       C => output_mux_26,
                       D => Register_26_input_3,
                       sel => final_mux_sel_stream(53 downto 52),
-                      result => Register_final_input_26);
+                      result => Register_26_output);
                       
         mult_ALU_mux_27: Multiplexer_4
             Port Map (A => mult_output,
@@ -1694,7 +1661,7 @@ line_3_mux_31: Multiplexer_4
                       C => output_mux_27,
                       D => Register_27_input_3,
                       sel => final_mux_sel_stream(55 downto 54),
-                      result => Register_final_input_27);
+                      result => Register_27_output);
                       
         mult_ALU_mux_28: Multiplexer_4
             Port Map (A => mult_output,
@@ -1702,7 +1669,7 @@ line_3_mux_31: Multiplexer_4
                       C => output_mux_28,
                       D => Register_28_input_3,
                       sel => final_mux_sel_stream(57 downto 56),
-                      result => Register_final_input_28);
+                      result => Register_28_output);
                       
         mult_ALU_mux_29: Multiplexer_4
             Port Map (A => mult_output,
@@ -1710,7 +1677,7 @@ line_3_mux_31: Multiplexer_4
                       C => output_mux_29,
                       D => Register_29_input_3,
                       sel => final_mux_sel_stream(59 downto 58),
-                      result => Register_final_input_29);
+                      result => Register_29_output);
                       
         mult_ALU_mux_30: Multiplexer_4
             Port Map (A => mult_output,
@@ -1718,7 +1685,7 @@ line_3_mux_31: Multiplexer_4
                       C => output_mux_30,
                       D => Register_30_input_3,
                       sel => final_mux_sel_stream(61 downto 60),
-                      result => Register_final_input_30);
+                      result => Register_30_output);
                       
         mult_ALU_mux_31: Multiplexer_4
             Port Map (A => mult_output,
@@ -1726,7 +1693,7 @@ line_3_mux_31: Multiplexer_4
                       C => output_mux_31,
                       D => Register_31_input_3,
                       sel => final_mux_sel_stream(63 downto 62),
-                      result => Register_final_input_31);
+                      result => Register_31_output);
                       
         
             
