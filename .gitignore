@@ -33,3 +33,7 @@ Array_project/Acceleration_array.fit.smsg
 Array_project/bitstream info.txt
 signal_writer.py
 result.txt
+*.ini
+*/precision_work/*
+*.log
+*transcript
