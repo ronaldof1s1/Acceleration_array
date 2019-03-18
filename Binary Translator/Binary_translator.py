@@ -306,4 +306,4 @@ class Binary_translator:
         self.levels[level].insert_fault(fault)
 
 
-read_file('testes/teste_inicial.txt')
+read_file('Testes/teste_inicial.txt')
