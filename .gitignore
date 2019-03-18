@@ -37,3 +37,5 @@ result.txt
 */precision_work/*
 *.log
 *transcript
+.idea/*
+.vscode/*
