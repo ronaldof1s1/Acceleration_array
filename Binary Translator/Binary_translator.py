@@ -5,7 +5,6 @@ def translate_file(lines):
     i = 0
     while(i < len(lines)):
         i = bt.decode_assembly(lines, i)
-        print (bt.levels[0].alu_op)
         bitstream = bt.translate_levels()
         print(bitstream[::-1])
     
