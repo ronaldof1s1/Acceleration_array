@@ -194,39 +194,6 @@ signal output_mux_31 : data;
 
   --------------------REGISTER BANK--------------------------
 
-  --inputs of registers
-signal Register_0_input_1 : data := "00000000000000000000000000000001";
-signal Register_1_input_1 : data := "00000000000000000000000000000001";
-signal Register_2_input_1 : data := "00000000000000000000000000000001";
-signal Register_3_input_1 : data := "00000000000000000000000000000001";
-signal Register_4_input_1 : data := "00000000000000000000000000000001";
-signal Register_5_input_1 : data := "00000000000000000000000000000001";
-signal Register_6_input_1 : data := "00000000000000000000000000000001";
-signal Register_7_input_1 : data := "00000000000000000000000000000001";
-signal Register_8_input_1 : data := "00000000000000000000000000000001";
-signal Register_9_input_1 : data := "00000000000000000000000000000001";
-signal Register_10_input_1 : data := "00000000000000000000000000000001";
-signal Register_11_input_1 : data := "00000000000000000000000000000001";
-signal Register_12_input_1 : data := "00000000000000000000000000000001";
-signal Register_13_input_1 : data := "00000000000000000000000000000001";
-signal Register_14_input_1 : data := "00000000000000000000000000000001";
-signal Register_15_input_1 : data := "00000000000000000000000000000001";
-signal Register_16_input_1 : data := "00000000000000000000000000000001";
-signal Register_17_input_1 : data := "00000000000000000000000000000001";
-signal Register_18_input_1 : data := "00000000000000000000000000000001";
-signal Register_19_input_1 : data := "00000000000000000000000000000001";
-signal Register_20_input_1 : data := "00000000000000000000000000000001";
-signal Register_21_input_1 : data := "00000000000000000000000000000001";
-signal Register_22_input_1 : data := "00000000000000000000000000000001";
-signal Register_23_input_1 : data := "00000000000000000000000000000001";
-signal Register_24_input_1 : data := "00000000000000000000000000000001";
-signal Register_25_input_1 : data := "00000000000000000000000000000001";
-signal Register_26_input_1 : data := "00000000000000000000000000000001";
-signal Register_27_input_1 : data := "00000000000000000000000000000001";
-signal Register_28_input_1 : data := "00000000000000000000000000000001";
-signal Register_29_input_1 : data := "00000000000000000000000000000001";
-signal Register_30_input_1 : data := "00000000000000000000000000000001";
-signal Register_31_input_1 : data := "00000000000000000000000000000001";
 
 signal Register_0_input_2 : data;
 signal Register_1_input_2 : data;
@@ -333,74 +300,74 @@ begin
   
   --instantiate multiplier
   Mult_mux_A : Multiplexer_32
-  port map (in0 => Register_0_input_1,
-            in1 => Register_1_input_1,
-            in2 => Register_2_input_1,
-            in3 => Register_3_input_1,
-            in4 => Register_4_input_1,
-            in5 => Register_5_input_1,
-            in6 => Register_6_input_1,
-            in7 => Register_7_input_1,
-            in8 => Register_8_input_1,
-            in9 => Register_9_input_1,
-            in10 => Register_10_input_1,
-            in11 => Register_11_input_1,
-            in12 => Register_12_input_1,
-            in13 => Register_13_input_1,
-            in14 => Register_14_input_1,
-            in15 => Register_15_input_1,
-            in16 => Register_16_input_1,
-            in17 => Register_17_input_1,
-            in18 => Register_18_input_1,
-            in19 => Register_19_input_1,
-            in20 => Register_20_input_1,
-            in21 => Register_21_input_1,
-            in22 => Register_22_input_1,
-            in23 => Register_23_input_1,
-            in24 => Register_24_input_1,
-            in25 => Register_25_input_1,
-            in26 => Register_26_input_1,
-            in27 => Register_27_input_1,
-            in28 => Register_28_input_1,
-            in29 => Register_29_input_1,
-            in30 => Register_30_input_1,
-            in31 => Register_31_input_1,
+  port map (in0 => in0,
+            in1 => in1,
+            in2 => in2,
+            in3 => in3,
+            in4 => in4,
+            in5 => in5,
+            in6 => in6,
+            in7 => in7,
+            in8 => in8,
+            in9 => in9,
+            in10 => in10,
+            in11 => in11,
+            in12 => in12,
+            in13 => in13,
+            in14 => in14,
+            in15 => in15,
+            in16 => in16,
+            in17 => in17,
+            in18 => in18,
+            in19 => in19,
+            in20 => in20,
+            in21 => in21,
+            in22 => in22,
+            in23 => in23,
+            in24 => in24,
+            in25 => in25,
+            in26 => in26,
+            in27 => in27,
+            in28 => in28,
+            in29 => in29,
+            in30 => in30,
+            in31 => in31,
             sel => sel_mult_A,
             result => mult_in_A);
 
   Mult_mux_B : Multiplexer_32
-  port map (in0 => Register_0_input_1,
-            in1 => Register_1_input_1,
-            in2 => Register_2_input_1,
-            in3 => Register_3_input_1,
-            in4 => Register_4_input_1,
-            in5 => Register_5_input_1,
-            in6 => Register_6_input_1,
-            in7 => Register_7_input_1,
-            in8 => Register_8_input_1,
-            in9 => Register_9_input_1,
-            in10 => Register_10_input_1,
-            in11 => Register_11_input_1,
-            in12 => Register_12_input_1,
-            in13 => Register_13_input_1,
-            in14 => Register_14_input_1,
-            in15 => Register_15_input_1,
-            in16 => Register_16_input_1,
-            in17 => Register_17_input_1,
-            in18 => Register_18_input_1,
-            in19 => Register_19_input_1,
-            in20 => Register_20_input_1,
-            in21 => Register_21_input_1,
-            in22 => Register_22_input_1,
-            in23 => Register_23_input_1,
-            in24 => Register_24_input_1,
-            in25 => Register_25_input_1,
-            in26 => Register_26_input_1,
-            in27 => Register_27_input_1,
-            in28 => Register_28_input_1,
-            in29 => Register_29_input_1,
-            in30 => Register_30_input_1,
-            in31 => Register_31_input_1,
+  port map (in0 => in0,
+            in1 => in1,
+            in2 => in2,
+            in3 => in3,
+            in4 => in4,
+            in5 => in5,
+            in6 => in6,
+            in7 => in7,
+            in8 => in8,
+            in9 => in9,
+            in10 => in10,
+            in11 => in11,
+            in12 => in12,
+            in13 => in13,
+            in14 => in14,
+            in15 => in15,
+            in16 => in16,
+            in17 => in17,
+            in18 => in18,
+            in19 => in19,
+            in20 => in20,
+            in21 => in21,
+            in22 => in22,
+            in23 => in23,
+            in24 => in24,
+            in25 => in25,
+            in26 => in26,
+            in27 => in27,
+            in28 => in28,
+            in29 => in29,
+            in30 => in30,
+            in31 => in31,
             sel => sel_mult_B,
             result => mult_in_B);
 
@@ -413,74 +380,74 @@ begin
   --instantiate memory access unit
 
   RAM_mux : Multiplexer_32
-  port map (in0 => Register_0_input_1,
-            in1 => Register_1_input_1,
-            in2 => Register_2_input_1,
-            in3 => Register_3_input_1,
-            in4 => Register_4_input_1,
-            in5 => Register_5_input_1,
-            in6 => Register_6_input_1,
-            in7 => Register_7_input_1,
-            in8 => Register_8_input_1,
-            in9 => Register_9_input_1,
-            in10 => Register_10_input_1,
-            in11 => Register_11_input_1,
-            in12 => Register_12_input_1,
-            in13 => Register_13_input_1,
-            in14 => Register_14_input_1,
-            in15 => Register_15_input_1,
-            in16 => Register_16_input_1,
-            in17 => Register_17_input_1,
-            in18 => Register_18_input_1,
-            in19 => Register_19_input_1,
-            in20 => Register_20_input_1,
-            in21 => Register_21_input_1,
-            in22 => Register_22_input_1,
-            in23 => Register_23_input_1,
-            in24 => Register_24_input_1,
-            in25 => Register_25_input_1,
-            in26 => Register_26_input_1,
-            in27 => Register_27_input_1,
-            in28 => Register_28_input_1,
-            in29 => Register_29_input_1,
-            in30 => Register_30_input_1,
-            in31 => Register_31_input_1,
+  port map (in0 => in0,
+            in1 => in1,
+            in2 => in2,
+            in3 => in3,
+            in4 => in4,
+            in5 => in5,
+            in6 => in6,
+            in7 => in7,
+            in8 => in8,
+            in9 => in9,
+            in10 => in10,
+            in11 => in11,
+            in12 => in12,
+            in13 => in13,
+            in14 => in14,
+            in15 => in15,
+            in16 => in16,
+            in17 => in17,
+            in18 => in18,
+            in19 => in19,
+            in20 => in20,
+            in21 => in21,
+            in22 => in22,
+            in23 => in23,
+            in24 => in24,
+            in25 => in25,
+            in26 => in26,
+            in27 => in27,
+            in28 => in28,
+            in29 => in29,
+            in30 => in30,
+            in31 => in31,
             sel => sel_memory,
             result => memory_mux_out);
 
   RAM_mux_addr : Multiplexer_32
-  port map (in0 => Register_0_input_1,
-            in1 => Register_1_input_1,
-            in2 => Register_2_input_1,
-            in3 => Register_3_input_1,
-            in4 => Register_4_input_1,
-            in5 => Register_5_input_1,
-            in6 => Register_6_input_1,
-            in7 => Register_7_input_1,
-            in8 => Register_8_input_1,
-            in9 => Register_9_input_1,
-            in10 => Register_10_input_1,
-            in11 => Register_11_input_1,
-            in12 => Register_12_input_1,
-            in13 => Register_13_input_1,
-            in14 => Register_14_input_1,
-            in15 => Register_15_input_1,
-            in16 => Register_16_input_1,
-            in17 => Register_17_input_1,
-            in18 => Register_18_input_1,
-            in19 => Register_19_input_1,
-            in20 => Register_20_input_1,
-            in21 => Register_21_input_1,
-            in22 => Register_22_input_1,
-            in23 => Register_23_input_1,
-            in24 => Register_24_input_1,
-            in25 => Register_25_input_1,
-            in26 => Register_26_input_1,
-            in27 => Register_27_input_1,
-            in28 => Register_28_input_1,
-            in29 => Register_29_input_1,
-            in30 => Register_30_input_1,
-            in31 => Register_31_input_1,
+  port map (in0 => in0,
+            in1 => in1,
+            in2 => in2,
+            in3 => in3,
+            in4 => in4,
+            in5 => in5,
+            in6 => in6,
+            in7 => in7,
+            in8 => in8,
+            in9 => in9,
+            in10 => in10,
+            in11 => in11,
+            in12 => in12,
+            in13 => in13,
+            in14 => in14,
+            in15 => in15,
+            in16 => in16,
+            in17 => in17,
+            in18 => in18,
+            in19 => in19,
+            in20 => in20,
+            in21 => in21,
+            in22 => in22,
+            in23 => in23,
+            in24 => in24,
+            in25 => in25,
+            in26 => in26,
+            in27 => in27,
+            in28 => in28,
+            in29 => in29,
+            in30 => in30,
+            in31 => in31,
             sel => address,
             result => temp_addr);
 
@@ -500,38 +467,38 @@ begin
 
   -- instantiate first line of ALUs
   line_1 : ALUs_line
-    Port Map (in0 => Register_0_input_1,
-              in1 => Register_1_input_1,
-              in2 => Register_2_input_1,
-              in3 => Register_3_input_1,
-              in4 => Register_4_input_1,
-              in5 => Register_5_input_1,
-              in6 => Register_6_input_1,
-              in7 => Register_7_input_1,
-              in8 => Register_8_input_1,
-              in9 => Register_9_input_1,
-              in10 => Register_10_input_1,
-              in11 => Register_11_input_1,
-              in12 => Register_12_input_1,
-              in13 => Register_13_input_1,
-              in14 => Register_14_input_1,
-              in15 => Register_15_input_1,
-              in16 => Register_16_input_1,
-              in17 => Register_17_input_1,
-              in18 => Register_18_input_1,
-              in19 => Register_19_input_1,
-              in20 => Register_20_input_1,
-              in21 => Register_21_input_1,
-              in22 => Register_22_input_1,
-              in23 => Register_23_input_1,
-              in24 => Register_24_input_1,
-              in25 => Register_25_input_1,
-              in26 => Register_26_input_1,
-              in27 => Register_27_input_1,
-              in28 => Register_28_input_1,
-              in29 => Register_29_input_1,
-              in30 => Register_30_input_1,
-              in31 => Register_31_input_1,
+    Port Map (in0 => in0,
+              in1 => in1,
+              in2 => in2,
+              in3 => in3,
+              in4 => in4,
+              in5 => in5,
+              in6 => in6,
+              in7 => in7,
+              in8 => in8,
+              in9 => in9,
+              in10 => in10,
+              in11 => in11,
+              in12 => in12,
+              in13 => in13,
+              in14 => in14,
+              in15 => in15,
+              in16 => in16,
+              in17 => in17,
+              in18 => in18,
+              in19 => in19,
+              in20 => in20,
+              in21 => in21,
+              in22 => in22,
+              in23 => in23,
+              in24 => in24,
+              in25 => in25,
+              in26 => in26,
+              in27 => in27,
+              in28 => in28,
+              in29 => in29,
+              in30 => in30,
+              in31 => in31,
               sel_bitstream => sel_stream_1,
               operation_bitstream => op_stream_1,
               output_1 => output_1_1,
@@ -544,7 +511,7 @@ begin
   Port Map (A => output_1_1,
             B => output_1_2,
             C => output_1_3,
-            D => Register_0_input_1,
+            D => in0,
             sel => line_1_mux_sel_stream(1 downto 0),
             result => Register_0_input_2);
             
@@ -552,7 +519,7 @@ line_1_mux_1: Multiplexer_4
   Port Map (A => output_1_1,
             B => output_1_2,
             C => output_1_3,
-            D => Register_1_input_1,
+            D => in1,
             sel => line_1_mux_sel_stream(3 downto 2),
             result => Register_1_input_2);
             
@@ -560,7 +527,7 @@ line_1_mux_2: Multiplexer_4
   Port Map (A => output_1_1,
             B => output_1_2,
             C => output_1_3,
-            D => Register_2_input_1,
+            D => in2,
             sel => line_1_mux_sel_stream(5 downto 4),
             result => Register_2_input_2);
             
@@ -568,7 +535,7 @@ line_1_mux_3: Multiplexer_4
   Port Map (A => output_1_1,
             B => output_1_2,
             C => output_1_3,
-            D => Register_3_input_1,
+            D => in3,
             sel => line_1_mux_sel_stream(7 downto 6),
             result => Register_3_input_2);
             
@@ -576,7 +543,7 @@ line_1_mux_4: Multiplexer_4
   Port Map (A => output_1_1,
             B => output_1_2,
             C => output_1_3,
-            D => Register_4_input_1,
+            D => in4,
             sel => line_1_mux_sel_stream(9 downto 8),
             result => Register_4_input_2);
             
@@ -584,7 +551,7 @@ line_1_mux_5: Multiplexer_4
   Port Map (A => output_1_1,
             B => output_1_2,
             C => output_1_3,
-            D => Register_5_input_1,
+            D => in5,
             sel => line_1_mux_sel_stream(11 downto 10),
             result => Register_5_input_2);
             
@@ -592,7 +559,7 @@ line_1_mux_6: Multiplexer_4
   Port Map (A => output_1_1,
             B => output_1_2,
             C => output_1_3,
-            D => Register_6_input_1,
+            D => in6,
             sel => line_1_mux_sel_stream(13 downto 12),
             result => Register_6_input_2);
             
@@ -600,7 +567,7 @@ line_1_mux_7: Multiplexer_4
   Port Map (A => output_1_1,
             B => output_1_2,
             C => output_1_3,
-            D => Register_7_input_1,
+            D => in7,
             sel => line_1_mux_sel_stream(15 downto 14),
             result => Register_7_input_2);
             
@@ -608,7 +575,7 @@ line_1_mux_8: Multiplexer_4
   Port Map (A => output_1_1,
             B => output_1_2,
             C => output_1_3,
-            D => Register_8_input_1,
+            D => in8,
             sel => line_1_mux_sel_stream(17 downto 16),
             result => Register_8_input_2);
             
@@ -616,7 +583,7 @@ line_1_mux_9: Multiplexer_4
   Port Map (A => output_1_1,
             B => output_1_2,
             C => output_1_3,
-            D => Register_9_input_1,
+            D => in9,
             sel => line_1_mux_sel_stream(19 downto 18),
             result => Register_9_input_2);
             
@@ -624,7 +591,7 @@ line_1_mux_10: Multiplexer_4
   Port Map (A => output_1_1,
             B => output_1_2,
             C => output_1_3,
-            D => Register_10_input_1,
+            D => in10,
             sel => line_1_mux_sel_stream(21 downto 20),
             result => Register_10_input_2);
             
@@ -632,7 +599,7 @@ line_1_mux_11: Multiplexer_4
   Port Map (A => output_1_1,
             B => output_1_2,
             C => output_1_3,
-            D => Register_11_input_1,
+            D => in11,
             sel => line_1_mux_sel_stream(23 downto 22),
             result => Register_11_input_2);
             
@@ -640,7 +607,7 @@ line_1_mux_12: Multiplexer_4
   Port Map (A => output_1_1,
             B => output_1_2,
             C => output_1_3,
-            D => Register_12_input_1,
+            D => in12,
             sel => line_1_mux_sel_stream(25 downto 24),
             result => Register_12_input_2);
             
@@ -648,7 +615,7 @@ line_1_mux_13: Multiplexer_4
   Port Map (A => output_1_1,
             B => output_1_2,
             C => output_1_3,
-            D => Register_13_input_1,
+            D => in13,
             sel => line_1_mux_sel_stream(27 downto 26),
             result => Register_13_input_2);
             
@@ -656,7 +623,7 @@ line_1_mux_14: Multiplexer_4
   Port Map (A => output_1_1,
             B => output_1_2,
             C => output_1_3,
-            D => Register_14_input_1,
+            D => in14,
             sel => line_1_mux_sel_stream(29 downto 28),
             result => Register_14_input_2);
             
@@ -664,7 +631,7 @@ line_1_mux_15: Multiplexer_4
   Port Map (A => output_1_1,
             B => output_1_2,
             C => output_1_3,
-            D => Register_15_input_1,
+            D => in15,
             sel => line_1_mux_sel_stream(31 downto 30),
             result => Register_15_input_2);
             
@@ -672,7 +639,7 @@ line_1_mux_16: Multiplexer_4
   Port Map (A => output_1_1,
             B => output_1_2,
             C => output_1_3,
-            D => Register_16_input_1,
+            D => in16,
             sel => line_1_mux_sel_stream(33 downto 32),
             result => Register_16_input_2);
             
@@ -680,7 +647,7 @@ line_1_mux_17: Multiplexer_4
   Port Map (A => output_1_1,
             B => output_1_2,
             C => output_1_3,
-            D => Register_17_input_1,
+            D => in17,
             sel => line_1_mux_sel_stream(35 downto 34),
             result => Register_17_input_2);
             
@@ -688,7 +655,7 @@ line_1_mux_18: Multiplexer_4
   Port Map (A => output_1_1,
             B => output_1_2,
             C => output_1_3,
-            D => Register_18_input_1,
+            D => in18,
             sel => line_1_mux_sel_stream(37 downto 36),
             result => Register_18_input_2);
             
@@ -696,7 +663,7 @@ line_1_mux_19: Multiplexer_4
   Port Map (A => output_1_1,
             B => output_1_2,
             C => output_1_3,
-            D => Register_19_input_1,
+            D => in19,
             sel => line_1_mux_sel_stream(39 downto 38),
             result => Register_19_input_2);
             
@@ -704,7 +671,7 @@ line_1_mux_20: Multiplexer_4
   Port Map (A => output_1_1,
             B => output_1_2,
             C => output_1_3,
-            D => Register_20_input_1,
+            D => in20,
             sel => line_1_mux_sel_stream(41 downto 40),
             result => Register_20_input_2);
             
@@ -712,7 +679,7 @@ line_1_mux_21: Multiplexer_4
   Port Map (A => output_1_1,
             B => output_1_2,
             C => output_1_3,
-            D => Register_21_input_1,
+            D => in21,
             sel => line_1_mux_sel_stream(43 downto 42),
             result => Register_21_input_2);
             
@@ -720,7 +687,7 @@ line_1_mux_22: Multiplexer_4
   Port Map (A => output_1_1,
             B => output_1_2,
             C => output_1_3,
-            D => Register_22_input_1,
+            D => in22,
             sel => line_1_mux_sel_stream(45 downto 44),
             result => Register_22_input_2);
             
@@ -728,7 +695,7 @@ line_1_mux_23: Multiplexer_4
   Port Map (A => output_1_1,
             B => output_1_2,
             C => output_1_3,
-            D => Register_23_input_1,
+            D => in23,
             sel => line_1_mux_sel_stream(47 downto 46),
             result => Register_23_input_2);
             
@@ -736,7 +703,7 @@ line_1_mux_24: Multiplexer_4
   Port Map (A => output_1_1,
             B => output_1_2,
             C => output_1_3,
-            D => Register_24_input_1,
+            D => in24,
             sel => line_1_mux_sel_stream(49 downto 48),
             result => Register_24_input_2);
             
@@ -744,7 +711,7 @@ line_1_mux_25: Multiplexer_4
   Port Map (A => output_1_1,
             B => output_1_2,
             C => output_1_3,
-            D => Register_25_input_1,
+            D => in25,
             sel => line_1_mux_sel_stream(51 downto 50),
             result => Register_25_input_2);
             
@@ -752,7 +719,7 @@ line_1_mux_26: Multiplexer_4
   Port Map (A => output_1_1,
             B => output_1_2,
             C => output_1_3,
-            D => Register_26_input_1,
+            D => in26,
             sel => line_1_mux_sel_stream(53 downto 52),
             result => Register_26_input_2);
             
@@ -760,7 +727,7 @@ line_1_mux_27: Multiplexer_4
   Port Map (A => output_1_1,
             B => output_1_2,
             C => output_1_3,
-            D => Register_27_input_1,
+            D => in27,
             sel => line_1_mux_sel_stream(55 downto 54),
             result => Register_27_input_2);
             
@@ -768,7 +735,7 @@ line_1_mux_28: Multiplexer_4
   Port Map (A => output_1_1,
             B => output_1_2,
             C => output_1_3,
-            D => Register_28_input_1,
+            D => in28,
             sel => line_1_mux_sel_stream(57 downto 56),
             result => Register_28_input_2);
             
@@ -776,7 +743,7 @@ line_1_mux_29: Multiplexer_4
   Port Map (A => output_1_1,
             B => output_1_2,
             C => output_1_3,
-            D => Register_29_input_1,
+            D => in29,
             sel => line_1_mux_sel_stream(59 downto 58),
             result => Register_29_input_2);
             
@@ -784,7 +751,7 @@ line_1_mux_30: Multiplexer_4
   Port Map (A => output_1_1,
             B => output_1_2,
             C => output_1_3,
-            D => Register_30_input_1,
+            D => in30,
             sel => line_1_mux_sel_stream(61 downto 60),
             result => Register_30_input_2);
             
@@ -792,7 +759,7 @@ line_1_mux_31: Multiplexer_4
   Port Map (A => output_1_1,
             B => output_1_2,
             C => output_1_3,
-            D => Register_31_input_1,
+            D => in31,
             sel => line_1_mux_sel_stream(63 downto 62),
             result => Register_31_input_2);
             
