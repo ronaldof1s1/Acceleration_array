@@ -1,18 +1,20 @@
 from Array_level import Array_level
+from sys import argv
 
-def translate_file(lines):
+def translate_file(lines, path):
     bt = Binary_translator()
     i = 0
+    file = open(path, 'w+')
     while(i < len(lines)):
         i = bt.decode_assembly(lines, i)
         bitstream = bt.translate_levels()
-        print(bitstream[::-1])
+        file.write(bitstream[::-1])
     
 
-def read_file(path):
-    file_obj = open(path, 'r')
+def read_file(path_in, path_out):
+    file_obj = open(path_in, 'r')
     lines = file_obj.readlines()
-    translate_file(lines)
+    translate_file(lines, path_out)
     
 class Binary_translator:
     def __init__(self):
@@ -25,7 +27,7 @@ class Binary_translator:
         #self.insert_fault(0, 'alu', (0,0))
 
     def prepare_line(self, line):
-        words = line.split(' ')
+        words = line.rstrip('\n').split(' ')
         operation = words[0].upper()
 
         if operation == 'MULT':
@@ -305,4 +307,4 @@ class Binary_translator:
         self.levels[level].insert_fault(fault)
 
 
-read_file('Testes/teste_inicial.txt')
+read_file(argv[1], argv[2])
