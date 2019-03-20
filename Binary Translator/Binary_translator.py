@@ -1,5 +1,6 @@
 from Array_level import Array_level
 from sys import argv
+from numpy import matrix
 
 def translate_file(lines, path):
     bt = Binary_translator()
@@ -240,15 +241,17 @@ class Binary_translator:
         bitstream = ''
         registers = ["R" + str(i) for i in range(self.register_quantity)]
 
+        #here we reverse the stream because it will be re-reversed later
+
         for reg in registers:
             if level.register_in_mult(reg):
                 bitstream += '00'
 
-            elif level.register_in_memory(reg):
-                bitstream += '01'
+            elif level.register_in_memory(reg) and level.memory_op[level.memory_target.index(reg)] == "LW":
+                bitstream += '10'
 
             else:
-                bitstream += '10'
+                bitstream += '01'
 
         return bitstream
 
