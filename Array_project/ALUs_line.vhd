@@ -57,16 +57,16 @@ architecture ALine of ALUs_line is
   signal input_3_B : data;
 
 begin
-  sel_1_A  <= sel_bitstream(29 downto 25);
-  sel_1_B  <= sel_bitstream(24 downto 20);
-  sel_2_A  <= sel_bitstream(19 downto 15);
-  sel_2_B  <= sel_bitstream(14 downto 10);
-  sel_3_A  <= sel_bitstream(9 downto 5);
-  sel_3_B  <= sel_bitstream(4 downto 0);
+  sel_1_A  <= sel_bitstream(4 downto 0);
+  sel_1_B  <= sel_bitstream(9 downto 5);
+  sel_2_A  <= sel_bitstream(14 downto 10);
+  sel_2_B  <= sel_bitstream(19 downto 15);
+  sel_3_A  <= sel_bitstream(24 downto 20);
+  sel_3_B  <= sel_bitstream(29 downto 25);
 
-  op_1 <= operation_bitstream(8 downto 6);
+  op_1 <= operation_bitstream(2 downto 0);
   op_2 <= operation_bitstream(5 downto 3);
-  op_3 <= operation_bitstream(2 downto 0);
+  op_3 <= operation_bitstream(8 downto 6);
   
 
 
