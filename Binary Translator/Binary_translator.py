@@ -268,7 +268,7 @@ class Binary_translator:
                 
         for pos in level.memory_pos:
             if addr:
-                bitstream += pos
+                bitstream += pos[::-1]
             else:
                 bitstream += '00000000000000000000000000000000'
 
