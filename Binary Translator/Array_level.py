@@ -154,4 +154,5 @@ class Array_level:
         self.alu_target[x][y] = 'x'
         self.alu_source[x][y] = ('x','x')
         self.alu_op[x][y] = 'x'
-        
+    
+    def clear(self)
