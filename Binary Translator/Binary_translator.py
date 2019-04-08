@@ -25,7 +25,7 @@ class Binary_translator:
         self.cols = 3
         self.mults = 1
         self.mem = 1
-        self.levels = [Array_level(self.rows, self.cols, self.mults, self.mem)]
+        create_levels(3)
         #self.insert_fault(0, 'alu', (0,0))
 
     def prepare_line(self, line):
@@ -288,9 +288,10 @@ class Binary_translator:
         return bitstream
 
     def translate_levels(self):
-        for level in self.levels:
 
-            bitstream = ''
+        bitstream = ''
+        
+        for level in self.levels:
 
             bitstream += self.translate_alu_input_muxes(level)
 
@@ -309,6 +310,12 @@ class Binary_translator:
     def insert_fault(self, level, component, pos):
         fault = (component, pos)
         self.levels[level].insert_fault(fault)
+
+    def create_levels(self, level_number):
+        self.levels = []
+        for i in range(level_number):
+            level = Array_level(self.rows, self.cols, self.mults, self.mem)
+            self.levels.append(level)
 
     def clear(self):
         for level in self.levels:
