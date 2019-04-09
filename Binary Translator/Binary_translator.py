@@ -25,13 +25,15 @@ class Binary_translator:
         self.cols = 3
         self.mults = 1
         self.mem = 1
-        create_levels(3)
+        self.create_levels(3)
         #self.insert_fault(0, 'alu', (0,0))
 
     def prepare_line(self, line):
+        if line == '':
+            return True
+
         words = line.rstrip('\n').split(' ')
         operation = words[0].upper()
-
         if operation == 'MULT':
             for level in self.levels:
                 if level.set_mult(words):
@@ -206,7 +208,7 @@ class Binary_translator:
 
         for read_alu in level.alu_source:
             for (in1, in2) in read_alu:
-                bitstream += self.get_mux32_selector(in1) + self.get_mux32_selector(in2)
+                bitstream += self.get_mux32_selector(in1)[::-1] + self.get_mux32_selector(in2)[::-1]
 
         return bitstream
 
@@ -216,7 +218,7 @@ class Binary_translator:
         for op_line in level.alu_op:
             for op in op_line:
                 if op:
-                    bitstream += self.get_operation_code(op)
+                    bitstream += self.get_operation_code(op)[::-1]
                 else:
                     bitstream += '111'
 
@@ -232,7 +234,7 @@ class Binary_translator:
                 if reg in line:
                     col = line.index(reg)
                     temp = 'R'+str(col)
-                    bitstream += self.get_mux4_selector(temp)
+                    bitstream += self.get_mux4_selector(temp)[::-1]
                 else:
                     bitstream += '11'
 
@@ -242,8 +244,7 @@ class Binary_translator:
         bitstream = ''
         registers = ["R" + str(i) for i in range(self.register_quantity)]
 
-        #here we reverse the stream because it will be re-reversed later
-
+        
         for reg in registers:
             if level.register_in_mult(reg):
                 bitstream += '00'
