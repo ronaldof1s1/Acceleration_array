@@ -266,6 +266,9 @@ signal Register_31_input_3 : data;
 
 
 begin
+process(bitstream,clk)
+begin
+if rising_edge(clk) then
   sel_stream_1 <= bitstream(29 downto 0);
   sel_stream_2 <= bitstream(59 downto 30);
   sel_stream_3 <= bitstream(89 downto 60);
@@ -296,7 +299,8 @@ begin
   write_enabled <= bitstream(420);
   
   sel_memory <= bitstream(425 downto 421);
-  
+  end if;
+  end process;
   
   --instantiate multiplier
   Mult_mux_A : Multiplexer_32

@@ -47,38 +47,39 @@ Component Register_Bank
   	);
   end Component;
 
-signal first_level_input_00 : data;
-signal first_level_input_01 : data;
-signal first_level_input_02 : data;
-signal first_level_input_03 : data;
-signal first_level_input_04 : data;
-signal first_level_input_05 : data;
-signal first_level_input_06 : data;
-signal first_level_input_07 : data;
-signal first_level_input_08 : data;
-signal first_level_input_09 : data;
-signal first_level_input_10 : data;
-signal first_level_input_11 : data;
-signal first_level_input_12 : data;
-signal first_level_input_13 : data;
-signal first_level_input_14 : data;
-signal first_level_input_15 : data;
-signal first_level_input_16 : data;
-signal first_level_input_17 : data;
-signal first_level_input_18 : data;
-signal first_level_input_19 : data;
-signal first_level_input_20 : data;
-signal first_level_input_21 : data;
-signal first_level_input_22 : data;
-signal first_level_input_23 : data;
-signal first_level_input_24 : data;
-signal first_level_input_25 : data;
-signal first_level_input_26 : data;
-signal first_level_input_27 : data;
-signal first_level_input_28 : data;
-signal first_level_input_29 : data;
-signal first_level_input_30 : data;
-signal first_level_input_31 : data;
+signal first_level_input_00 : data := "00000000000000000000000000000000";
+signal first_level_input_01 : data := "00000000000000000000000000000001";
+signal first_level_input_02 : data := "00000000000000000000000000000010";
+signal first_level_input_03 : data := "00000000000000000000000000000011";
+signal first_level_input_04 : data := "00000000000000000000000000000100";
+signal first_level_input_05 : data := "00000000000000000000000000000101";
+signal first_level_input_06 : data := "00000000000000000000000000000110";
+signal first_level_input_07 : data := "00000000000000000000000000000111";
+signal first_level_input_08 : data := "00000000000000000000000000001000";
+signal first_level_input_09 : data := "00000000000000000000000000001001";
+signal first_level_input_10 : data := "00000000000000000000000000001010";
+signal first_level_input_11 : data := "00000000000000000000000000001011";
+signal first_level_input_12 : data := "00000000000000000000000000001100";
+signal first_level_input_13 : data := "00000000000000000000000000001101";
+signal first_level_input_14 : data := "00000000000000000000000000001110";
+signal first_level_input_15 : data := "00000000000000000000000000001111";
+signal first_level_input_16 : data := "00000000000000000000000000010000";
+signal first_level_input_17 : data := "00000000000000000000000000010001";
+signal first_level_input_18 : data := "00000000000000000000000000010010";
+signal first_level_input_19 : data := "00000000000000000000000000010011";
+signal first_level_input_20 : data := "00000000000000000000000000010100";
+signal first_level_input_21 : data := "00000000000000000000000000010101";
+signal first_level_input_22 : data := "00000000000000000000000000010110";
+signal first_level_input_23 : data := "00000000000000000000000000010111";
+signal first_level_input_24 : data := "00000000000000000000000000011000";
+signal first_level_input_25 : data := "00000000000000000000000000011001";
+signal first_level_input_26 : data := "00000000000000000000000000011010";
+signal first_level_input_27 : data := "00000000000000000000000000011011";
+signal first_level_input_28 : data := "00000000000000000000000000011100";
+signal first_level_input_29 : data := "00000000000000000000000000011101";
+signal first_level_input_30 : data := "00000000000000000000000000011110";
+signal first_level_input_31 : data := "00000000000000000000000000011111";
+
 
 signal second_level_input_00 : data;
 signal second_level_input_01 : data;
@@ -371,7 +372,7 @@ port map (
             clk => clk,
 
 
-		    out0 => output_00,
+		out0 => output_00,
             out1 => output_01,
             out2 => output_02,
             out3 => output_03,
@@ -405,75 +406,114 @@ port map (
             out31 => output_31
 );
 
-BANK : Register_Bank
-  Port Map( in0 => output_00,
-            in1 => output_01,
-            in2 => output_02,
-            in3 => output_03,
-            in4 => output_04,
-            in5 => output_05,
-            in6 => output_06,
-            in7 => output_07,
-            in8 => output_08,
-            in9 => output_09,
-            in10 => output_10,
-            in11 => output_11,
-            in12 => output_12,
-            in13 => output_13,
-            in14 => output_14,
-            in15 => output_15,
-            in16 => output_16,
-            in17 => output_17,
-            in18 => output_18,
-            in19 => output_19,
-            in20 => output_20,
-            in21 => output_21,
-            in22 => output_22,
-            in23 => output_23,
-            in24 => output_24,
-            in25 => output_25,
-            in26 => output_26,
-            in27 => output_27,
-            in28 => output_28,
-            in29 => output_29,
-            in30 => output_30,
-            in31 => output_31,
-
-            clk => clk,
-
-            out0 => first_level_input_00,
-            out1 => first_level_input_01,
-            out2 => first_level_input_02,
-            out3 => first_level_input_03,
-            out4 => first_level_input_04,
-            out5 => first_level_input_05,
-            out6 => first_level_input_06,
-            out7 => first_level_input_07,
-            out8 => first_level_input_08,
-            out9 => first_level_input_09,
-            out10 => first_level_input_10,
-            out11 => first_level_input_11,
-            out12 => first_level_input_12,
-            out13 => first_level_input_13,
-            out14 => first_level_input_14,
-            out15 => first_level_input_15,
-            out16 => first_level_input_16,
-            out17 => first_level_input_17,
-            out18 => first_level_input_18,
-            out19 => first_level_input_19,
-            out20 => first_level_input_20,
-            out21 => first_level_input_21,
-            out22 => first_level_input_22,
-            out23 => first_level_input_23,
-            out24 => first_level_input_24,
-            out25 => first_level_input_25,
-            out26 => first_level_input_26,
-            out27 => first_level_input_27,
-            out28 => first_level_input_28,
-            out29 => first_level_input_29,
-            out30 => first_level_input_30,
-            out31 => first_level_input_31          
-          );
 
 
+
+--BANK : Register_Bank
+--  Port Map( in0 => output_00,
+--            in1 => output_01,
+--            in2 => output_02,
+--            in3 => output_03,
+--            in4 => output_04,
+--            in5 => output_05,
+--            in6 => output_06,
+--            in7 => output_07,
+--            in8 => output_08,
+--            in9 => output_09,
+--            in10 => output_10,
+--            in11 => output_11,
+--            in12 => output_12,
+--            in13 => output_13,
+--            in14 => output_14,
+--            in15 => output_15,
+--            in16 => output_16,
+--            in17 => output_17,
+--            in18 => output_18,
+--            in19 => output_19,
+--            in20 => output_20,
+--            in21 => output_21,
+--            in22 => output_22,
+--            in23 => output_23,
+--            in24 => output_24,
+--            in25 => output_25,
+--            in26 => output_26,
+--            in27 => output_27,
+--            in28 => output_28,
+--            in29 => output_29,
+--            in30 => output_30,
+--            in31 => output_31,
+
+--            clk => clk,
+
+--            out0 => first_level_input_00,
+--            out1 => first_level_input_01,
+--            out2 => first_level_input_02,
+--            out3 => first_level_input_03,
+--            out4 => first_level_input_04,
+--            out5 => first_level_input_05,
+--            out6 => first_level_input_06,
+--            out7 => first_level_input_07,
+--            out8 => first_level_input_08,
+--            out9 => first_level_input_09,
+--            out10 => first_level_input_10,
+--            out11 => first_level_input_11,
+--            out12 => first_level_input_12,
+--            out13 => first_level_input_13,
+--            out14 => first_level_input_14,
+--            out15 => first_level_input_15,
+--            out16 => first_level_input_16,
+--            out17 => first_level_input_17,
+--            out18 => first_level_input_18,
+--            out19 => first_level_input_19,
+--            out20 => first_level_input_20,
+--            out21 => first_level_input_21,
+--            out22 => first_level_input_22,
+--            out23 => first_level_input_23,
+--            out24 => first_level_input_24,
+--            out25 => first_level_input_25,
+--            out26 => first_level_input_26,
+--            out27 => first_level_input_27,
+--            out28 => first_level_input_28,
+--            out29 => first_level_input_29,
+--            out30 => first_level_input_30,
+--            out31 => first_level_input_31          
+--          );
+
+process(clk)
+begin
+if rising_edge(clk) then
+      first_level_input_00 <= output_00;
+      first_level_input_01 <= output_01;
+      first_level_input_02 <= output_02;
+      first_level_input_03 <= output_03;
+      first_level_input_04 <= output_04;
+      first_level_input_05 <= output_05;
+      first_level_input_06 <= output_06;
+      first_level_input_07 <= output_07;
+      first_level_input_08 <= output_08;
+      first_level_input_09 <= output_09;
+      first_level_input_10 <= output_10;
+      first_level_input_11 <= output_11;
+      first_level_input_12 <= output_12;
+      first_level_input_13 <= output_13;
+      first_level_input_14 <= output_14;
+      first_level_input_15 <= output_15;
+      first_level_input_16 <= output_16;
+      first_level_input_17 <= output_17;
+      first_level_input_18 <= output_18;
+      first_level_input_19 <= output_19;
+      first_level_input_20 <= output_20;
+      first_level_input_21 <= output_21;
+      first_level_input_22 <= output_22;
+      first_level_input_23 <= output_23;
+      first_level_input_24 <= output_24;
+      first_level_input_25 <= output_25;
+      first_level_input_26 <= output_26;
+      first_level_input_27 <= output_27;
+      first_level_input_28 <= output_28;
+      first_level_input_29 <= output_29;
+      first_level_input_30 <= output_30;
+      first_level_input_31 <= output_31;
+end if;
+end process;
 end architecture;
