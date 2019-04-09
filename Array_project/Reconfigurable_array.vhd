@@ -6,11 +6,7 @@ use ieee.std_logic_unsigned.ALL;
 entity Reconfigurable_Array is
   port (
     bitstream : in std_logic_vector(1277 downto 0);
-    clk : in std_logic;
-    out0, out1, out2, out3, out4, out5, out6, out7, 
-    out8, out9, out10, out11, out12, out13, out14, out15, 
-    out16, out17, out18, out19, out20, out21, out22, out23, 
-    out24, out25, out26, out27, out28, out29, out30, out31 : out std_logic_vector(31 downto 0)
+    clk : in std_logic
   );
 end Reconfigurable_Array;
 
