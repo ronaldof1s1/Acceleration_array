@@ -41,3 +41,6 @@ result.txt
 */.vscode/*
 *.out
 */Testes/*
+*/c5_pin_model*
+*/simulation/*
+*/timing/*
