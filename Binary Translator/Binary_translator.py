@@ -1,6 +1,6 @@
 from Array_level import Array_level
 from sys import argv
-from numpy import matrix
+#from numpy import matrix
 
 def translate_file(lines, path):
     bt = Binary_translator()
@@ -99,82 +99,18 @@ class Binary_translator:
                 break
             line += 1
         return line
-            
+        
     def get_mux4_selector(self, string):
-        if string == 'R0':
-            return '00'
-        elif string == 'R1':
-            return '01'
-        elif string == 'R2':
-            return '10'
-        else:
-            return '11'
+        return '{:02b}'.format(string)
 
     def get_mux32_selector(self, string):
-        if string == 'R0':
-            return '00000'
-        elif string == 'R1':
-            return '00001'
-        elif string == 'R2':
-            return '00010'
-        elif string == 'R3':
-            return '00011'
-        elif string == 'R4':
-            return '00100'
-        elif string == 'R5':
-            return '00101'
-        elif string == 'R6':
-            return '00110'
-        elif string == 'R7':
-            return '00111'
-        elif string == 'R8':
-            return '01000'
-        elif string == 'R9':
-            return '01001'
-        elif string == 'R10':
-            return '01010'
-        elif string == 'R11':
-            return '01011'
-        elif string == 'R12':
-            return '01100'
-        elif string == 'R13':
-            return '01101'
-        elif string == 'R14':
-            return '01110'
-        elif string == 'R15':
-            return '01111'
-        elif string == 'R16':
-            return '10000'
-        elif string == 'R17':
-            return '10001'
-        elif string == 'R18':
-            return '10010'
-        elif string == 'R19':
-            return '10011'
-        elif string == 'R20':
-            return '10100'
-        elif string == 'R21':
-            return '10101'
-        elif string == 'R22':
-            return '10110'
-        elif string == 'R23':
-            return '10111'
-        elif string == 'R24':
-            return '11000'
-        elif string == 'R25':
-            return '11001'
-        elif string == 'R26':
-            return '11010'
-        elif string == 'R27':
-            return '11011'
-        elif string == 'R28':
-            return '11100'
-        elif string == 'R29':
-            return '11101'
-        elif string == 'R30':
-            return '11110'
-        else:
+        string = ''.join(filter(lambda x: x.isdigit(), string))
+        
+        if string == '':
             return '11111'
+
+        reg_number = "{:05b}".format(int(string))
+        return reg_number
 
     def get_operation_code(self, op_string):
             op_string = op_string.upper()
@@ -233,8 +169,7 @@ class Binary_translator:
                 line = level.alu_target[row]
                 if reg in line:
                     col = line.index(reg)
-                    temp = 'R'+str(col)
-                    bitstream += self.get_mux4_selector(temp)[::-1]
+                    bitstream += self.get_mux4_selector(col)[::-1]
                 else:
                     bitstream += '11'
 
@@ -275,7 +210,7 @@ class Binary_translator:
             if addr:
                 bitstream += pos[::-1]
             else:
-                bitstream += '00000000000000000000000000000000'
+                bitstream += '0000000000000000'
 
         for write in level.memory_op:
             if write == 'LW':

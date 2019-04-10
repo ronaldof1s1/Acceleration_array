@@ -126,7 +126,7 @@ class Array_level:
         (pos, reg) = word.split('R')
 
         self.memory_addr[mem] = "{0:05b}".format(int(reg))
-        self.memory_pos[mem] = "{0:032b}".format(int(pos))
+        self.memory_pos[mem] = "{0:016b}".format(int(pos))
 
         return True
 
