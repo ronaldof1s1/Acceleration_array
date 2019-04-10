@@ -213,10 +213,10 @@ class Binary_translator:
                 bitstream += '0000000000000000'
 
         for write in level.memory_op:
-            if write == 'LW':
-                bitstream += '0'
-            else:
+            if write == 'SW':
                 bitstream += '1'
+            else:
+                bitstream += '0'
 
         for in1 in level.memory_target:
             bitstream += self.get_mux32_selector(in1)[::-1]
