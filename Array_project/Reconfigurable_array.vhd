@@ -1,18 +1,21 @@
-library ieee;
+library IEEE;
 use ieee.std_logic_1164.ALL;
 use ieee.std_logic_arith.ALL;
 use ieee.std_logic_unsigned.ALL;
 
+
+use work.data.all;
+
 entity Reconfigurable_Array is
   port (
-    bitstream : in std_logic_vector(1277 downto 0);
+    bitstream : in std_logic_vector(1229 downto 0);
     clk : in std_logic
   );
 end Reconfigurable_Array;
 
 architecture Reconfigurable_Array of Reconfigurable_Array is
 
-subtype data is std_logic_vector(31 downto 0);
+signal ram : ram_t := (others => (others => '0'));
 
 component Reconfigurable_Array_level is
 	port (
@@ -21,9 +24,11 @@ component Reconfigurable_Array_level is
     in16, in17, in18, in19, in20, in21, in22, in23, 
     in24, in25, in26, in27, in28, in29, in30, in31 : in data;
 
-    bitstream : in std_logic_vector(425 downto 0);
+    bitstream : in std_logic_vector(409 downto 0);
     
     clk : in std_logic;
+
+    ram : in ram_t;
     
     out0, out1, out2, out3, out4, out5, out6, out7, 
     out8, out9, out10, out11, out12, out13, out14, out15, 
@@ -219,9 +224,11 @@ port map (
             in30 => first_level_input_30,
             in31 => first_level_input_31,
 
-            bitstream => bitstream (425 downto 0),
+            bitstream => bitstream (409 downto 0),
 
             clk => clk,
+
+            ram => ram,
 
 
 		    out0 => second_level_input_00,
@@ -293,10 +300,11 @@ port map (
             in30 => second_level_input_30,
             in31 => second_level_input_31,
 
-            bitstream => bitstream (851 downto 426),
+            bitstream => bitstream (819 downto 410),
 
             clk => clk,
 
+            ram => ram,
 
 		    out0 => third_level_input_00,
             out1 => third_level_input_01,
@@ -367,10 +375,11 @@ port map (
             in30 => third_level_input_30,
             in31 => third_level_input_31,
 
-            bitstream => bitstream (1277 downto 852),
+            bitstream => bitstream (1229 downto 820),
 
             clk => clk,
 
+            ram => ram,
 
 		out0 => output_00,
             out1 => output_01,

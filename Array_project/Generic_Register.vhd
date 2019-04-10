@@ -1,18 +1,20 @@
 library ieee;
 use ieee.std_logic_1164.ALL;
 
+use work.data.all;
+
 entity Generic_Register is
   port(
-		input	: in std_logic_vector (31 downto 0);
+		input	: in data;
 		clk	: in std_logic;
 		store	: in std_logic;
 		clr	: in std_logic;
-		output	: out std_logic_vector (31 downto 0)
+		output	: out data
 	);
 end Generic_Register;
 
 architecture reg of Generic_Register is
-	signal in_buffer	: std_logic_vector(31 downto 0);
+	signal in_buffer	: data;
 begin
 	in_buffer <= input;
 

@@ -3,12 +3,14 @@ use ieee.std_logic_1164.ALL;
 use ieee.std_logic_arith.ALL;
 use ieee.std_logic_unsigned.ALL;
 
+use work.data.all;
+
 entity ALU is
   port(
-    A : in  std_logic_vector(31 downto 0);
-    B : in  std_logic_vector(31 downto 0);
-    operation : in  std_logic_vector(2 downto 0);
-    result  : out std_logic_vector(31 downto 0)
+    A : in  data;
+    B : in  data;
+    operation : in  operation;
+    result  : out data
   );
 end ALU;
 

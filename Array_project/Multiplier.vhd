@@ -3,10 +3,11 @@ use ieee.std_logic_1164.ALL;
 use ieee.std_logic_arith.ALL;
 use ieee.std_logic_unsigned.ALL;
 
+use work.data.all;
 entity Multiplier is
   port(
-    A, B : in  std_logic_vector(31 downto 0);
-    result: out std_logic_vector(31 downto 0)
+    A, B : in  data;
+    result: out data
   );
 end Multiplier;
 

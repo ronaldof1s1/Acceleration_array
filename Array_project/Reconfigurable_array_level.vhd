@@ -3,30 +3,29 @@ use ieee.std_logic_1164.ALL;
 use ieee.std_logic_arith.ALL;
 use ieee.std_logic_unsigned.ALL;
 
+use work.data.all;
+
 entity Reconfigurable_Array_level is
   port (
     in0, in1, in2, in3, in4, in5, in6, in7, 
     in8, in9, in10, in11, in12, in13, in14, in15, 
     in16, in17, in18, in19, in20, in21, in22, in23, 
-    in24, in25, in26, in27, in28, in29, in30, in31 : in std_logic_vector(31 downto 0);
+    in24, in25, in26, in27, in28, in29, in30, in31 : in data;
 
-    bitstream : in std_logic_vector(425 downto 0);
+    bitstream : in std_logic_vector(409 downto 0);
     
     clk : in std_logic;
+
+    ram : inout ram_t;
     
     out0, out1, out2, out3, out4, out5, out6, out7, 
     out8, out9, out10, out11, out12, out13, out14, out15, 
     out16, out17, out18, out19, out20, out21, out22, out23, 
-    out24, out25, out26, out27, out28, out29, out30, out31 : out std_logic_vector(31 downto 0)
+    out24, out25, out26, out27, out28, out29, out30, out31 : out data
   );
 end Reconfigurable_Array_level;
 
 architecture Reconfigurable_Array_level of Reconfigurable_Array_level is
-
-  subtype data is std_logic_vector(31 downto 0);
-  subtype operation is std_logic_vector(2 downto 0);
-  subtype selector2 is std_logic_vector(1 downto 0);
-  subtype selector5 is std_logic_vector(4 downto 0);
   subtype sel_stream is std_logic_vector(29 downto 0);
   subtype op_stream is std_logic_vector(8 downto 0);
   subtype line_sel_stream is std_logic_vector(63 downto 0);
@@ -83,6 +82,7 @@ architecture Reconfigurable_Array_level of Reconfigurable_Array_level is
       address : in data;
       we : in std_logic;
       data_i : in data;
+      ram : in ram_t;
       data_o : out data
     );
   end Component;
@@ -295,10 +295,10 @@ if rising_edge(clk) then
   
 
   address <= bitstream(387 downto 383);
-  position <= bitstream(419 downto 388);
-  write_enabled <= bitstream(420);
+  position <= "0000000000000000" & bitstream(403 downto 388);
+  write_enabled <= bitstream(404);
   
-  sel_memory <= bitstream(425 downto 421);
+  sel_memory <= bitstream(409 downto 405);
   end if;
   end process;
   
@@ -458,11 +458,12 @@ if rising_edge(clk) then
   
   addr_register <= temp_addr + position;
   
-    RAM : ram_access
+    RAM_acess_unity : ram_access
     Port Map(Clk => clk,
             address => addr_register,
             we => write_enabled,
             data_i => memory_mux_out,
+            ram => ram,
             data_o => memory_out
 
     );

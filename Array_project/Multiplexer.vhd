@@ -1,11 +1,12 @@
 library ieee;
 use ieee.std_logic_1164.ALL;
 
+use work.data.all;
 entity Multiplexer is
   port(
-		A,B	: in std_logic_vector (31 downto 0);
+		A,B	: in data;
 		sel	: in std_logic;
-		result	: out std_logic_vector (31 downto 0)
+		result	: out data
 	);
 end Multiplexer;
 
