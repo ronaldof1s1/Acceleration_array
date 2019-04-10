@@ -219,7 +219,7 @@ class Binary_translator:
                 bitstream += '1'
 
         for in1 in level.memory_target:
-            bitstream += self.get_mux32_selector(in1)
+            bitstream += self.get_mux32_selector(in1)[::-1]
 
         return bitstream
 
