@@ -202,7 +202,7 @@ class Binary_translator:
         bitstream = ''
         for addr in level.memory_addr:
             if addr:
-                bitstream += addr
+                bitstream += addr[::-1]
             else:
                 bitstream += '00000'
                 
