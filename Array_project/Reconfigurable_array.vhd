@@ -8,9 +8,8 @@ use work.data.all;
 
 entity Reconfigurable_Array is
   port (
-    bitstream : in std_logic_vector(1229 downto 0);
-    clk : in std_logic
-  );
+    bitstream : in std_logic_vector(1229 downto 0)
+    );
 end Reconfigurable_Array;
 
 architecture Reconfigurable_Array of Reconfigurable_Array is
@@ -51,6 +50,8 @@ Component Register_Bank
       out24, out25, out26, out27, out28, out29, out30, out31 : out data
   	);
   end Component;
+
+signal clk : std_logic := '0';
 
 signal first_level_input_00 : data := "00000000000000000000000000000000";
 signal first_level_input_01 : data := "00000000000000000000000000000001";
@@ -190,8 +191,11 @@ signal ram_1 : ram_t := (others=>(others=>'0'));
 signal ram_2 : ram_t := (others=>(others=>'0'));
 signal ram_3 : ram_t := (others=>(others=>'0'));
 
-begin
+constant clock_frequency : integer := 1e9;
+constant clock_time : time := 1000 ms/clock_frequency;
 
+begin
+  clk <= not clk after clock_time/2;
 
 first_level: Reconfigurable_Array_level
 port map (
