@@ -10,7 +10,8 @@ port (
         address : in data;
         we : in std_logic;
         data_i : in data;
-        ram : inout ram_t; 
+        ram_i : in ram_t;
+        ram_o : out ram_t; 
         data_o : out data
      );
 end ram_access;
@@ -28,11 +29,12 @@ int_addr <= to_integer(unsigned(address));
 --process for read and write operation.
 PROCESS(Clk)
 BEGIN
+    ram_o <= ram_i;
     if(rising_edge(Clk)) then
         if(we='1') then
-            ram(int_addr) <= data_i;
+            ram_o(int_addr) <= data_i;
         end if;
-        data_o <= ram(int_addr);
+        data_o <= ram_i(int_addr);
     end if; 
 END PROCESS;
 

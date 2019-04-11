@@ -15,8 +15,6 @@ end Reconfigurable_Array;
 
 architecture Reconfigurable_Array of Reconfigurable_Array is
 
-signal ram : ram_t := (others => (others => '0'));
-
 component Reconfigurable_Array_level is
 	port (
 	in0, in1, in2, in3, in4, in5, in6, in7, 
@@ -28,7 +26,9 @@ component Reconfigurable_Array_level is
     
     clk : in std_logic;
 
-    ram : in ram_t;
+    ram_i : in ram_t;
+
+    ram_o : out ram_t;
     
     out0, out1, out2, out3, out4, out5, out6, out7, 
     out8, out9, out10, out11, out12, out13, out14, out15, 
@@ -186,6 +186,10 @@ signal output_30 : data;
 signal output_31 : data;
 
 
+signal ram_1 : ram_t := (others=>(others=>'0'));
+signal ram_2 : ram_t := (others=>(others=>'0'));
+signal ram_3 : ram_t := (others=>(others=>'0'));
+
 begin
 
 
@@ -228,7 +232,9 @@ port map (
 
             clk => clk,
 
-            ram => ram,
+            ram_i => ram_1,
+
+            ram_o => ram_2,
 
 
 		    out0 => second_level_input_00,
@@ -304,7 +310,9 @@ port map (
 
             clk => clk,
 
-            ram => ram,
+            ram_i => ram_2,
+
+            ram_o => ram_3,
 
 		    out0 => third_level_input_00,
             out1 => third_level_input_01,
@@ -379,7 +387,8 @@ port map (
 
             clk => clk,
 
-            ram => ram,
+            ram_i => ram_3,
+            ram_o => ram_1,
 
 		out0 => output_00,
             out1 => output_01,
@@ -523,6 +532,8 @@ if rising_edge(clk) then
       first_level_input_29 <= output_29;
       first_level_input_30 <= output_30;
       first_level_input_31 <= output_31;
+
+      --ram_1 <= ram_out;
 end if;
 end process;
 end architecture;

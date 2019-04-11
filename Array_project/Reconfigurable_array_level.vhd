@@ -16,7 +16,8 @@ entity Reconfigurable_Array_level is
     
     clk : in std_logic;
 
-    ram : inout ram_t;
+    ram_i : in ram_t;
+    ram_o : out ram_t;
     
     out0, out1, out2, out3, out4, out5, out6, out7, 
     out8, out9, out10, out11, out12, out13, out14, out15, 
@@ -82,7 +83,8 @@ architecture Reconfigurable_Array_level of Reconfigurable_Array_level is
       address : in data;
       we : in std_logic;
       data_i : in data;
-      ram : in ram_t;
+      ram_i : in ram_t;
+      ram_o : out ram_t;
       data_o : out data
     );
   end Component;
@@ -463,7 +465,8 @@ if rising_edge(clk) then
             address => addr_register,
             we => write_enabled,
             data_i => memory_mux_out,
-            ram => ram,
+            ram_i => ram_i,
+            ram_o => ram_o,
             data_o => memory_out
 
     );
