@@ -27,10 +27,12 @@ signal int_addr : integer;
 begin
 int_addr <= to_integer(unsigned(address));
 --process for read and write operation.
+
 PROCESS(Clk)
 BEGIN
-    ram_o <= ram_i;
     if(rising_edge(Clk)) then
+
+        ram_o <= ram_i;
         if(we='1') then
             ram_o(int_addr) <= data_i;
         end if;
