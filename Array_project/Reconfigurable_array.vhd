@@ -2,6 +2,7 @@ library IEEE;
 use ieee.std_logic_1164.ALL;
 use ieee.std_logic_arith.ALL;
 use ieee.std_logic_unsigned.ALL;
+use IEEE.numeric_std.all;
 
 
 use work.data.all;
@@ -52,6 +53,13 @@ Component Register_Bank
   end Component;
 
 signal clk : std_logic := '0';
+
+
+signal ram_1 : ram_t := ((others=> (others=>'0')));
+signal ram_2 : ram_t := (others=>(others=>'0'));
+signal ram_3 : ram_t := (others=>(others=>'0'));
+--signal ram_out : ram_t := (others => (others => '0'));
+
 
 signal first_level_input_00 : data := "00000000000000000000000000000000";
 signal first_level_input_01 : data := "00000000000000000000000000000001";
@@ -186,10 +194,6 @@ signal output_29 : data;
 signal output_30 : data;
 signal output_31 : data;
 
-
-signal ram_1 : ram_t := (others=>(others=>'0'));
-signal ram_2 : ram_t := (others=>(others=>'0'));
-signal ram_3 : ram_t := (others=>(others=>'0'));
 
 constant clock_frequency : integer := 1e9;
 constant clock_time : time := 1000 ms/clock_frequency;
