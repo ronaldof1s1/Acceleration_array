@@ -155,3 +155,26 @@ class Array_level:
         self.alu_source[x][y] = ('x','x')
         self.alu_op[x][y] = 'x'
     
+    def clear(self):
+        self.clear_alu()
+        self.clear_mult()
+        self.clear_memory()
+    
+    def clear_alu(self):
+        for i in range(len(self.alu_op)):
+            for j in range(len(self.alu_op[i])):
+                self.alu_op[i][j] = ""
+                self.alu_target[i][j] = ""
+                self.alu_source[i][j] = ("","")
+
+    def clear_mult(self):
+        for i in range(len(self.mult_source)):
+            self.mult_source[i] = ("","")
+            self.mult_target[i] = ""
+
+    def clear_memory(self):
+        for i in range(len(self.memory_op)):
+            self.memory_op[i] = ""
+            self.memory_target[i] = ""
+            self.memory_pos[i] = ""
+            self.memory_addr[i] = ""

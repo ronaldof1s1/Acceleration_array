@@ -10,6 +10,7 @@ def translate_file(lines, path):
         i = bt.decode_assembly(lines, i)
         bitstream = bt.translate_levels()
         file.write(bitstream[::-1])
+        file.write('\n\n')
         bt.clear()
     
 
@@ -255,7 +256,7 @@ class Binary_translator:
 
     def clear(self):
         for level in self.levels:
-            level = Array_level(self.rows, self.cols, self.mults, self.mem)
+            level.clear()
 
 
 read_file(argv[1], argv[2])
