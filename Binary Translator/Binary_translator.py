@@ -13,17 +13,27 @@ def translate_file(lines, path):
     file = open(path, 'w+')
     while(i < len(lines)):
         i = bt.decode_assembly(lines, i)
-        bitstream = bt.translate_levels()
+        
+        print("new array")
         for level in bt.array.levels:
-            print(level.alu_target)
+            print('alu_target' + str(level.alu_target))
+            print('mult_target' + str(level.mult_target))
+            print('mem_target' + str(level.memory_target))
+            print()
+        bitstream = bt.translate_levels()
+        
         file.write(bitstream[::-1])
         file.write('\n\n')
         bt.clear()
     
 
-def read_file(path_in, path_out):
+def read_file(path_in):
     file_obj = open(path_in, 'r')
     lines = file_obj.readlines()
+    path_out=""
+    for i in range(len(path_in)-2):
+        path_out += path_in[i]
+    path_out += "out"
     translate_file(lines, path_out)
     
 class Binary_translator:
@@ -228,4 +238,4 @@ class Binary_translator:
 
    
 
-read_file(argv[1], argv[2])
+read_file(argv[1])
