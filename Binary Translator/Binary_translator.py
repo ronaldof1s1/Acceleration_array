@@ -1,6 +1,11 @@
-from Array_level import Array_level
+from Array import Array
 from sys import argv
 #from numpy import matrix
+
+ALU_operations = ['ADD', 'SUB', 'AND', 'OR', 'XOR']
+MULT_operations = ['MULT']
+MEM_operations = ['SW', 'LW']
+
 
 def translate_file(lines, path):
     bt = Binary_translator()
@@ -9,6 +14,8 @@ def translate_file(lines, path):
     while(i < len(lines)):
         i = bt.decode_assembly(lines, i)
         bitstream = bt.translate_levels()
+        for level in bt.array.levels:
+            print(level.alu_target)
         file.write(bitstream[::-1])
         file.write('\n\n')
         bt.clear()
@@ -26,7 +33,7 @@ class Binary_translator:
         self.cols = 3
         self.mults = 1
         self.mem = 1
-        self.create_levels(3)
+        self.array = Array(self.rows, self.cols, self.mults, self.mem, levels=3)
         #self.insert_fault(0, 'alu', (0,0))
 
     def prepare_line(self, line):
@@ -35,65 +42,32 @@ class Binary_translator:
 
         words = line.rstrip('\n').split(' ')
         operation = words[0].upper()
-        if operation == 'MULT':
-            for level in self.levels:
-                if level.set_mult(words):
-                    return True
-            print('error in ' + operation)
-            return False
 
-        elif operation == 'LW':
-            for level in self.levels:
-                if level.set_memory(words):
-                    return True
-            print('error in ' + operation)
-            return False
+        if operation in ALU_operations:
+            if self.array.set_alus(words):
+                return True
+            else:
+                print("error in " + operation)
+                return False
 
-        elif operation == 'SW':
-            for level in self.levels:
-                if level.set_memory(words):
-                    return True
-            print('error in ' + operation)
-            return False
-
-        elif operation == 'ADD':
-            for level in self.levels:
-                if level.set_alus(words):
-                    return True
-            print('error in ' + operation)
-            return False
-
-        elif operation == 'SUB':
-            for level in self.levels:
-                if level.set_alus(words):
-                    return True
-            print('error in ' + operation)
-            return False
-
-        elif operation == 'AND':
-            for level in self.levels:
-                if level.set_alus(words):
-                    return True
-            print('error in ' + operation)
-            return False
-
-        elif operation == 'OR':
-            for level in self.levels:
-                if level.set_alus(words):
-                    return True
-            print('error in ' + operation)
-            return False
-
-        elif operation == 'XOR':
-            for level in self.levels:
-                if level.set_alus(words):
-                    return True
-            print('error in ' + operation)
-            return False
+        elif operation in MULT_operations:
+            if self.array.set_mult(words):
+                return True
+            else:
+                print("error in " + operation)
+                return False
         
+        elif operation in MEM_operations:
+            if self.array.set_memory(words):
+                return True
+            else:
+                print("error in " + operation)
+                return False
+                
         else:
             raise Exception
 
+    
     def decode_assembly(self, text, line):
         while(line < len(text)):
             if not self.prepare_line(text[line]):
@@ -228,7 +202,7 @@ class Binary_translator:
 
         bitstream = ''
         
-        for level in self.levels:
+        for level in self.array.levels:
 
             bitstream += self.translate_alu_input_muxes(level)
 
@@ -246,17 +220,12 @@ class Binary_translator:
 
     def insert_fault(self, level, component, pos):
         fault = (component, pos)
-        self.levels[level].insert_fault(fault)
-
-    def create_levels(self, level_number):
-        self.levels = []
-        for i in range(level_number):
-            level = Array_level(self.rows, self.cols, self.mults, self.mem)
-            self.levels.append(level)
+        self.array.levels[level].insert_fault(fault)
 
     def clear(self):
-        for level in self.levels:
+        for level in self.array.levels:
             level.clear()
 
+   
 
 read_file(argv[1], argv[2])
