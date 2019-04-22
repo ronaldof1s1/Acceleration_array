@@ -110,8 +110,35 @@ def full_par(file):
                 
     file.write(program)
 
+def full_rand(file):
+	program = ''
+	for i in range(32):
+		op_type = choice([1,2,3])
+		if op_type == 1: 
+		    op = choice(ALU_operations)
+		    target = choice(REGs)
+		    source1 = choice(REGs)
+		    source2 = choice(REGs)
+		    program += "{} {} {} {}\n".format(op, target, source1, source2)
+		elif op_type == 2:
+		    op = choice(MULT_operations)
+		    target = choice(REGs)
+		    source1 = choice(REGs)
+		    source2 = choice(REGs)
+		    program += "{} {} {} {}\n".format(op, target, source1, source2)
+		elif op_type == 3:
+		    op = choice(MEM_operations)
+		    target = choice(REGs)
+		    source1 = choice(REGs)
+		    pos = randint(0,32)
+		    program += "{} {} {}({}) \n".format(op, target, pos, source1)
+
+	file.write(program)
+
+
+	
 path = argv[1]
 
 file = open(path, 'w+')
 
-full_seq(file)
+full_rand(file)
