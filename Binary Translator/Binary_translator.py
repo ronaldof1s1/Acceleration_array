@@ -43,7 +43,7 @@ class Binary_translator:
         self.cols = 3
         self.mults = 1
         self.mem = 1
-        self.array = Array(self.rows, self.cols, self.mults, self.mem, levels=3)
+        self.array = Array(self.rows, self.cols, self.mults, self.mem, levels=1)
         #self.insert_fault(0, 'alu', (0,0))
 
     def prepare_line(self, line):

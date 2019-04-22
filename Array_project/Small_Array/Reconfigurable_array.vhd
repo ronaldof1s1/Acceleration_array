@@ -9,7 +9,8 @@ use work.data.all;
 
 entity Reconfigurable_Array is
   port (
-    bitstream : in std_logic_vector(1229 downto 0)
+    bitstream : in std_logic_vector(409 downto 0);
+    output : out std_logic
     );
 end Reconfigurable_Array;
 
@@ -53,6 +54,12 @@ Component Register_Bank
   end Component;
 
 signal clk : std_logic := '0';
+
+signal first_bitstream : std_logic_vector(409 downto 0);
+signal second_bitstream : std_logic_vector(409 downto 0);
+signal third_bitstream : std_logic_vector(409 downto 0);
+
+signal default_bitstream : std_logic_vector(409 downto 0) := "11111000000000000000000000011111111111010101010101010101010101010101010101010101010101010101010101010111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111110011111111111111111111111111010111111111111111111111111111111111111111111111111111111111111111111111111111111110000100001";
 
 
 signal ram_1 : ram_t := ((others=> (others=>'0')));
@@ -236,7 +243,7 @@ port map (
             in30 => first_level_input_30,
             in31 => first_level_input_31,
 
-            bitstream => bitstream (409 downto 0),
+            bitstream => first_bitstream,
 
             clk => clk,
 
@@ -314,7 +321,7 @@ port map (
             in30 => second_level_input_30,
             in31 => second_level_input_31,
 
-            bitstream => bitstream (819 downto 410),
+            bitstream => second_bitstream,
 
             clk => clk,
 
@@ -391,7 +398,7 @@ port map (
             in30 => third_level_input_30,
             in31 => third_level_input_31,
 
-            bitstream => bitstream (1229 downto 820),
+            bitstream => third_bitstream,
 
             clk => clk,
 
@@ -506,6 +513,7 @@ port map (
 --          );
 
 process(clk)
+variable counter : integer := 0;
 begin
 if rising_edge(clk) then
       first_level_input_00 <= output_00;
@@ -540,6 +548,28 @@ if rising_edge(clk) then
       first_level_input_29 <= output_29;
       first_level_input_30 <= output_30;
       first_level_input_31 <= output_31;
+
+      output <= output_00(0);
+
+      if (counter = 0) then
+            first_bitstream <= bitstream;
+            second_bitstream <= default_bitstream;
+            third_bitstream <= default_bitstream;
+            
+            counter := 1;
+      elsif (counter = 1) then
+            first_bitstream <= default_bitstream;
+            second_bitstream <= bitstream;
+            third_bitstream <= default_bitstream;
+
+            counter := 2;
+      elsif(counter = 2) then
+            first_bitstream <= default_bitstream;
+            second_bitstream <= default_bitstream;
+            third_bitstream <= bitstream;
+
+            counter := 0;
+      end if;       
 
       --ram_1 <= ram_out;
 end if;
