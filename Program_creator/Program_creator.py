@@ -25,7 +25,7 @@ def only_alu(file):
 
 def only_alu_seq(file):
     program = ''
-    early_target = 'R1'
+    early_target = 'R01'
     for i in range(32):
         op = choice(ALU_operations)
         target = choice(REGs)
@@ -51,7 +51,7 @@ def only_alu_par(file):
 
 def full_seq(file):
     program = ''
-    early_target = 'R1'
+    early_target = 'R01'
     for i in range(32):
         op_type = choice([1,2,3])
         if op_type == 1:
@@ -141,4 +141,4 @@ path = argv[1]
 
 file = open(path, 'w+')
 
-full_rand(file)
+only_alu_seq(file)
