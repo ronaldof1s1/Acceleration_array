@@ -10,11 +10,10 @@ MEM_operations = ['SW', 'LW']
 def translate_file(lines, path):
     bt = Binary_translator()
     i = 0
+    array_level = 0
     file = open(path, 'w+')
     while(i < len(lines)):
         i = bt.decode_assembly(lines, i)
-        
-        print("new array")
         for level in bt.array.levels:
             print('alu_target' + str(level.alu_target))
             print('mult_target' + str(level.mult_target))
@@ -22,6 +21,9 @@ def translate_file(lines, path):
             print()
         bitstream = bt.translate_levels()
         
+        array_level = (array_level % 3) + 1 # helps me write the bitstream on the right clock cycle
+        string = "level: " + str(array_level)
+        file.write(string + "\n")
         file.write(bitstream[::-1])
         file.write('\n\n')
         bt.clear()
@@ -43,7 +45,8 @@ class Binary_translator:
         self.cols = 3
         self.mults = 1
         self.mem = 1
-        self.array = Array(self.rows, self.cols, self.mults, self.mem, levels=1)
+        self.level_amount = 1
+        self.array = Array(self.rows, self.cols, self.mults, self.mem, self.level_amount)
         #self.insert_fault(0, 'alu', (0,0))
 
     def prepare_line(self, line):
