@@ -5,7 +5,7 @@ use IEEE.numeric_std.all;
 package data is
 
 constant data_len : integer := 31;
-constant mem_len : integer := 255;
+constant mem_len : integer := 2 ** 16 - 1;
 subtype data is std_logic_vector(data_len downto 0);
 type ram_t is array (0 to mem_len) of std_logic_vector(data_len downto 0);
 subtype operation is std_logic_vector(2 downto 0);
