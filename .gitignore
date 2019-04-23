@@ -39,8 +39,6 @@ result.txt
 *transcript
 *.idea/*
 */.vscode/*
-*.out
-*.in
 */Testes/*
 */c5_pin_model*
 */simulation/*
