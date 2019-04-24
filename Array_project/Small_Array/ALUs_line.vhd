@@ -5,7 +5,7 @@ use work.data.all;
 
 entity ALUs_line is
   port(
-  input_registers: in reg_bank;
+  input_regs: in reg_bank;
   sel_bitstream : in std_logic_vector(29 downto 0);
   operation_bitstream : in std_logic_vector(8 downto 0);
   output_1, output_2, output_3 : out data
@@ -25,7 +25,7 @@ architecture ALine of ALUs_line is
 
   Component Multiplexer_32
     port(
-      input_reg: in reg_bank;
+      input_regs: in reg_bank;
       sel	: selector5;
       result	: out data
     );
@@ -64,27 +64,27 @@ begin
 
 
 Mux_1_A : Multiplexer_32
-    port map (input_reg => input_registers,
+    port map (input_regs => input_regs,
               sel => sel_1_A,
               result => input_1_A);
 Mux_1_B : Multiplexer_32
-    port map (input_reg => input_registers,
+    port map (input_regs => input_regs,
               sel => sel_1_B,
               result => input_1_B);
 Mux_2_A : Multiplexer_32
-    port map (input_reg => input_registers,
+    port map (input_regs => input_regs,
               sel => sel_2_A,
               result => input_2_A);
 Mux_2_B : Multiplexer_32
-    port map (input_reg => input_registers,
+    port map (input_regs => input_regs,
               sel => sel_2_B,
               result => input_2_B);
 Mux_3_A : Multiplexer_32
-    port map (input_reg => input_registers,
+    port map (input_regs => input_regs,
               sel => sel_3_A,
               result => input_3_A);
 Mux_3_B : Multiplexer_32
-    port map (input_reg => input_registers,
+    port map (input_regs => input_regs,
               sel => sel_3_B,
               result => input_3_B);
 

@@ -199,7 +199,7 @@ if rising_edge(clk) then
   
   --instantiate multiplier
   Mult_mux_A : Multiplexer_32
-  port map (input_regs=> input_regs,
+  port map (input_regs => input_regs,
             sel => sel_mult_A,
             result => mult_in_A);
 
