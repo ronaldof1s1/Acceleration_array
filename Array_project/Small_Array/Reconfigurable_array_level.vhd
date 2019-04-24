@@ -254,7 +254,7 @@ if rising_edge(clk) then
   --instantiate first line multiplexers
   
   LINE1_MUX:
-  for i in 0 to data_len generate
+  for i in 0 to bank_len generate
     MUX: Multiplexer_4
     port map(
     A => output_1_1,
@@ -281,7 +281,7 @@ if rising_edge(clk) then
   --instantiate second line multiplexer
 
   LINE2_MUX:
-  for i in 0 to data_len generate
+  for i in 0 to bank_len generate
     MUX: Multiplexer_4
     port map(
     A => output_2_1,
@@ -308,7 +308,7 @@ if rising_edge(clk) then
  
 --instantiate third line multiplexer
   LINE3_MUX:
-  for i in 0 to data_len generate
+  for i in 0 to bank_len generate
     MUX: Multiplexer_4
     port map(
     A => output_3_1,
@@ -323,7 +323,7 @@ if rising_edge(clk) then
 
 -----------------------------------------------------------------------------------------------------------------------
 FINAL_MUX:
-  for i in 0 to data_len generate
+  for i in 0 to bank_len generate
     MUX: Multiplexer_4
     port map(
       A => mult_output,
