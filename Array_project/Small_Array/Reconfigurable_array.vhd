@@ -1,6 +1,6 @@
 library IEEE;
 use ieee.std_logic_1164.ALL;
-use ieee.std_logic_arith.ALL;
+--use ieee.std_logic_arith.ALL;
 use ieee.std_logic_unsigned.ALL;
 use IEEE.numeric_std.all;
 
@@ -24,14 +24,26 @@ component Reconfigurable_Array_level is
             
             clk : in std_logic;
         
-            ram_i : in ram_t;
-            ram_o : out ram_t;
-            
+            ram : in ram_t;
+        
+            ram_addr : out data;
+
+            ram_we : out std_logic;
+
+            ram_data : out data;
+
             output_regs : out reg_bank
 		
 	);
 end component Reconfigurable_Array_level;
 
+component Multiplexer_4 is
+      port(
+		A,B,C,D	: in data;
+		sel	: in selector2;
+		result	: out data
+	);
+end component Multiplexer_4;
 
 signal clk : std_logic := '0';
 
@@ -41,11 +53,17 @@ signal third_bitstream : std_logic_vector(409 downto 0);
 
 signal default_bitstream : std_logic_vector(409 downto 0) := (others => 'U');
 
+signal ram_addr_1 : data := (others => '0');
+signal ram_addr_2 : data := (others => '0');
+signal ram_addr_3 : data := (others => '0');
+signal ram_we_1 : std_logic;
+signal ram_we_2 : std_logic;
+signal ram_we_3 : std_logic;
+signal ram_data_1 : data := (others => '0');
+signal ram_data_2 : data := (others => '0');
+signal ram_data_3 : data := (others => '0');
 
-signal ram_1 : ram_t := ((others=> (others=>'0')));
-signal ram_2 : ram_t := (others=>(others=>'0'));
-signal ram_3 : ram_t := (others=>(others=>'0'));
---signal ram_out : ram_t := (others => (others => '0'));
+signal ram : ram_t := ((others=> (others=>'0')));
 
 signal first_level_input : reg_bank := (
 "00000000000000000000000000000000",
@@ -170,9 +188,13 @@ port map (
 
             clk => clk,
 
-            ram_i => ram_1,
+            ram => ram,
 
-            ram_o => ram_2,
+            ram_addr => ram_addr_1,
+
+            ram_we => ram_we_1,
+
+            ram_data => ram_data_1,
 
 		output_regs=> first_level_output
 );
@@ -185,9 +207,13 @@ port map (
 
       clk => clk,
 
-      ram_i => ram_1,
+      ram => ram,
 
-      ram_o => ram_2,
+      ram_addr => ram_addr_2,
+
+      ram_we => ram_we_2,
+
+      ram_data => ram_data_2,
 
       output_regs=> second_level_output
 );
@@ -200,46 +226,64 @@ port map (
 
       clk => clk,
 
-      ram_i => ram_1,
+      ram => ram,
 
-      ram_o => ram_2,
+      ram_addr => ram_addr_3,
+
+      ram_we => ram_we_3,
+
+      ram_data => ram_data_3,
 
       output_regs=> output_regs
-);
+);    
+
 
 process(clk)
 variable counter : integer := 0;
+variable int_addr : integer;
 begin
 if rising_edge(clk) then
       output <= output_regs(0)(0);
 
       if (counter = 0) then
+     
+            int_addr := to_integer(unsigned(ram_addr_3));
             first_level_input <= output_regs;
 
             first_bitstream <= bitstream;
             second_bitstream <= default_bitstream;
             third_bitstream <= default_bitstream;
 
+            if (ram_we_3 = '1') then
+                  ram(int_addr) <= ram_data_3;
+            end if;
             
             counter := 1;
       elsif (counter = 1) then
 
+            int_addr := to_integer(unsigned(ram_addr_1));
             second_level_input <= first_level_output;
-
+            
             first_bitstream <= default_bitstream;
             second_bitstream <= bitstream;
             third_bitstream <= default_bitstream;
 
-            
+            if (ram_we_1 = '1') then
+                  ram(int_addr) <= ram_data_1;
+            end if;
             counter := 2;
       elsif(counter = 2) then
 
+            int_addr := to_integer(unsigned(ram_addr_2));
             third_level_input <= second_level_output;
             first_bitstream <= default_bitstream;
             second_bitstream <= default_bitstream;
             third_bitstream <= bitstream;
 
-            
+            if (ram_we_2 = '1') then
+                  ram(int_addr) <= ram_data_2;
+            end if;
+
             counter := 0;
       end if;       
 

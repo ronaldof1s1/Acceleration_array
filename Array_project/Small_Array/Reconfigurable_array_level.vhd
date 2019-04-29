@@ -14,8 +14,13 @@ entity Reconfigurable_Array_level is
     
     clk : in std_logic;
 
-    ram_i : in ram_t;
-    ram_o : out ram_t;
+    ram : in ram_t;
+
+    ram_addr : out data;
+
+    ram_we : out std_logic;
+
+    ram_data : out data;
     
     output_regs : out reg_bank
   );
@@ -72,9 +77,9 @@ architecture Reconfigurable_Array_level of Reconfigurable_Array_level is
       address : in data;
       we : in std_logic;
       data_i : in data;
-      ram_i : in ram_t;
-      ram_o : out ram_t;
-      data_o : out data
+      ram : in ram_t;
+      data_o : out data;
+      to_ram : out data
     );
   end Component;
   
@@ -148,6 +153,7 @@ architecture Reconfigurable_Array_level of Reconfigurable_Array_level is
   signal position : data;
   signal write_enabled :  std_logic;
   signal memory_out : data;
+
 
   signal sel_memory :  selector5;
   signal memory_mux_out :  data;
@@ -228,15 +234,17 @@ begin
 
   
   addr_register <= temp_addr + position;
+  ram_addr <= addr_register;
+  ram_we <= write_enabled;
   
     RAM_acess_unity : ram_access
     Port Map(Clk => clk,
             address => addr_register,
             we => write_enabled,
             data_i => memory_mux_out,
-            ram_i => ram_i,
-            ram_o => ram_o,
-            data_o => memory_out
+            ram => ram,
+            data_o => memory_out,
+            to_ram => ram_data
 
     );
 
