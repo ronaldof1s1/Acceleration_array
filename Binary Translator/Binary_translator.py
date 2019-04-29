@@ -150,7 +150,7 @@ class Binary_translator:
 
     def translate_output_alus(self, level):
         bitstream = ''
-        registers = ["R" + str(i) for i in range(self.register_quantity)]
+        registers = ["R{0:02d}".format(i) for i in range(self.register_quantity)]
 
         for row in range(self.rows):
             for reg in registers:
@@ -165,7 +165,7 @@ class Binary_translator:
 
     def translate_final_muxes(self, level):
         bitstream = ''
-        registers = ["R" + str(i) for i in range(self.register_quantity)]
+        registers = ["R{0:02d}".format(i) for i in range(self.register_quantity)]
 
         
         for reg in registers:
@@ -175,8 +175,11 @@ class Binary_translator:
             elif level.register_in_memory(reg) and level.memory_op[level.memory_target.index(reg)] == "LW":
                 bitstream += '10'
 
-            else:
+            elif level.register_in_ALUs(reg):
                 bitstream += '01'
+
+            else:
+                bitstream += '11'
 
         return bitstream
 
