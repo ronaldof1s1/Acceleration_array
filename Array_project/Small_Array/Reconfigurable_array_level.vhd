@@ -161,9 +161,9 @@ architecture Reconfigurable_Array_level of Reconfigurable_Array_level is
 
 begin
   
-process(bitstream,clk)
-begin
-if rising_edge(clk) then
+-- process(bitstream,clk)
+-- begin
+-- if rising_edge(clk) then
   sel_stream_1 <= bitstream(29 downto 0);
   sel_stream_2 <= bitstream(59 downto 30);
   sel_stream_3 <= bitstream(89 downto 60);
@@ -194,8 +194,8 @@ if rising_edge(clk) then
   write_enabled <= bitstream(404);
   
   sel_memory <= bitstream(409 downto 405);
-  end if;
-  end process;
+  -- end if;
+  -- end process;
   
   --instantiate multiplier
   Mult_mux_A : Multiplexer_32
