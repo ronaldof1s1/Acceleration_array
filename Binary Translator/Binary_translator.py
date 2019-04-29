@@ -186,7 +186,7 @@ class Binary_translator:
     def translate_mult_sources(self, level):
         bitstream = ''
         for (in1, in2) in level.mult_source:
-            bitstream += self.get_mux32_selector(in1) + self.get_mux32_selector(in2)
+            bitstream += self.get_mux32_selector(in1)[::-1] + self.get_mux32_selector(in2)[::-1]
         return bitstream
 
     def translate_memory_data(self, level):
