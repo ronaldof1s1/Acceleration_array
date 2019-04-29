@@ -271,7 +271,7 @@ begin
 
   --instantiate second line of ALUs
   line_2 : ALUs_line
-  Port Map (input_regs=> input_regs,
+  Port Map (input_regs=> reg_input_2,
             sel_bitstream => sel_stream_2,
             operation_bitstream => op_stream_2,
             output_1 => output_2_1,
@@ -298,7 +298,7 @@ begin
 
   --instantiate third line of ALUs
   line_3 : ALUs_line
-  Port Map (input_regs=> input_regs,
+  Port Map (input_regs=> reg_input_3,
             sel_bitstream => sel_stream_3,
             operation_bitstream => op_stream_3,
             output_1 => output_3_1,
