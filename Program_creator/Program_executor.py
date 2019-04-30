@@ -95,7 +95,7 @@ def exec_mem(words):
         reg = 'R' + reg
         mem_pos = REGS[reg] + int(pos)
         mem_pos_bin = "{0:016b}".format(mem_pos)
-        mem_pos_bin = mem_pos_bin[0:16]
+        mem_pos_bin = mem_pos_bin[8:16]
         mem_pos = int(mem_pos_bin,2)
         print(mem_pos)
                 

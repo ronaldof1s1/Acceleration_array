@@ -1,6 +1,5 @@
 library ieee;
 use ieee.std_logic_1164.ALL;
-use ieee.std_logic_arith.ALL;
 use ieee.std_logic_unsigned.ALL;
 use IEEE.numeric_std.all;
 
@@ -71,17 +70,6 @@ architecture Reconfigurable_Array_level of Reconfigurable_Array_level is
     );
   end Component;
 
-  Component ram_access is
-    port(
-      Clk : in std_logic;
-      address : in data;
-      we : in std_logic;
-      data_i : in data;
-      ram : in ram_t;
-      data_o : out data;
-      to_ram : out data
-    );
-  end Component;
   
  -- input muxes for the ALUs
   signal sel_stream_1 : sel_stream;
@@ -233,20 +221,15 @@ begin
             result => temp_addr);
 
   
+  -- Fill ram access unity signals:          
   addr_register <= temp_addr + position;
   ram_addr <= addr_register;
   ram_we <= write_enabled;
   
-    RAM_acess_unity : ram_access
-    Port Map(Clk => clk,
-            address => addr_register,
-            we => write_enabled,
-            data_i => memory_mux_out,
-            ram => ram,
-            data_o => memory_out,
-            to_ram => ram_data
+  memory_out <= ram(to_integer(unsigned(addr_register (7 downto 0))));
+  ram_data <= memory_mux_out;
 
-    );
+  
 
   --------------------FIRST LINE--------------------------
 

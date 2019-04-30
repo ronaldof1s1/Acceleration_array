@@ -247,7 +247,7 @@ if rising_edge(clk) then
 
       if (counter = 0) then
      
-            int_addr := to_integer(unsigned(ram_addr_3));
+            int_addr := to_integer(unsigned(ram_addr_3 (7 downto 0)));
             first_level_input <= output_regs;
 
             first_bitstream <= bitstream;
@@ -261,7 +261,7 @@ if rising_edge(clk) then
             counter := 1;
       elsif (counter = 1) then
 
-            int_addr := to_integer(unsigned(ram_addr_1));
+            int_addr := to_integer(unsigned(ram_addr_1 (7 downto 0)));
             second_level_input <= first_level_output;
             
             first_bitstream <= default_bitstream;
@@ -274,7 +274,7 @@ if rising_edge(clk) then
             counter := 2;
       elsif(counter = 2) then
 
-            int_addr := to_integer(unsigned(ram_addr_2));
+            int_addr := to_integer(unsigned(ram_addr_2 (7 downto 0)));
             third_level_input <= second_level_output;
             first_bitstream <= default_bitstream;
             second_bitstream <= default_bitstream;
